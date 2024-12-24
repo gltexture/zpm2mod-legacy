@@ -1,0 +1,16 @@
+[
+{
+  "modid": "zombieplague2",
+  "name": "Zombie Plague Mod 2",
+  "description": "By alfabouh",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["alfabouh"],
+  "credits": "alfabouh",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]

@@ -1,0 +1,57 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        maven {
+            name = "forge"
+            url = "https://maven.minecraftforge.net/"
+        }
+        maven {
+            name = "sonatype"
+            url = "https://oss.sonatype.org/content/repositories/snapshots/"
+        }
+    }
+    dependencies {
+        classpath ('com.anatawa12.forge:ForgeGradle:1.2-1.1.+') {
+            changing = true
+        }
+    }
+}
+apply plugin: 'forge'
+targetCompatibility = JavaVersion.VERSION_1_8
+sourceCompatibility = JavaVersion.VERSION_1_8
+compileJava.options.encoding = 'UTF-8'
+jar {
+    manifest {
+        attributes 'FMLCorePlugin': 'ru.hook.helper.ModHookLoader'
+        attributes 'FMLCorePluginContainsFMLMod': 'true'
+        attributes 'FMLAT': 'zombieplague2_at.cfg'
+    }
+}
+
+version = ""
+group = "ru.BouH_.zpm2"
+archivesBaseName = "zombieplague2"
+
+minecraft {
+    version = "1.7.10-10.13.4.1614-1.7.10"
+    runDir = "eclipse"
+    mappings = "stable_12"
+}
+
+dependencies {
+    compile 'org.jetbrains:annotations:13.0'
+    compile files('build/dirtyArtifacts/rt.jar')
+}
+
+processResources
+        {
+            inputs.property "version", project.version
+            inputs.property "mcversion", project.minecraft.version
+            from(sourceSets.main.resources.srcDirs) {
+                include 'mcmod.info'
+                expand 'version': project.version, 'mcversion': project.minecraft.version
+            }
+            from(sourceSets.main.resources.srcDirs) {
+                exclude 'mcmod.info'
+            }
+        }

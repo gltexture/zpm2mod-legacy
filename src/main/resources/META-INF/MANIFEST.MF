@@ -1,0 +1,5 @@
+Manifest-Version: 1.0
+FMLCorePluginContainsFMLMod: true
+FMLAT: zombieplague2_at.cfg
+FMLCorePlugin: ru.hook.helper.ModHookLoader
+
