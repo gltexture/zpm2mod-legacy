@@ -68,6 +68,8 @@ import static net.minecraftforge.oredict.RecipeSorter.Category.SHAPELESS;
 
 
 public class CommonProxy {
+    public static final Object MON = new Object();
+
     private static final Set<Item> deleteCraft = new HashSet<>();
     public static boolean initRecipes = false;
     public static BiomeGenBase biome_rad1;
@@ -176,6 +178,9 @@ public class CommonProxy {
         CommonProxy.generators.init(BunkerGenerator.instance);
         CommonProxy.loadStructures = new Thread(() -> {
             CommonProxy.generators.loadFiles();
+            synchronized (CommonProxy.MON) {
+                CommonProxy.MON.notifyAll();
+            }
         });
         loadStructures.start();
     }

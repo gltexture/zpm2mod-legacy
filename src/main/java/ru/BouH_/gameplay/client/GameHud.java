@@ -8,6 +8,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.BiomeGenBase;
@@ -192,7 +193,7 @@ public class GameHud {
                     }
 
                     for (int i = 0; i < danger; i++) {
-                        mc.fontRendererObj.drawStringWithShadow("HAZARD", scaledWidth / 2 + 37, scaledHeight - 48, 0xff1c1c);
+                        mc.fontRendererObj.drawStringWithShadow(I18n.format("misc.hazard"), scaledWidth / 2 + 37, scaledHeight - 48, 0xff1c1c);
                         mc.getTextureManager().bindTexture(GameHud.components);
                         GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
                         mc.ingameGUI.drawTexturedModalRect(scaledWidth / 2 + 37 + i * 11, scaledHeight - 38, 11, 194, 10, 10);

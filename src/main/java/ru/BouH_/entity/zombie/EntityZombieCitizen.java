@@ -54,7 +54,7 @@ public class EntityZombieCitizen extends AZombieBase {
     }
 
     protected int minYSpawn() {
-        return Main.rand.nextFloat() <= 0.5f ? 32 : 48;
+        return Main.rand.nextFloat() <= 0.5f ? 24 : 48;
     }
 
     public void applyEntityAttributes() {

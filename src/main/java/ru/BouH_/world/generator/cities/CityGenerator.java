@@ -154,22 +154,22 @@ public class CityGenerator implements ICityGen {
         StructureHolder city_sky10 = StructureHolder.create("city/city_sky10");
         StructureHolder city_sky11 = StructureHolder.create("city/city_sky11");
 
-        StructureHolder.reconvert("city/city_sky8", city_sky8);
-        StructureHolder.reconvert("city/city_sky9", city_sky9);
-        StructureHolder.reconvert("city/city_sky10", city_sky10);
-        StructureHolder.reconvert("city/city_sky11", city_sky11);
-        StructureHolder.reconvert("city/city_house20", city_house20);
-        StructureHolder.reconvert("city/city_house21", city_house21);
-        StructureHolder.reconvert("city/city_house22", city_house22);
-        StructureHolder.reconvert("city/city_house23", city_house23);
-        StructureHolder.reconvert("city/city_house24", city_house24);
-        StructureHolder.reconvert("city/city_house25", city_house25);
-        StructureHolder.reconvert("city/city_house26", city_house26);
-        StructureHolder.reconvert("city/city_house27", city_house27);
-        StructureHolder.reconvert("city/city_house28", city_house28);
-        StructureHolder.reconvert("city/city_house29", city_house29);
-        StructureHolder.reconvert("city/city_shop2", city_shop2);
-        StructureHolder.reconvert("city/city_gas2", city_gas2);
+       //StructureHolder.reconvert("city/city_sky8", city_sky8);
+       //StructureHolder.reconvert("city/city_sky9", city_sky9);
+       //StructureHolder.reconvert("city/city_sky10", city_sky10);
+       //StructureHolder.reconvert("city/city_sky11", city_sky11);
+       //StructureHolder.reconvert("city/city_house20", city_house20);
+       //StructureHolder.reconvert("city/city_house21", city_house21);
+       //StructureHolder.reconvert("city/city_house22", city_house22);
+       //StructureHolder.reconvert("city/city_house23", city_house23);
+       //StructureHolder.reconvert("city/city_house24", city_house24);
+       //StructureHolder.reconvert("city/city_house25", city_house25);
+       //StructureHolder.reconvert("city/city_house26", city_house26);
+       //StructureHolder.reconvert("city/city_house27", city_house27);
+       //StructureHolder.reconvert("city/city_house28", city_house28);
+       //StructureHolder.reconvert("city/city_house29", city_house29);
+       //StructureHolder.reconvert("city/city_shop2", city_shop2);
+       //StructureHolder.reconvert("city/city_gas2", city_gas2);
 
 
         StructureHolder city_ruins1 = StructureHolder.create("city/city_ruins1");

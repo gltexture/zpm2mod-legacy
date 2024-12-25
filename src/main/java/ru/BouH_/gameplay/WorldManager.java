@@ -151,7 +151,7 @@ public class WorldManager {
         int nominalZombies = 0;
         switch (world1.difficultySetting) {
             case EASY: {
-                nominalZombies =  90;
+                nominalZombies =  120;
                 break;
             }
             case NORMAL: {
@@ -163,10 +163,11 @@ public class WorldManager {
                 break;
             }
             default: {
-                nominalZombies = 80;
+                nominalZombies = 120;
             }
-
         }
+
+        if (world1)
 
         if (world1.getWorldInfo().getTerrainType() instanceof WorldTypeHardcoreZp) {
             world1.difficultySetting = EnumDifficulty.HARD;

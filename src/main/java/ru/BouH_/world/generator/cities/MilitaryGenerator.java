@@ -74,9 +74,9 @@ public class MilitaryGenerator implements ICityGen {
 
         StructureHolder mil_tower1 = StructureHolder.create("mil/mil_tower1");
 
-        StructureHolder.reconvert("mil/mil_house3", mil_house3);
-        StructureHolder.reconvert("mil/mil_house4", mil_house4);
-        StructureHolder.reconvert("mil/mil_bunker1", mil_bunker1);
+        //StructureHolder.reconvert("mil/mil_house3", mil_house3);
+        //StructureHolder.reconvert("mil/mil_house4", mil_house4);
+        //StructureHolder.reconvert("mil/mil_bunker1", mil_bunker1);
 
         this.vehiclesList.add(new CommonStructure(city_car_mil1, null, null, 10));
         this.vehiclesList.add(new CommonStructure(city_car_tank1, null, null, 1));

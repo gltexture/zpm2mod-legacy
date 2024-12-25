@@ -331,16 +331,16 @@ public class AIMining extends EntityAIBase {
                         if (ent.ticksExisted % 5 == 0) {
                             ent.swingItem();
                             if (block == Blocks.trapdoor || block == Blocks.wooden_door || block == Blocks.fence_gate) {
-                                world.playSoundAtEntity(ent, "mob.zombie.wood", 1.0F, 0.8F + Main.rand.nextFloat() * 0.2f);
+                                world.playSoundAtEntity(ent, "mob.zombie.wood", 0.5F, 0.8F + Main.rand.nextFloat() * 0.2f);
                             } else {
-                                world.playSoundAtEntity(ent, block.stepSound.getStepSound(), 1.0F, 0.5F);
+                                world.playSoundAtEntity(ent, block.stepSound.getStepSound(), 0.5F, 0.5F);
                             }
                             NetworkHandler.NETWORK.sendToAllAround(new ParticleZombieBlockCrack(x, y, z), new NetworkRegistry.TargetPoint(this.taskOwner.dimension, x, y, z, 86));
                         }
                     }
                     if (this.mineProgress >= this.getBlockHardness(world, x, y, z)) {
                         if (block == Blocks.trapdoor || block == Blocks.wooden_door || block == Blocks.fence_gate) {
-                            world.playSoundAtEntity(ent, "mob.zombie.woodbreak", 1.0F, 0.8F + Main.rand.nextFloat() * 0.2f);
+                            world.playSoundAtEntity(ent, "mob.zombie.woodbreak", 0.5F, 0.8F + Main.rand.nextFloat() * 0.2f);
                         }
                         world.breakBlock(x, y, z, false);
                         ent.swingItem();

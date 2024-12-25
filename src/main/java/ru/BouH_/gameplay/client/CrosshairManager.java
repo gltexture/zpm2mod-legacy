@@ -14,6 +14,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import org.lwjgl.opengl.GL11;
 import ru.BouH_.Main;
+import ru.BouH_.hook.server.EntityHook;
 import ru.BouH_.items.gun.base.AGunBase;
 import ru.BouH_.items.gun.base.EnumFireModes;
 import ru.BouH_.items.gun.render.GunItemRender;
@@ -64,11 +65,6 @@ public class CrosshairManager {
             if (this.bobbing != 0) {
                 if (Main.settingsZp.strafes.isFlag()) {
                     entityPlayerSP.cameraPitch -= (-1.0f + this.bobbing);
-                }
-                if (MovingInput.instance.jumpTms >= 3) {
-                    if (this.bobbing < 0.0f) {
-                        MovingInput.instance.speed_rec = this.bobbing / -2.0f;
-                    }
                 }
             }
             this.bobbing = 0;

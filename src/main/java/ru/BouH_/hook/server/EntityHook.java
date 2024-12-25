@@ -53,17 +53,21 @@ public class EntityHook {
         return FishingUtils.getStack(entityFishHook, entityFishHook.angler);
     }
 
+    /*
     @Hook(returnCondition = ReturnCondition.ON_TRUE)
     public static boolean jump(EntityPlayer player) {
         if (!player.worldObj.isRemote || player.capabilities.isCreativeMode) {
             return false;
         }
-        if (MovingInput.instance.jumpTms < 4 && MovingInput.instance.jumpCd <= 0) {
+        if (MovingInput.instance.jumpTms < EntityHook.JUMP_LIMIT && MovingInput.instance.jumpCd <= 0) {
             MovingInput.instance.jumpCd = 60;
         }
-        MovingInput.instance.jumpTms += 1;
-        return MovingInput.instance.jumpTms >= 4;
+        if (player.isSprinting()) {
+            MovingInput.instance.jumpTms += 1;
+        }
+        return MovingInput.instance.jumpTms >= EntityHook.JUMP_LIMIT;
     }
+    */
 
     @Hook
     public static void onImpact(EntitySnowball entitySnowball, MovingObjectPosition movingObjectPosition) {

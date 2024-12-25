@@ -85,10 +85,13 @@ public abstract class AZombieBase extends EntityMob {
         int j = MathHelper.floor_double(this.boundingBox.minY);
         int k = MathHelper.floor_double(this.posZ);
         float f1 = 1.0f;
-        if (!ConfigZp.zombieDifficultyProgression) {
+        if (ConfigZp.zombieDifficultyProgression) {
             if (this.worldObj.getWorldInfo().getTerrainType() instanceof WorldTypeCrazyZp || this.worldObj.getWorldInfo().getTerrainType() instanceof WorldTypeZp) {
                 f1 = this.worldObj.getWorldInfo().getWorldTotalTime() / 72000.0f;
             }
+        }
+        if (this.worldObj.isDaytime()) {
+            f1 *= 0.5f;
         }
         if (Main.rand.nextFloat() > f1) {
             return false;

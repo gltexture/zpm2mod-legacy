@@ -40,7 +40,7 @@ public class Main implements Thread.UncaughtExceptionHandler {
     public static Main instance;
     public static Random rand = new Random();
     static String[] nothingToSeeHere = new String[7];
-    public static ModStatus modStatus = ModStatus.STABLE;
+    public static ModStatus modStatus = ModStatus.EXP;
 
     static {
         nothingToSeeHere[0] = "****************************************";
@@ -124,8 +124,8 @@ public class Main implements Thread.UncaughtExceptionHandler {
 
     @EventHandler
     public void postInit(FMLPostInitializationEvent event) throws InterruptedException {
-        while (CommonProxy.loadStructures != null && CommonProxy.loadStructures.isAlive()) {
-            //PASS
+        synchronized (CommonProxy.MON) {
+            CommonProxy.MON.wait();
         }
         if (FMLLaunchHandler.side().isClient()) {
             Main.settingsZp = new SettingsZp(Minecraft.getMinecraft().mcDataDir);
