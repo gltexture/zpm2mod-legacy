@@ -87,9 +87,9 @@ public class GenLayerZp extends GenLayer {
     private void setupBiomes() {
         List<BiomeManager.BiomeEntry> list = new ArrayList<>();
         if (this.onlyCities) {
-            list.add(new BiomeManager.BiomeEntry(CommonProxy.biome_city, 24));
-            list.add(new BiomeManager.BiomeEntry(CommonProxy.biome_industry, 24));
-            list.add(new BiomeManager.BiomeEntry(CommonProxy.biome_military, 24));
+            list.add(new BiomeManager.BiomeEntry(CommonProxy.biome_city, 30));
+            list.add(new BiomeManager.BiomeEntry(CommonProxy.biome_industry, 30));
+            list.add(new BiomeManager.BiomeEntry(CommonProxy.biome_military, 30));
             biomes[BiomeManager.BiomeType.WARM.ordinal()] = new ArrayList<>(list);
             return;
         }
@@ -99,9 +99,9 @@ public class GenLayerZp extends GenLayer {
         list.add(new BiomeManager.BiomeEntry(BiomeGenBase.extremeHills, 2));
         list.add(new BiomeManager.BiomeEntry(BiomeGenBase.plains, 64));
 
-        list.add(new BiomeManager.BiomeEntry(CommonProxy.biome_city, 24));
-        list.add(new BiomeManager.BiomeEntry(CommonProxy.biome_industry, 24));
-        list.add(new BiomeManager.BiomeEntry(CommonProxy.biome_military, 24));
+        list.add(new BiomeManager.BiomeEntry(CommonProxy.biome_city, 30));
+        list.add(new BiomeManager.BiomeEntry(CommonProxy.biome_industry, 30));
+        list.add(new BiomeManager.BiomeEntry(CommonProxy.biome_military, 30));
 
         list.add(new BiomeManager.BiomeEntry(BiomeGenBase.birchForest, 1));
         list.add(new BiomeManager.BiomeEntry(BiomeGenBase.swampland, 1));
