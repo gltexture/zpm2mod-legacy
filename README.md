@@ -19,7 +19,7 @@
 
 ### Важная информация ⚠️  
 
-- Поскольку это мой первый серьёзный проект, код может содержать недочёты. Я осознаю это и прошу подходить к использованию мода с осторожностью.  
+- Поскольку это мой первый серьёзный проект, код может содержать недочёты, порой очень серьезные. Я осознаю это и прошу подходить к использованию мода с осторожностью.  
 - Перед установкой на публичные серверы **настоятельно рекомендую** тщательно проверить код на наличие уязвимостей, включая бэкдоры.  
 - **Мод предоставляется "как есть" без каких-либо гарантий безопасности. Используйте его на свой страх и риск.**  
 - **Ассеты (ресурсы) не включены в исходный код.** Их можно извлечь из `.jar` файла мода, доступного на [CurseForge](https://www.curseforge.com/minecraft/mc-mods/forge-zombie-plague-mod-2-wip).  
@@ -47,7 +47,7 @@ This was my first serious development experience, and I supported the project fo
 
 ### Important Information ⚠️  
 
-- Since this is my first major project, the code may have flaws. I am aware of this and kindly ask you to use the mod cautiously.  
+- Since this is my first major project, the code may have serious flaws. I am aware of this and kindly ask you to use the mod cautiously.  
 - Before installing on public servers, **I strongly recommend** thoroughly checking the code for vulnerabilities, including backdoors.  
 - **The mod is provided "as is" with no guarantees of security. Use it at your own risk.**  
 - **Assets (resources) are not included in the source code.** You can extract them from the `.jar` file of the mod available on [CurseForge](https://www.curseforge.com/minecraft/mc-mods/forge-zombie-plague-mod-2-wip).  
