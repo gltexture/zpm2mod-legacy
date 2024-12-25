@@ -52,7 +52,7 @@ public class AIMining extends EntityAIBase {
         this.setMutexBits(0);
         this.nominalStrength = nominalStrength;
         if (Main.rand.nextFloat() <= 0.7f) {
-            int i1 = this.taskOwner.worldObj.difficultySetting == EnumDifficulty.EASY ? 4800 : this.taskOwner.worldObj.difficultySetting == EnumDifficulty.NORMAL ? 3600 : 2400;
+            int i1 = this.taskOwner.worldObj.difficultySetting == EnumDifficulty.EASY ? 6000 : this.taskOwner.worldObj.difficultySetting == EnumDifficulty.NORMAL ? 4800 : 3600;
             this.ticksBeforeCanMine = Main.rand.nextInt(i1);
         }
     }
@@ -220,7 +220,8 @@ public class AIMining extends EntityAIBase {
         if (hardness >= 1.0f) {
             salt = Math.max(Math.sqrt(hardness * 0.2f), 1.0f);
         }
-        return (int) ((160 - this.getMobToolStrength(block) * 3.0f) * salt - this.mobStrength * 2.0f);
+        int init = this.taskOwner.worldObj.difficultySetting == EnumDifficulty.HARD ? 160 : 180;
+        return (int) ((init - this.getMobToolStrength(block) * 3.0f) * salt - this.mobStrength * 2.0f);
     }
 
     @SuppressWarnings("unchecked")

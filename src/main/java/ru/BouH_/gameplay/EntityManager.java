@@ -745,7 +745,11 @@ public class EntityManager {
                     chance += 0.25f;
                 }
                 chance += f1;
-                if (entity instanceof EntityPig) {
+                if (entity instanceof EntitySheep) {
+                    if (Main.rand.nextFloat() <= chance) {
+                        entity.dropItem((entity.isBurning() || this.isInBoilingWater((EntityLivingBase) entity)) ? ItemsZp.cooked_mutton : ItemsZp.mutton, 1);
+                    }
+                } else if (entity instanceof EntityPig) {
                     if (Main.rand.nextFloat() <= chance) {
                         entity.dropItem((entity.isBurning() || this.isInBoilingWater((EntityLivingBase) entity)) ? Items.cooked_porkchop : Items.porkchop, 1);
                     }

@@ -1066,7 +1066,7 @@ public class PlayerManager {
                 if (item == ItemsZp.coke || item == ItemsZp.heroin || item == ItemsZp.meth) {
                     AchievementManager.instance.triggerAchievement(AchievementManager.instance.dope, ev.entityPlayer);
                 }
-                if (item == Items.chicken || item == Items.fish || item == Items.beef || item == Items.porkchop || (item instanceof FoodWaterFish && !((FoodWaterFish) item).cantPoisonPlayer(ev.item))) {
+                if (item == ItemsZp.mutton || item == Items.chicken || item == Items.fish || item == Items.beef || item == Items.porkchop || (item instanceof FoodWaterFish && !((FoodWaterFish) item).cantPoisonPlayer(ev.item))) {
                     ev.entityPlayer.addPotionEffect((new PotionEffect(17, 2400)));
                     ev.entityPlayer.getEntityData().setInteger("nausea", ev.entityPlayer.getEntityData().getInteger("nausea") + 35);
                 }

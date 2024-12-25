@@ -521,6 +521,7 @@ public class CommonProxy {
             GameRegistry.addSmelting(new ItemStack(ItemsZp.fish_zp, 1, i), new ItemStack(ItemsZp.fish_zp_cooked, 1, i), 0.35f);
         }
 
+        GameRegistry.addSmelting(new ItemStack(ItemsZp.mutton), new ItemStack(ItemsZp.cooked_mutton), 0.35f);
         GameRegistry.addSmelting(new ItemStack(Items.fish, 1, 2), new ItemStack(Items.cooked_fish), 0.35f);
         GameRegistry.addRecipe(new ItemStack(Blocks.glowstone, 1), "III", "III", "III", 'I', Items.glowstone_dust);
         GameRegistry.addRecipe(new ItemStack(ItemsZp.steel_sword), "F", "F", "I", 'I', Items.stick, 'F', ItemsZp.steel_ingot);

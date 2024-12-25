@@ -329,6 +329,8 @@ public class ItemsZp {
     public static Item pea;
     public static Item pepsi;
     public static Item rotten_apple;
+    public static Item cooked_mutton;
+    public static Item mutton;
     public static Item soup;
     public static Item steroid;
     public static Item stewed_meat;
@@ -688,6 +690,14 @@ public class ItemsZp {
         stewed_meat = new FoodCan("stewed_meat", 30, 1.5f, true, true);
         stewed_meat.setMaxStackSize(16);
         stewed_meat.setCreativeTab(food);
+
+        mutton = new FoodCan("mutton", 8, 0.0f, true, true);
+        mutton.setMaxStackSize(16);
+        mutton.setCreativeTab(food);
+
+        cooked_mutton = new FoodCan("cooked_mutton", 30, 1.5f, true, true);
+        cooked_mutton.setMaxStackSize(16);
+        cooked_mutton.setCreativeTab(food);
 
         vodka = new FoodVodka("vodka", 15, 1.5f, false, true);
         vodka.setMaxStackSize(16);
@@ -2261,6 +2271,8 @@ public class ItemsZp {
         registerItem(donut);
         registerItem(orange);
         registerItem(banana);
+        registerItem(mutton);
+        registerItem(cooked_mutton);
         registerItem(fish_zp);
         registerItem(fish_zp_cooked);
         registerItem(jam);
