@@ -90,18 +90,22 @@ public abstract class AZombieBase extends EntityMob {
                 f1 = this.worldObj.getWorldInfo().getWorldTotalTime() / 72000.0f;
             }
         }
-        if (this.worldObj.isDaytime()) {
-            f1 *= 0.5f;
-        }
         if (Main.rand.nextFloat() > f1) {
             return false;
         }
         if ((j < this.minYSpawn() && Main.rand.nextFloat() > this.spawnChanceUnderY()) || (j > this.maxYSpawn() && Main.rand.nextFloat() > this.spawnChanceAboveY())) {
             return false;
         }
+        boolean isInInd = this.checkCity(CityType.INDUSTRY);
+        boolean isInMil = this.checkCity(CityType.MILITARY);
+        if (this.worldObj.difficultySetting != EnumDifficulty.HARD) {
+            if (!isInInd && !isInMil && this.worldObj.isDaytime()) {
+                f1 *= 0.5f;
+            }
+        }
         if (this.worldObj.checkNoEntityCollision(this.boundingBox) && this.worldObj.getCollidingBoundingBoxes(this, this.boundingBox).isEmpty()) {
             int l = this.worldObj.getSavedLightValue(EnumSkyBlock.Block, i, j, k);
-            float miscFloat = (this.worldObj.getBiomeGenForCoords(i, k) instanceof BiomeRad || this.checkCity(CityType.INDUSTRY)) ? 2.5e-3f : this.checkCity(CityType.MILITARY) ? 2.5e-2f : 8.0e-5f;
+            float miscFloat = (this.worldObj.getBiomeGenForCoords(i, k) instanceof BiomeRad || isInInd) ? 2.5e-3f : isInMil ? 2.5e-2f : 8.0e-5f;
             if (this.worldObj.getWorldInfo().getTerrainType() instanceof WorldTypeCrazyZp) {
                 miscFloat *= 0.5f;
             }

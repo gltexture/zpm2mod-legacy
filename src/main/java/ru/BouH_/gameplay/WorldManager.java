@@ -167,8 +167,6 @@ public class WorldManager {
             }
         }
 
-        if (world1)
-
         if (world1.getWorldInfo().getTerrainType() instanceof WorldTypeHardcoreZp) {
             world1.difficultySetting = EnumDifficulty.HARD;
         }
