@@ -10,7 +10,6 @@ import cpw.mods.fml.relauncher.FMLLaunchHandler;
 import cpw.mods.fml.relauncher.Side;
 import net.minecraft.client.Minecraft;
 import ru.BouH_.commands.*;
-import ru.BouH_.init.BlocksZp;
 import ru.BouH_.options.SettingsZp;
 import ru.BouH_.proxy.CommonProxy;
 import ru.BouH_.weather.base.WeatherHandler;
@@ -104,7 +103,8 @@ public class Main implements Thread.UncaughtExceptionHandler {
         } catch (ClassNotFoundException e) {
             FMLLog.bigWarning("EventUtils not found");
         }
-        event.registerServerCommand(new CommandLootcase());
+        event.registerServerCommand(new CommandChangeChestsToLootCases());
+        event.registerServerCommand(new CommandReloadLootcase());
         event.registerServerCommand(new ResetTime());
         if (true) {
             event.registerServerCommand(new CommandSaveStructure());

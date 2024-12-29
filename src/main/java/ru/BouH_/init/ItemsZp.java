@@ -2674,9 +2674,10 @@ public class ItemsZp {
             books.loadTable();
         }
 
-        Item.getItemFromBlock(BlocksZp.copper_ore).setMaxStackSize(16);
+        Item.getItemFromBlock(BlocksZp.copper_ore).setMaxStackSize(32);
         Item.getItemFromBlock(BlocksZp.titan_ore).setMaxStackSize(16);
         Item.getItemFromBlock(BlocksZp.uranium).setMaxStackSize(16);
+        Item.getItemFromBlock(BlocksZp.copper_block).setMaxStackSize(16);
         Item.getItemFromBlock(BlocksZp.mine).setMaxStackSize(16);
     }
 

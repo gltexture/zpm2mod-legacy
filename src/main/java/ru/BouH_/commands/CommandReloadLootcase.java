@@ -7,7 +7,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import ru.BouH_.tiles.TileLootCase;
 
-public class CommandLootcase extends CommandBase {
+public class CommandReloadLootcase extends CommandBase {
 
     @Override
     public String getCommandName() {
@@ -16,7 +16,6 @@ public class CommandLootcase extends CommandBase {
 
     @Override
     public String getCommandUsage(ICommandSender commandSender) {
-
         return "/reloadLoot";
     }
 

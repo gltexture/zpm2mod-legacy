@@ -3,6 +3,8 @@ package ru.BouH_.init;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.potion.PotionEffect;
 import ru.BouH_.Main;

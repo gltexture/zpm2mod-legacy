@@ -604,58 +604,63 @@ public class PlayerManager {
             }
         }
         if (ev.world.getGameRules().getGameRuleBooleanValue("changeChestsToLootCases") && ev.world.getBlock(ev.x, ev.y, ev.z) == Blocks.chest) {
-            float r1 = Main.rand.nextFloat();
-            Block block;
-            if (r1 <= 0.6f) {
-                float r2 = Main.rand.nextFloat();
-                if (r2 <= 0.2f) {
-                    block = LootCasesZp.tier1_chest;
-                } else if (r2 <= 0.4f) {
-                    block = LootCasesZp.tier2_chest;
-                } else if (r2 <= 0.5f) {
-                    block = LootCasesZp.tier3_chest;
-                } else if (r2 <= 0.58f) {
-                    block = LootCasesZp.tier17_chest;
-                } else if (r2 <= 0.64f) {
-                    block = LootCasesZp.tier15_chest;
-                } else if (r2 <= 0.7f) {
-                    block = LootCasesZp.tier16_chest;
-                } else if (r2 <= 0.8f) {
-                    block = LootCasesZp.tier12_chest;
-                } else if (r2 <= 0.85f) {
-                    block = LootCasesZp.tier10_chest;
-                } else if (r2 <= 0.88f) {
-                    block = LootCasesZp.tier11_chest;
-                } else {
-                    block = LootCasesZp.tier4_chest;
-                }
-            } else if (r1 <= 0.9f) {
-                float r2 = Main.rand.nextFloat();
-                if (r2 <= 0.9f) {
-                    block = LootCasesZp.tier5_chest;
-                } else if (r2 <= 0.98f) {
-                    block = LootCasesZp.tier6_chest;
-                } else {
-                    block = LootCasesZp.tier18_chest;
-                }
-            } else {
-                float r2 = Main.rand.nextFloat();
-                if (r2 <= 0.5f) {
-                    block = LootCasesZp.tier13_chest;
-                } else if (r2 <= 0.65f) {
-                    block = LootCasesZp.tier14_chest;
-                } else if (r2 <= 0.8f) {
-                    block = LootCasesZp.tier7_chest;
-                } else if (r2 <= 0.95f) {
-                    block = LootCasesZp.tier8_chest;
-                } else {
-                    block = LootCasesZp.tier9_chest;
-                }
-            }
+            Block block = PlayerManager.chooseRandomLootCase();
             int m = ev.world.getBlockMetadata(ev.x, ev.y, ev.z);
             ev.world.setBlock(ev.x, ev.y, ev.z, block);
             ev.world.setBlockMetadataWithNotify(ev.x, ev.y, ev.z, m, 0);
         }
+    }
+
+    public static Block chooseRandomLootCase() {
+        float r1 = Main.rand.nextFloat();
+        Block block;
+        if (r1 <= 0.6f) {
+            float r2 = Main.rand.nextFloat();
+            if (r2 <= 0.2f) {
+                block = LootCasesZp.tier1_chest;
+            } else if (r2 <= 0.4f) {
+                block = LootCasesZp.tier2_chest;
+            } else if (r2 <= 0.5f) {
+                block = LootCasesZp.tier3_chest;
+            } else if (r2 <= 0.58f) {
+                block = LootCasesZp.tier17_chest;
+            } else if (r2 <= 0.64f) {
+                block = LootCasesZp.tier15_chest;
+            } else if (r2 <= 0.7f) {
+                block = LootCasesZp.tier16_chest;
+            } else if (r2 <= 0.8f) {
+                block = LootCasesZp.tier12_chest;
+            } else if (r2 <= 0.85f) {
+                block = LootCasesZp.tier10_chest;
+            } else if (r2 <= 0.88f) {
+                block = LootCasesZp.tier11_chest;
+            } else {
+                block = LootCasesZp.tier4_chest;
+            }
+        } else if (r1 <= 0.9f) {
+            float r2 = Main.rand.nextFloat();
+            if (r2 <= 0.9f) {
+                block = LootCasesZp.tier5_chest;
+            } else if (r2 <= 0.98f) {
+                block = LootCasesZp.tier6_chest;
+            } else {
+                block = LootCasesZp.tier18_chest;
+            }
+        } else {
+            float r2 = Main.rand.nextFloat();
+            if (r2 <= 0.5f) {
+                block = LootCasesZp.tier13_chest;
+            } else if (r2 <= 0.65f) {
+                block = LootCasesZp.tier14_chest;
+            } else if (r2 <= 0.8f) {
+                block = LootCasesZp.tier7_chest;
+            } else if (r2 <= 0.95f) {
+                block = LootCasesZp.tier8_chest;
+            } else {
+                block = LootCasesZp.tier9_chest;
+            }
+        }
+        return block;
     }
 
     @SubscribeEvent()

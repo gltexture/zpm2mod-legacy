@@ -296,7 +296,6 @@ public class CommonProxy {
             Item.getItemFromBlock(Blocks.gold_block).setMaxStackSize(4);
             Item.getItemFromBlock(Blocks.emerald_block).setMaxStackSize(4);
             Item.getItemFromBlock(Blocks.lapis_block).setMaxStackSize(4);
-            Item.getItemFromBlock(BlocksZp.copper_block).setMaxStackSize(12);
 
             Item.getItemFromBlock(Blocks.coal_ore).setMaxStackSize(16);
             Item.getItemFromBlock(Blocks.diamond_ore).setMaxStackSize(16);
