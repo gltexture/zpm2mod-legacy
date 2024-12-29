@@ -31,7 +31,7 @@
 
 ### Версия мода  
 
-- **Текущая версия:** 1.6.23 (31.12.2024).  
+- **Текущая версия:** 1.6.23 (01.01.2025).  
 
 ---
 
@@ -59,7 +59,7 @@ This was my first serious development experience, and I supported the project fo
 
 ### Mod Version  
 
-- **Current Version:** 1.6.23 (31.12.2024).  
+- **Current Version:** 1.6.23 (01.01.2025).  
 
 ---
 

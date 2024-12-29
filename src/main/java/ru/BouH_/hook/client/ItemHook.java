@@ -43,6 +43,7 @@ public class ItemHook {
             it.equippedItemSlot = entityclientplayermp.inventory.currentItem;
         }
     }
+
     @Hook
     public static void renderItem(ItemRenderer it, EntityLivingBase entityIn, ItemStack stackToRender, int p_78443_3_, IItemRenderer.ItemRenderType type) {
         if (entityIn instanceof EntityPlayer) {

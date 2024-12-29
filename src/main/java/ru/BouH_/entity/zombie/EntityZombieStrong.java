@@ -26,9 +26,9 @@ public class EntityZombieStrong extends AZombieBase {
         this.setSize(1.0F, 2.25F);
         this.canPickUp = false;
         this.tasks.addTask(0, new AISwimming(this, 0.8f + Main.rand.nextFloat() * 0.2f, false));
-        this.tasks.addTask(1, new AIAttack(this, EntityPlayer.class, this.getAttackRange(1.5f), 3.5f, true));
-        this.tasks.addTask(1, new AIAttack(this, EntityVillager.class, this.getAttackRange(1.5f), 3.5f, true));
-        this.tasks.addTask(1, new AIAttack(this, EntityGolem.class, this.getAttackRange(1.5f), 3.5f, true));
+        this.tasks.addTask(1, new AIAttack(this, EntityPlayer.class, this.getAttackRange(1.6f), 3.5f, true));
+        this.tasks.addTask(1, new AIAttack(this, EntityVillager.class, this.getAttackRange(1.6f), 3.5f, true));
+        this.tasks.addTask(1, new AIAttack(this, EntityGolem.class, this.getAttackRange(1.6f), 3.5f, true));
         this.tasks.addTask(2, new AIMining(this, 7.0f, 0.8f));
         this.tasks.addTask(3, new AIAngry(this));
         this.tasks.addTask(4, new EntityAIMoveTowardsRestriction(this, 1.0D));

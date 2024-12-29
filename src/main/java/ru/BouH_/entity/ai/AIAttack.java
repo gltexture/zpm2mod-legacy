@@ -91,8 +91,8 @@ public class AIAttack extends EntityAIBase {
                     this.tryOpenTrapDoor();
                 }
                 float f1 = 0.3f;
-                List<Entity> entities = this.attacker.worldObj.getEntitiesWithinAABB(AZombieBase.class, this.attacker.boundingBox.expand(1.5f, 1.5f, 1.5f));
-                float f2 = Math.min((entities.size() - 1) * 0.05f, 0.5f);
+                List<Entity> entities = this.attacker.worldObj.getEntitiesWithinAABB(AZombieBase.class, this.attacker.boundingBox.expand(1.0f, 1.0f, 1.0f));
+                float f2 = Math.min((entities.size() - 1) * 0.05f, 0.25f);
                 f1 -= f2 * 0.25f;
                 double range = this.attackRange - f2;
                 double const1 = EntityUtils.canEntitySeeEntity(this.attacker, entitylivingbase, false) ? Main.rand.nextFloat() * f1 + (range + this.attacker.width * 0.5f) : 1.0f;

@@ -90,22 +90,24 @@ public abstract class AZombieBase extends EntityMob {
                 f1 = this.worldObj.getWorldInfo().getWorldTotalTime() / 72000.0f;
             }
         }
-        if (Main.rand.nextFloat() > f1) {
-            return false;
-        }
+        boolean isInInd = this.checkCity(CityType.INDUSTRY);
+        boolean isInMil = this.checkCity(CityType.MILITARY);
         if ((j < this.minYSpawn() && Main.rand.nextFloat() > this.spawnChanceUnderY()) || (j > this.maxYSpawn() && Main.rand.nextFloat() > this.spawnChanceAboveY())) {
             return false;
         }
-        boolean isInInd = this.checkCity(CityType.INDUSTRY);
-        boolean isInMil = this.checkCity(CityType.MILITARY);
-        if (this.worldObj.difficultySetting != EnumDifficulty.HARD) {
-            if (!isInInd && !isInMil && this.worldObj.isDaytime()) {
-                f1 *= 0.5f;
+        if (!isInInd && !isInMil) {
+            if (Main.rand.nextFloat() > f1) {
+                return false;
+            }
+            if (this.worldObj.difficultySetting != EnumDifficulty.HARD) {
+                if (this.worldObj.isDaytime()) {
+                    f1 *= 0.5f;
+                }
             }
         }
         if (this.worldObj.checkNoEntityCollision(this.boundingBox) && this.worldObj.getCollidingBoundingBoxes(this, this.boundingBox).isEmpty()) {
             int l = this.worldObj.getSavedLightValue(EnumSkyBlock.Block, i, j, k);
-            float miscFloat = (this.worldObj.getBiomeGenForCoords(i, k) instanceof BiomeRad || isInInd) ? 2.5e-3f : isInMil ? 2.5e-2f : 8.0e-5f;
+            float miscFloat = (this.worldObj.getBiomeGenForCoords(i, k) instanceof BiomeRad || isInInd) ? 5.0e-3f : isInMil ? 5.0e-2f : 5.0e-4f;
             if (this.worldObj.getWorldInfo().getTerrainType() instanceof WorldTypeCrazyZp) {
                 miscFloat *= 0.5f;
             }
@@ -123,7 +125,7 @@ public abstract class AZombieBase extends EntityMob {
     }
 
     protected float getAttackRange(float f1) {
-        return (this.worldObj.difficultySetting == EnumDifficulty.EASY ? f1 - 0.25f : this.worldObj.difficultySetting == EnumDifficulty.NORMAL ? f1 : f1 + 0.25f) + Main.rand.nextFloat() * 0.4f;
+        return (this.worldObj.difficultySetting == EnumDifficulty.EASY ? f1 - 0.15f : this.worldObj.difficultySetting == EnumDifficulty.NORMAL ? f1 : f1 + 0.15f) + Main.rand.nextFloat() * 0.5f;
     }
 
     protected int minYSpawn() {

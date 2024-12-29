@@ -9,13 +9,18 @@ import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 import ru.BouH_.Main;
 import ru.BouH_.recipe_master.gui.GuiContainerRecipes;
+import ru.BouH_.skills.gui.GuiSkillsZp;
 import ru.BouH_.utils.RenderUtils;
 import ru.BouH_.utils.SoundUtils;
 
 public class PlayerGui extends GuiInventory {
     public static ResourceLocation t1 = new ResourceLocation(Main.MODID + ":textures/gui/c_sel_1.png");
     public static ResourceLocation t2 = new ResourceLocation(Main.MODID + ":textures/gui/c_sel_2.png");
-    private boolean selected = false;
+    public static ResourceLocation t3 = new ResourceLocation(Main.MODID + ":textures/gui/c_sel_3.png");
+    public static ResourceLocation t4 = new ResourceLocation(Main.MODID + ":textures/gui/c_sel_4.png");
+
+    private boolean selectedRecipes = false;
+    private boolean selectedSkills = false;
 
     public PlayerGui(EntityPlayer p_i1094_1_) {
         super(p_i1094_1_);
@@ -24,8 +29,12 @@ public class PlayerGui extends GuiInventory {
     protected void mouseClicked(int mouseX, int mouseY, int mouseButton) {
         super.mouseClicked(mouseX, mouseY, mouseButton);
         if (mouseButton == 0) {
-            if (this.selected) {
+            if (this.selectedRecipes) {
                 Minecraft.getMinecraft().displayGuiScreen(new GuiContainerRecipes(this, false));
+                SoundUtils.playMonoSound(Main.MODID + ":select");
+            }
+            if (this.selectedSkills) {
+                Minecraft.getMinecraft().displayGuiScreen(new GuiSkillsZp(this));
                 SoundUtils.playMonoSound(Main.MODID + ":select");
             }
         }
@@ -37,14 +46,29 @@ public class PlayerGui extends GuiInventory {
         int l = this.guiTop;
         final int x = k + 85;
         final int y = l + 64;
-        String s = I18n.format("recipes.zp.menuTitle");
-        this.selected = mouseX >= x && mouseX <= x + 16 + this.fontRendererObj.getStringWidth(s) && mouseY >= y && mouseY <= y + 16;
+        final int x2 = x + 24;
+        this.selectedRecipes = mouseX >= x && mouseX <= x + 16 && mouseY >= y && mouseY <= y + 16;
+        this.selectedSkills = mouseX >= x2 && mouseX <= x2 + 16 && mouseY >= y && mouseY <= y + 16;
         GL11.glPushMatrix();
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        this.mc.getTextureManager().bindTexture(this.selected ? PlayerGui.t2 : PlayerGui.t1);
+        this.mc.getTextureManager().bindTexture(this.selectedRecipes ? PlayerGui.t2 : PlayerGui.t1);
         RenderUtils.drawTexturedModalRectCustom(x, y, 16, 16, 100);
+        this.mc.getTextureManager().bindTexture(this.selectedSkills ? PlayerGui.t4 : PlayerGui.t3);
+        RenderUtils.drawTexturedModalRectCustom(x2, y, 16, 16, 100);
+
+        GL11.glDisable(GL11.GL_DEPTH_TEST);
+        if (this.selectedRecipes) {
+            String s = I18n.format("recipes.zp.menuTitle");
+            this.fontRendererObj.drawStringWithShadow(s, mouseX, mouseY + 6, 0x00ff00);
+        }
+
+        if (this.selectedSkills) {
+            String s = I18n.format("skill.zp.menuTitle");
+            this.fontRendererObj.drawStringWithShadow(s, mouseX, mouseY + 6, 0xff0000);
+        }
+        GL11.glEnable(GL11.GL_DEPTH_TEST);
+
         GL11.glPopMatrix();
-        this.fontRendererObj.drawString(s, x + 18, y + 4, 4210752);
         WorldClient worldClient = Minecraft.getMinecraft().theWorld;
         if (worldClient != null) {
             long wTime = worldClient.getWorldTime() + 6000L;

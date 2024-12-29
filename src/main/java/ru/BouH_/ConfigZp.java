@@ -23,8 +23,9 @@ public class ConfigZp {
     public static boolean negativeLevel;
     public static boolean night7;
 
-    public static boolean increasedStacks;
+    public static boolean newStackSizes;
     public static boolean increasedBlockHardness;
+    public static int cityBiomeSpawnWeights;
 
     public void register() {
         Configuration config = new Configuration(new File("config", "zpm2.cfg"));
@@ -49,6 +50,8 @@ public class ConfigZp {
         zombieSpawnScale = config.getFloat("zombieSpawnScale", "default", 1.0f, 0.0f, 100.0f, "Zombie Spawn Scale");
         negativeLevel = config.getBoolean("negativeLevel", "default", true, "Negative Level");
         increasedBlockHardness = config.getBoolean("increasedBlockHardness", "default", true, "Increased Block Hardness");
+        newStackSizes = config.getBoolean("newStackSizes", "default", true, "New Stack Sizes");
+        cityBiomeSpawnWeights = config.getInt("cityBiomeSpawnWeights", "default", 30, 1, 300, "Chance to spawn city in ZPW");
 
         config.save();
     }

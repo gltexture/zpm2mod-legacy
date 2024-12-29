@@ -23,6 +23,7 @@ public class GuiMainZp extends GuiScreen implements GuiYesNoCallback {
     private final int backgroundCount = 42;
     private final LinkButton buttonDiscord;
     private final LinkButton buttonModrinth;
+    private final LinkButton buttonGit;
     private final ResourceLocation[] resourceLocations = new ResourceLocation[backgroundCount + 1];
     private final ResourceLocation background = new ResourceLocation(Main.MODID + ":textures/misc/zpm.png");
     private int currentBackground = Main.rand.nextInt(backgroundCount + 1);
@@ -32,6 +33,7 @@ public class GuiMainZp extends GuiScreen implements GuiYesNoCallback {
     public GuiMainZp() {
         this.buttonDiscord = new LinkButton(new ResourceLocation(Main.MODID + ":textures/misc/discord.png"), "https://discord.gg/SrxSSsFv5F", 2, 2);
         this.buttonModrinth = new LinkButton(new ResourceLocation(Main.MODID + ":textures/misc/modrinth.png"), "https://modrinth.com/mod/zombie-plague-2-hardcore-zombie-apocalypse", 2, 28);
+        this.buttonGit = new LinkButton(new ResourceLocation(Main.MODID + ":textures/misc/github.png"), "https://github.com/alfabouh/zpm2mod-legacy", 2, 54);
 
         for (int i = 0; i < this.backgroundCount + 1; i++) {
             this.resourceLocations[i] = new ResourceLocation(Main.MODID + ":textures/misc/background/background" + i + ".png");
@@ -82,6 +84,7 @@ public class GuiMainZp extends GuiScreen implements GuiYesNoCallback {
     public void drawLinkButtons(int mX, int mY) {
         this.buttonDiscord.update(mX, mY);
         this.buttonModrinth.update(mX, mY);
+        this.buttonGit.update(mX, mY);
     }
 
     protected void mouseClicked(int mouseX, int mouseY, int mouseButton) {
@@ -89,6 +92,7 @@ public class GuiMainZp extends GuiScreen implements GuiYesNoCallback {
         if (mouseButton == 0) {
             this.buttonDiscord.onClick();
             this.buttonModrinth.onClick();
+            this.buttonGit.onClick();
         }
     }
 

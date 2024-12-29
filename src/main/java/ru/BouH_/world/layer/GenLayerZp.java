@@ -5,6 +5,7 @@ import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.gen.layer.*;
 import net.minecraftforge.common.BiomeManager;
+import ru.BouH_.ConfigZp;
 import ru.BouH_.proxy.CommonProxy;
 
 import java.util.ArrayList;
@@ -34,12 +35,11 @@ public class GenLayerZp extends GenLayer {
         genlayeraddisland = new GenLayerAddIsland(70L, genlayeraddisland);
         genlayeraddisland = new GenLayerAddIsland(170L, genlayeraddisland);
         genlayeraddisland = new GenLayerAddIsland(470L, genlayeraddisland);
-        GenLayerRemoveTooMuchOcean genlayerremovetoomuchocean = new GenLayerRemoveTooMuchOcean(60L, genlayeraddisland);
-        genlayerremovetoomuchocean = new GenLayerRemoveTooMuchOcean(160L, genlayerremovetoomuchocean);
-        genlayerremovetoomuchocean = new GenLayerRemoveTooMuchOcean(260L, genlayerremovetoomuchocean);
-        genlayerremovetoomuchocean = new GenLayerRemoveTooMuchOcean(360L, genlayerremovetoomuchocean);
-        genlayerremovetoomuchocean = new GenLayerRemoveTooMuchOcean(460L, genlayerremovetoomuchocean);
-        GenLayerAddSnow genlayeraddsnow = new GenLayerAddSnow(2L, genlayerremovetoomuchocean);
+        GenLayerRemoveTooMuchOcean genlayerremovetoomuchocean = new GenLayerRemoveTooMuchOcean(123120L, genlayeraddisland);
+        byte b0 = getModdedBiomeSize(p_75901_2_, (byte) 4);
+        GenLayer genlayer12 = GenLayerZoom.magnify(1200L, genlayerremovetoomuchocean, b0);
+
+        GenLayerAddSnow genlayeraddsnow = new GenLayerAddSnow(2L, genlayer12);
         genlayeraddisland = new GenLayerAddIsland(3L, genlayeraddsnow);
         GenLayerEdge genlayeredge = new GenLayerEdge(2L, genlayeraddisland, GenLayerEdge.Mode.COOL_WARM);
         genlayeredge = new GenLayerEdge(2L, genlayeredge, GenLayerEdge.Mode.HEAT_ICE);
@@ -49,12 +49,10 @@ public class GenLayerZp extends GenLayer {
         genlayeraddisland = new GenLayerAddIsland(4L, genlayerzoom);
         GenLayerAddMushroomIsland genlayeraddmushroomisland = new GenLayerAddMushroomIsland(5L, genlayeraddisland);
         GenLayerDeepOcean genlayerdeepocean = new GenLayerDeepOcean(4L, genlayeraddmushroomisland);
-        GenLayer genlayer2 = GenLayerZoom.magnify(1000L, genlayerdeepocean, 0);
-        byte b0 = getModdedBiomeSize(p_75901_2_, (byte) 4);
 
-        GenLayer genlayer = GenLayerZoom.magnify(1000L, genlayer2, 0);
+        GenLayer genlayer = GenLayerZoom.magnify(1000L, genlayerdeepocean, 0);
         GenLayerRiverInit genlayerriverinit = new GenLayerRiverInit(100L, genlayer);
-        GenLayer object = p_75901_2_.getBiomeLayer(p_75901_0_, genlayer2);
+        GenLayer object = p_75901_2_.getBiomeLayer(p_75901_0_, genlayer);
 
         GenLayer genlayer1 = GenLayerZoom.magnify(1000L, genlayerriverinit, 2);
         GenLayerHills genlayerhills = new GenLayerHills(1000L, object, genlayer1);
@@ -99,9 +97,9 @@ public class GenLayerZp extends GenLayer {
         list.add(new BiomeManager.BiomeEntry(BiomeGenBase.extremeHills, 2));
         list.add(new BiomeManager.BiomeEntry(BiomeGenBase.plains, 64));
 
-        list.add(new BiomeManager.BiomeEntry(CommonProxy.biome_city, 30));
-        list.add(new BiomeManager.BiomeEntry(CommonProxy.biome_industry, 30));
-        list.add(new BiomeManager.BiomeEntry(CommonProxy.biome_military, 30));
+        list.add(new BiomeManager.BiomeEntry(CommonProxy.biome_city, ConfigZp.cityBiomeSpawnWeights));
+        list.add(new BiomeManager.BiomeEntry(CommonProxy.biome_industry, ConfigZp.cityBiomeSpawnWeights));
+        list.add(new BiomeManager.BiomeEntry(CommonProxy.biome_military, ConfigZp.cityBiomeSpawnWeights));
 
         list.add(new BiomeManager.BiomeEntry(BiomeGenBase.birchForest, 1));
         list.add(new BiomeManager.BiomeEntry(BiomeGenBase.swampland, 1));

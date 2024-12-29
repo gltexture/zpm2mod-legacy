@@ -27,10 +27,10 @@ public class EntityZombieBurned extends AZombieBase {
     public EntityZombieBurned(World p_i1745_1_) {
         super(p_i1745_1_);
         this.tasks.addTask(0, new AISwimming(this, 1.2f + Main.rand.nextFloat() * 0.4f, false));
-        this.tasks.addTask(1, new AIAttack(this, EntityPlayer.class, this.getAttackRange(1.5f), 3.0f, true));
-        this.tasks.addTask(1, new AIAttack(this, EntityVillager.class, this.getAttackRange(1.5f), 3.0f, true));
-        this.tasks.addTask(1, new AIAttack(this, EntityAnimal.class, this.getAttackRange(1.5f), 3.0f, true));
-        this.tasks.addTask(1, new AIAttack(this, EntityGolem.class, this.getAttackRange(1.5f), 3.0f, true));
+        this.tasks.addTask(1, new AIAttack(this, EntityPlayer.class, this.getAttackRange(1.6f), 3.0f, true));
+        this.tasks.addTask(1, new AIAttack(this, EntityVillager.class, this.getAttackRange(1.6f), 3.0f, true));
+        this.tasks.addTask(1, new AIAttack(this, EntityAnimal.class, this.getAttackRange(1.6f), 3.0f, true));
+        this.tasks.addTask(1, new AIAttack(this, EntityGolem.class, this.getAttackRange(1.6f), 3.0f, true));
         this.tasks.addTask(2, new AIMining(this, 6.0f, 0.85f));
         this.tasks.addTask(3, new AIAngry(this));
         this.tasks.addTask(4, new EntityAIMoveTowardsRestriction(this, 1.0D));

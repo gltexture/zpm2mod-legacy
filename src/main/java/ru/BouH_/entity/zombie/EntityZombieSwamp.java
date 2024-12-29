@@ -37,7 +37,7 @@ public class EntityZombieSwamp extends AZombieBase {
         this.tasks.addTask(0, new AISwimming(this, 1.2f + Main.rand.nextFloat() * 0.4f, false));
         this.tasks.addTask(1, new AISwampAttack(this, EntityPlayer.class, 3.5f));
         this.tasks.addTask(1, new AISwampAttack(this, EntityVillager.class, 3.5f));
-        this.tasks.addTask(1, new AIAttack(this, EntityAnimal.class, this.getAttackRange(1.5f), 3.5f, true));
+        this.tasks.addTask(1, new AIAttack(this, EntityAnimal.class, this.getAttackRange(1.6f), 3.5f, true));
         this.tasks.addTask(1, new AISwampAttack(this, EntityGolem.class, 3.5f));
         this.tasks.addTask(2, new AIMining(this, 3.0f, 0.95f));
         this.tasks.addTask(3, new AIAngry(this));

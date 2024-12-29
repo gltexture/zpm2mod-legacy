@@ -245,7 +245,7 @@ public class CommonProxy {
         Items.shears.setMaxDurability(64);
         Items.bow.setMaxDurability(128);
 
-        if (ConfigZp.increasedStacks) {
+        if (ConfigZp.newStackSizes) {
             Items.potato.setMaxStackSize(16);
             Items.baked_potato.setMaxStackSize(16);
             Items.golden_carrot.setMaxStackSize(16);
@@ -290,12 +290,13 @@ public class CommonProxy {
 
             Items.experience_bottle.setMaxStackSize(16);
 
-            Item.getItemFromBlock(Blocks.tnt).setMaxStackSize(1);
+            Item.getItemFromBlock(Blocks.tnt).setMaxStackSize(3);
             Item.getItemFromBlock(Blocks.diamond_block).setMaxStackSize(4);
-            Item.getItemFromBlock(Blocks.iron_block).setMaxStackSize(4);
+            Item.getItemFromBlock(Blocks.iron_block).setMaxStackSize(6);
             Item.getItemFromBlock(Blocks.gold_block).setMaxStackSize(4);
             Item.getItemFromBlock(Blocks.emerald_block).setMaxStackSize(4);
             Item.getItemFromBlock(Blocks.lapis_block).setMaxStackSize(4);
+            Item.getItemFromBlock(BlocksZp.copper_block).setMaxStackSize(12);
 
             Item.getItemFromBlock(Blocks.coal_ore).setMaxStackSize(16);
             Item.getItemFromBlock(Blocks.diamond_ore).setMaxStackSize(16);
