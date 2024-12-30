@@ -68,7 +68,8 @@ import static net.minecraftforge.oredict.RecipeSorter.Category.SHAPELESS;
 
 
 public class CommonProxy {
-    public static final Object MON = new Object();
+    public static boolean structuresLoaded = false;
+    public static final Object MONITOR = new Object();
 
     private static final Set<Item> deleteCraft = new HashSet<>();
     public static boolean initRecipes = false;
@@ -178,11 +179,12 @@ public class CommonProxy {
         CommonProxy.generators.init(BunkerGenerator.instance);
         CommonProxy.loadStructures = new Thread(() -> {
             CommonProxy.generators.loadFiles();
-            synchronized (CommonProxy.MON) {
-                CommonProxy.MON.notifyAll();
+            synchronized (CommonProxy.MONITOR) {
+                CommonProxy.MONITOR.notifyAll();
+                CommonProxy.structuresLoaded = true;
             }
         });
-        loadStructures.start();
+        CommonProxy.loadStructures.start();
     }
 
     public void registerBiomes() {

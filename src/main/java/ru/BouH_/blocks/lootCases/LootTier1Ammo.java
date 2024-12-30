@@ -21,8 +21,8 @@ public class LootTier1Ammo extends BlockLootCase {
     private static final Set<ItemToSpawn> ammo2List = new HashSet<>();
 
     static {
-        lootManagerSet.add(new LootSpawnManager(LootTier1Ammo.ammoList, 2, 5, 0.7f, 90));
-        lootManagerSet.add(new LootSpawnManager(LootTier1Ammo.ammo2List, 1, 3, 0.3f, 10));
+        lootManagerSet.add(new LootSpawnManager(LootTier1Ammo.ammoList, 2, 5, 0.7f, 80));
+        lootManagerSet.add(new LootSpawnManager(LootTier1Ammo.ammo2List, 1, 3, 0.3f, 20));
     }
 
     static {
@@ -30,13 +30,13 @@ public class LootTier1Ammo extends BlockLootCase {
         // Ammo
 
         ammoList.add(new ItemToSpawn(ItemsZp._357m, 16, 0.9f, 12));
-        ammoList.add(new ItemToSpawn(ItemsZp._45acp, 26, 0.9f, 20));
-        ammoList.add(new ItemToSpawn(ItemsZp._9mm, 26, 0.9f, 12));
-        ammoList.add(new ItemToSpawn(ItemsZp._7_62x25, 26, 0.9f, 12));
+        ammoList.add(new ItemToSpawn(ItemsZp._45acp, 32, 0.9f, 20));
+        ammoList.add(new ItemToSpawn(ItemsZp._9mm, 32, 0.9f, 12));
+        ammoList.add(new ItemToSpawn(ItemsZp._7_62x25, 32, 0.9f, 12));
         ammoList.add(new ItemToSpawn(ItemsZp._5_7x28, 16, 0.9f, 10));
-        ammoList.add(new ItemToSpawn(ItemsZp._12, 6, 0.9f, 10));
-        ammoList.add(new ItemToSpawn(ItemsZp._22lr, 26, 0.9f, 16));
-        ammoList.add(new ItemToSpawn(Items.arrow, 26, 0.9f, 8));
+        ammoList.add(new ItemToSpawn(ItemsZp._12, 8, 0.9f, 10));
+        ammoList.add(new ItemToSpawn(ItemsZp._22lr, 32, 0.9f, 16));
+        ammoList.add(new ItemToSpawn(Items.arrow, 48, 0.9f, 8));
 
         // Ammo 2
 
@@ -61,6 +61,6 @@ public class LootTier1Ammo extends BlockLootCase {
     }
 
     public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_) {
-        return new TileLootCase(EnumLootGroups.Tier1Ammo, 1.0f, true, this.chestType);
+        return new TileLootCase(EnumLootGroups.Tier1Ammo, 0.8f, true, this.chestType);
     }
 }

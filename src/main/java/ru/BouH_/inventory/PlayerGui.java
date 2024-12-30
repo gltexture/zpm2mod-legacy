@@ -40,8 +40,9 @@ public class PlayerGui extends GuiInventory {
         }
     }
 
-    protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
-        super.drawGuiContainerBackgroundLayer(partialTicks, mouseX, mouseY);
+    public void drawScreen(int mouseX, int mouseY, float partialTicks)
+    {
+        super.drawScreen(mouseX, mouseY, partialTicks);
         int k = this.guiLeft;
         int l = this.guiTop;
         final int x = k + 85;
@@ -50,6 +51,7 @@ public class PlayerGui extends GuiInventory {
         this.selectedRecipes = mouseX >= x && mouseX <= x + 16 && mouseY >= y && mouseY <= y + 16;
         this.selectedSkills = mouseX >= x2 && mouseX <= x2 + 16 && mouseY >= y && mouseY <= y + 16;
         GL11.glPushMatrix();
+        GL11.glDisable(GL11.GL_LIGHTING);
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         this.mc.getTextureManager().bindTexture(this.selectedRecipes ? PlayerGui.t2 : PlayerGui.t1);
         RenderUtils.drawTexturedModalRectCustom(x, y, 16, 16, 100);
@@ -59,16 +61,20 @@ public class PlayerGui extends GuiInventory {
         GL11.glDisable(GL11.GL_DEPTH_TEST);
         if (this.selectedRecipes) {
             String s = I18n.format("recipes.zp.menuTitle");
-            this.fontRendererObj.drawStringWithShadow(s, mouseX, mouseY + 6, 0x00ff00);
+            this.fontRendererObj.drawStringWithShadow(s, mouseX, mouseY + 14, 0x00ff00);
         }
 
         if (this.selectedSkills) {
             String s = I18n.format("skill.zp.menuTitle");
-            this.fontRendererObj.drawStringWithShadow(s, mouseX, mouseY + 6, 0xff0000);
+            this.fontRendererObj.drawStringWithShadow(s, mouseX, mouseY + 14, 0xff0000);
         }
         GL11.glEnable(GL11.GL_DEPTH_TEST);
-
+        GL11.glEnable(GL11.GL_LIGHTING);
         GL11.glPopMatrix();
+    }
+
+    protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
+        super.drawGuiContainerBackgroundLayer(partialTicks, mouseX, mouseY);
         WorldClient worldClient = Minecraft.getMinecraft().theWorld;
         if (worldClient != null) {
             long wTime = worldClient.getWorldTime() + 6000L;

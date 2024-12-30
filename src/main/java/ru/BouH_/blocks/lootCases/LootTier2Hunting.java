@@ -59,7 +59,7 @@ public class LootTier2Hunting extends BlockLootCase {
 
         ammoList.add(new ItemToSpawn(ItemsZp._12, 7, 0.84f, 22));
         ammoList.add(new ItemToSpawn(ItemsZp._7_62x54R, 12, 0.86f, 20));
-        ammoList.add(new ItemToSpawn(ItemsZp._357m, 24, 0.88f, 22));
+        ammoList.add(new ItemToSpawn(ItemsZp._357m, 32, 0.88f, 22));
         ammoList.add(new ItemToSpawn(ItemsZp._308win, 8, 0.86f, 12));
         ammoList.add(new ItemToSpawn(ItemsZp._22lr, 32, 0.92F, 26));
         ammoList.add(new ItemToSpawn(ItemsZp._flare, 1, 4));
@@ -160,6 +160,6 @@ public class LootTier2Hunting extends BlockLootCase {
     }
 
     public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_) {
-        return new TileLootCase(EnumLootGroups.Tier2Hunting, 0.65f, true, this.chestType);
+        return new TileLootCase(EnumLootGroups.Tier2Hunting, 0.7f, true, this.chestType);
     }
 }

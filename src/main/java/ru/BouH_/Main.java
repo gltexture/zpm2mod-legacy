@@ -11,6 +11,7 @@ import cpw.mods.fml.relauncher.Side;
 import net.minecraft.client.Minecraft;
 import ru.BouH_.commands.*;
 import ru.BouH_.options.SettingsZp;
+import ru.BouH_.options.zm.SettingsZombieMiningZp;
 import ru.BouH_.proxy.CommonProxy;
 import ru.BouH_.weather.base.WeatherHandler;
 import ru.BouH_.weather.managers.WeatherFogManager;
@@ -31,6 +32,7 @@ public class Main implements Thread.UncaughtExceptionHandler {
     public static final String MODID = "zombieplague2";
     public static final String VERSION = "1.6.23";
     public static SettingsZp settingsZp;
+    public static SettingsZombieMiningZp settingsZombieMiningZp;
     public static ConfigZp configZp = new ConfigZp();
     @SidedProxy(clientSide = "ru.BouH_.proxy.ClientProxy", serverSide = "ru.BouH_.proxy.CommonProxy")
     public static CommonProxy proxy;
@@ -124,12 +126,16 @@ public class Main implements Thread.UncaughtExceptionHandler {
 
     @EventHandler
     public void postInit(FMLPostInitializationEvent event) throws InterruptedException {
-        synchronized (CommonProxy.MON) {
-            CommonProxy.MON.wait();
+        synchronized (CommonProxy.MONITOR) {
+            if (!CommonProxy.structuresLoaded) {
+                CommonProxy.MONITOR.wait();
+            }
         }
         if (FMLLaunchHandler.side().isClient()) {
             Main.settingsZp = new SettingsZp(Minecraft.getMinecraft().mcDataDir);
         }
+        Main.settingsZombieMiningZp = new SettingsZombieMiningZp(Minecraft.getMinecraft().mcDataDir);
+        Main.settingsZombieMiningZp.loadOptions();
         for (String text : nothingToSeeHere) {
             FMLLog.info(text);
         }

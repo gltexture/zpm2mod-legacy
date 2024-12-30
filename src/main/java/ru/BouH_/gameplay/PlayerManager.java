@@ -165,15 +165,17 @@ public class PlayerManager {
         thirst.onUpdate();
         hunger.onUpdate();
         playerMiscData.onUpdate();
-        hunger.addExhaustion(1.0e-6f);
-        thirst.addExhaustion(1.0e-6f);
+        hunger.addExhaustion(5.0e-7f);
+        thirst.addExhaustion(5.0e-7f);
 
         if (pl.isPotionActive(17)) {
             hunger.addExhaustion(2.5e-2f * (float) (pl.getActivePotionEffect(Potion.hunger).getAmplifier() + 1));
         }
+
         if (pl.isPotionActive(23)) {
             hunger.addHunger(pl.getActivePotionEffect(Potion.saturation).getAmplifier() + 1, 1.0F);
         }
+
         if (pl.isPotionActive(31)) {
             thirst.addExhaustion(2.5e-2f * (float) (pl.getActivePotionEffect(CommonProxy.dehydration).getAmplifier() + 1));
         }
@@ -184,7 +186,7 @@ public class PlayerManager {
         }
 
         if (MovingUtils.isSwimming(pl)) {
-            hunger.addExhaustion(4.0e-3f);
+            hunger.addExhaustion(2.0e-3f);
             thirst.addExhaustion(1.0e-3f);
         } else if (pl.isSprinting()) {
             hunger.addExhaustion(1.0e-3f);
@@ -221,8 +223,8 @@ public class PlayerManager {
                 if (!entityPlayer.capabilities.isCreativeMode) {
                     Hunger hunger = Hunger.getHunger(entityPlayer);
                     Thirst thirst = Thirst.getThirst(entityPlayer);
-                    hunger.addExhaustion(0.1f);
-                    thirst.addExhaustion(0.1f);
+                    hunger.addExhaustion(0.04f);
+                    thirst.addExhaustion(0.03f);
                 }
             }
         }

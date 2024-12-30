@@ -155,6 +155,6 @@ public class LootTier1Hunting extends BlockLootCase {
     }
 
     public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_) {
-        return new TileLootCase(EnumLootGroups.Tier1Hunting, 0.5f, true, this.chestType);
+        return new TileLootCase(EnumLootGroups.Tier1Hunting, 0.6f, true, this.chestType);
     }
 }

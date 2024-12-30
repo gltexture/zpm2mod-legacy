@@ -16,6 +16,7 @@ import ru.BouH_.entity.zombie.AZombieBase;
 import ru.BouH_.init.BlocksZp;
 import ru.BouH_.network.NetworkHandler;
 import ru.BouH_.network.packets.particles.ParticleZombieBlockCrack;
+import ru.BouH_.options.zm.SettingsZombieMiningZp;
 import ru.BouH_.utils.PluginUtils;
 
 import java.util.HashSet;
@@ -72,6 +73,11 @@ public class AIMining extends EntityAIBase {
 
     protected boolean canDig(World world, int x, int y, int z) {
         Block block = world.getBlock(x, y, z);
+        if (SettingsZombieMiningZp.minigMap.containsKey(block.getUnlocalizedName())) {
+            if (SettingsZombieMiningZp.minigMap.get(block.getUnlocalizedName()) < 0) {
+                return false;
+            }
+        }
         return block.getBlockHardness(world, x, y, z) >= 0 && !AIMining.globalBlocksBlackList.contains(block) && block.getBlockHardness(world, x, y, z) <= this.getMobStrength(block);
     }
 
@@ -208,6 +214,9 @@ public class AIMining extends EntityAIBase {
 
     protected int getBlockHardness(World world, int x, int y, int z) {
         Block block = world.getBlock(x, y, z);
+        if (SettingsZombieMiningZp.minigMap.containsKey(block.getUnlocalizedName())) {
+            return SettingsZombieMiningZp.minigMap.get(block.getUnlocalizedName());
+        }
         if (block == Blocks.wooden_door) {
             return 100;
         }

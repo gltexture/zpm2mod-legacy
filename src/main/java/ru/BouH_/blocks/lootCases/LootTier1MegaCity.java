@@ -31,8 +31,8 @@ public class LootTier1MegaCity extends BlockLootCase {
     private static final Set<ItemToSpawn> blockList = new HashSet<>();
 
     static {
-        lootManagerSet.add(new LootSpawnManager(LootTier1MegaCity.gunList, 1, 2));
-        lootManagerSet.add(new LootSpawnManager(LootTier1MegaCity.ammoList, 1, 2, 0.1f, 4));
+        lootManagerSet.add(new LootSpawnManager(LootTier1MegaCity.gunList, 1, 3));
+        lootManagerSet.add(new LootSpawnManager(LootTier1MegaCity.ammoList, 1, 2, 0.1f, 3));
         lootManagerSet.add(new LootSpawnManager(LootTier1MegaCity.medList, 1, 3));
         lootManagerSet.add(new LootSpawnManager(LootTier1MegaCity.specialList, 1, 6));
         lootManagerSet.add(new LootSpawnManager(LootTier1MegaCity.toolList, 1, 3, 0.03f, 16));

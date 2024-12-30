@@ -21,8 +21,8 @@ public class LootTier2Ammo extends BlockLootCase {
     private static final Set<ItemToSpawn> ammo2List = new HashSet<>();
 
     static {
-        lootManagerSet.add(new LootSpawnManager(LootTier2Ammo.ammoList, 3, 6, 0.8f, 65));
-        lootManagerSet.add(new LootSpawnManager(LootTier2Ammo.ammo2List, 2, 5, 0.6f, 35));
+        lootManagerSet.add(new LootSpawnManager(LootTier2Ammo.ammoList, 3, 6, 0.8f, 20));
+        lootManagerSet.add(new LootSpawnManager(LootTier2Ammo.ammo2List, 2, 4, 0.6f, 80));
     }
 
     static {
@@ -34,7 +34,7 @@ public class LootTier2Ammo extends BlockLootCase {
         ammoList.add(new ItemToSpawn(ItemsZp._9mm, 32, 0.9f, 12));
         ammoList.add(new ItemToSpawn(ItemsZp._7_62x25, 32, 0.9f, 12));
         ammoList.add(new ItemToSpawn(ItemsZp._5_7x28, 16, 0.9f, 10));
-        ammoList.add(new ItemToSpawn(ItemsZp._12, 8, 0.9f, 10));
+        ammoList.add(new ItemToSpawn(ItemsZp._12, 12, 0.9f, 10));
         ammoList.add(new ItemToSpawn(ItemsZp._22lr, 32, 0.9f, 16));
         ammoList.add(new ItemToSpawn(Items.arrow, 32, 0.9f, 7));
         ammoList.add(new ItemToSpawn(ItemsZp._flare, 1, 1));
@@ -44,9 +44,9 @@ public class LootTier2Ammo extends BlockLootCase {
         ammo2List.add(new ItemToSpawn(ItemsZp._5_45x39, 32, 0.9f, 18));
         ammo2List.add(new ItemToSpawn(ItemsZp._5_56x45, 32, 0.9f, 18));
         ammo2List.add(new ItemToSpawn(ItemsZp._7_62x39, 32, 0.9f, 18));
-        ammo2List.add(new ItemToSpawn(ItemsZp._7_62x54R, 16, 0.9f, 14));
-        ammo2List.add(new ItemToSpawn(ItemsZp._9x39, 16, 0.9f, 13));
-        ammo2List.add(new ItemToSpawn(ItemsZp._308win, 8, 0.9f, 8));
+        ammo2List.add(new ItemToSpawn(ItemsZp._7_62x54R, 24, 0.9f, 14));
+        ammo2List.add(new ItemToSpawn(ItemsZp._9x39, 24, 0.9f, 13));
+        ammo2List.add(new ItemToSpawn(ItemsZp._308win, 12, 0.9f, 8));
         ammo2List.add(new ItemToSpawn(ItemsZp._50bmg, 4, 0.9f, 5));
         ammo2List.add(new ItemToSpawn(ItemsZp._rocket, 1, 2));
         ammo2List.add(new ItemToSpawn(ItemsZp._grenade40mm, 1, 2));
@@ -67,6 +67,6 @@ public class LootTier2Ammo extends BlockLootCase {
     }
 
     public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_) {
-        return new TileLootCase(EnumLootGroups.Tier2Ammo, 1.0f, true, this.chestType);
+        return new TileLootCase(EnumLootGroups.Tier2Ammo, 0.8f, true, this.chestType);
     }
 }
