@@ -78,7 +78,7 @@ public abstract class AZombieBase extends EntityMob {
     protected abstract int minDayToSpawn();
 
     public boolean getCanSpawnHere() {
-        if (this.worldObj.difficultySetting == EnumDifficulty.PEACEFUL || (this.worldObj.getWorldInfo().getWorldTotalTime() / 24000.0f) < this.minDayToSpawn()) {
+        if (this.worldObj.difficultySetting == EnumDifficulty.PEACEFUL) {
             return false;
         }
         int i = MathHelper.floor_double(this.posX);
@@ -96,6 +96,9 @@ public abstract class AZombieBase extends EntityMob {
             return false;
         }
         if (!isInInd && !isInMil) {
+            if ((this.worldObj.getWorldInfo().getWorldTotalTime() / 24000.0f) < this.minDayToSpawn()) {
+                return false;
+            }
             if (Main.rand.nextFloat() > f1) {
                 return false;
             }
@@ -107,7 +110,7 @@ public abstract class AZombieBase extends EntityMob {
         }
         if (this.worldObj.checkNoEntityCollision(this.boundingBox) && this.worldObj.getCollidingBoundingBoxes(this, this.boundingBox).isEmpty()) {
             int l = this.worldObj.getSavedLightValue(EnumSkyBlock.Block, i, j, k);
-            float miscFloat = (this.worldObj.getBiomeGenForCoords(i, k) instanceof BiomeRad || isInInd) ? 5.0e-3f : isInMil ? 5.0e-2f : 5.0e-4f;
+            float miscFloat = (this.worldObj.getBiomeGenForCoords(i, k) instanceof BiomeRad || isInInd) ? 8.0e-3f : isInMil ? 8.0e-2f : 8.0e-4f;
             if (this.worldObj.getWorldInfo().getTerrainType() instanceof WorldTypeCrazyZp) {
                 miscFloat *= 0.5f;
             }
