@@ -23,6 +23,7 @@ import ru.BouH_.world.ore.DiamondGen;
 import ru.BouH_.world.ore.TitanGen;
 import ru.BouH_.world.ore.UranGen;
 
+import java.io.File;
 import java.util.Calendar;
 import java.util.Random;
 
@@ -30,7 +31,7 @@ import java.util.Random;
 public class Main implements Thread.UncaughtExceptionHandler {
     public static final String MODNAME = "Zombie Plague Mod 2";
     public static final String MODID = "zombieplague2";
-    public static final String VERSION = "1.6.23";
+    public static final String VERSION = "1.6.23_1";
     public static SettingsZp settingsZp;
     public static SettingsZombieMiningZp settingsZombieMiningZp;
     public static ConfigZp configZp = new ConfigZp();
@@ -134,7 +135,7 @@ public class Main implements Thread.UncaughtExceptionHandler {
         if (FMLLaunchHandler.side().isClient()) {
             Main.settingsZp = new SettingsZp(Minecraft.getMinecraft().mcDataDir);
         }
-        Main.settingsZombieMiningZp = new SettingsZombieMiningZp(Minecraft.getMinecraft().mcDataDir);
+        Main.settingsZombieMiningZp = new SettingsZombieMiningZp(FMLLaunchHandler.side().isClient() ? Minecraft.getMinecraft().mcDataDir : new File("config"));
         Main.settingsZombieMiningZp.loadOptions();
         for (String text : nothingToSeeHere) {
             FMLLog.info(text);
