@@ -193,7 +193,8 @@ public class LootTierXSafe extends BlockLootCase {
         // Specials
 
         specialList.add(new ItemToSpawn(ItemsZp.ammo_press, 0.1f, 1.0f, 0.9f, 5));
-        specialList.add(new ItemToSpawn(ItemsZp.repair, 0.1f, 1.0f, 0.9f, 15));
+        specialList.add(new ItemToSpawn(ItemsZp.repair, 0.1f, 1.0f, 0.9f, 14));
+        specialList.add(new ItemToSpawn(Items.ender_eye, 1, 1));
         specialList.add(new ItemToSpawn(ItemsZp.lubricant, 1, 15));
         specialList.add(new ItemToSpawn(Item.getItemFromBlock(BlocksZp.sandbag), 12, 0.8f, 5));
         specialList.add(new ItemToSpawn(Items.gunpowder, 5, 0.7f, 15));

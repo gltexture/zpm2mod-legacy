@@ -26,19 +26,26 @@ public class ConfigZp {
     public static boolean newStackSizes;
     public static boolean increasedBlockHardness;
     public static int cityBiomeSpawnWeights;
+    public static boolean acidWorksInPrivates;
+    public static boolean disabledWaterInfSources;
+
+    public static boolean disableMilitaryCities;
+    public static boolean disableIndustrialCities;
+    public static boolean disableCommonCities;
+    public static boolean openEnderChestsViaEye;
 
     public void register() {
         Configuration config = new Configuration(new File("config", "zpm2.cfg"));
         config.defaultEncoding = "UTF-8";
         config.load();
-        night7 = config.getBoolean("night7", "default", true, "7 Days To Die");
 
+        night7 = config.getBoolean("night7", "default", true, "7 Days To Die");
         forceZombieTrackingUpdate = config.getBoolean("forceZombieTrackingUpdate", "default", false, "Zombie tracking update. Bugfix");
         forcePlayerTrackingUpdate = config.getBoolean("forcePlayerTrackingUpdate", "default", false, "Player tracking update. Bugfix");
         enableKitStart = config.getBoolean("enableKitStart", "default", true, "Kit start");
         explosionDestruction = config.getBoolean("explosionDestruction", "default", true, "Explosion destruction");
         plagueZoneType = config.getInt("plagueZoneType", "default", 1, 0, 3, "Type of Plague Zone generation[0 = FLAT, 1 = DEFAULT, 2 = ZPW, 3 = ZPF]");
-        lootMultiplier = config.getFloat("lootMultiplier", "default", 1.0f, 0.0f, 100.0f, "Loot chance multiplier");
+        lootMultiplier = config.getFloat("lootMultiplier", "default", 1.0f, 0.0f, 100.0f, "Loot-luckiness chance multiplier");
         longDays = config.getBoolean("longDays", "default", true, "Longer Days");
         longNights = config.getBoolean("longNights", "default", true, "Longer Nights");
         isAirdropEnabled = config.getBoolean("isAirdropEnabled", "default", true, "Airdrops");
@@ -52,6 +59,13 @@ public class ConfigZp {
         increasedBlockHardness = config.getBoolean("increasedBlockHardness", "default", true, "Increased Block Hardness");
         newStackSizes = config.getBoolean("newStackSizes", "default", true, "New Stack Sizes");
         cityBiomeSpawnWeights = config.getInt("cityBiomeSpawnWeights", "default", 30, 1, 300, "Chance to spawn city in ZPW");
+        acidWorksInPrivates = config.getBoolean("acidWorksInPrivates", "default", true, "Acid bottles disabled/enabled in private zones(WG)");
+        disabledWaterInfSources = config.getBoolean("disabledWaterInfSources", "default", true, "Disable infinite water sources");
+
+        disableMilitaryCities = config.getBoolean("disableMilitaryCities", "default", false, "Disable Military Cities");
+        disableIndustrialCities = config.getBoolean("disableIndustrialCities", "default", false, "Disable Industrial Cities");
+        disableCommonCities = config.getBoolean("disableCommonCities", "default", false, "Disable Common Cities");
+        openEnderChestsViaEye = config.getBoolean("openEnderChestsViaEye", "default", true, "Open Ender Chests with ender-eye");
 
         config.save();
     }

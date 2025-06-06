@@ -1,11 +1,14 @@
 package ru.BouH_.blocks.gas;
 
+import cpw.mods.fml.relauncher.FMLLaunchHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -26,7 +29,7 @@ public abstract class BlockGasBase extends Block {
         return 2;
     }
 
-    public AxisAlignedBB getCollisionBoundingBoxFromPool(World p_149668_1_, int p_149668_2_, int p_149668_3_, int p_149668_4_) {
+    public AxisAlignedBB getCollisionBoundingBoxFromPool(World p_149668_1_, int x, int y, int z) {
         return null;
     }
 
@@ -56,6 +59,9 @@ public abstract class BlockGasBase extends Block {
     }
 
     public boolean canStopRayTrace(int p_149678_1_, boolean p_149678_2_) {
+        if (FMLLaunchHandler.side().isClient()) {
+            return Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode && (Minecraft.getMinecraft().thePlayer.getHeldItem() != null && Minecraft.getMinecraft().thePlayer.getHeldItem().getItem() instanceof ItemBlock && ((ItemBlock) Minecraft.getMinecraft().thePlayer.getHeldItem().getItem()).blockInstance instanceof BlockGasBase);
+        }
         return false;
     }
 }

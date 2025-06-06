@@ -54,7 +54,7 @@ public class ClientHandler {
         if (player != null && !mc.isGamePaused()) {
             if (ev.phase == TickEvent.Phase.START) {
                 float f2 = 0.0f;
-                if (!player.worldObj.isDaytime() && AmbientSounds.instance.canPlayerHearAmbient) {
+                if (!AmbientSounds.isClientDayTime(player.worldObj) && AmbientSounds.instance.canPlayerHearAmbient) {
                     int curr = (int) player.worldObj.getWorldTime() % 24000;
                     int i1 = WorldManager.instance.getMidNightTime(player.worldObj);
                     f2 = MathHelper.clamp_float(1.0f - Math.abs(curr - i1) / 4500.0f, 0.0f, 0.7f);

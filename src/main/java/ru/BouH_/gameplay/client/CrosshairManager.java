@@ -100,7 +100,7 @@ public class CrosshairManager {
                         }
                         inaccuracy = (float) Math.max(inaccuracyStatic * aGunBase.inaccuracyModifier(entityPlayerSP, stack, GunItemRender.instance.isInScope()), 0);
                         if (entityPlayerSP.getEntityData().getInteger("cdShoot") > 0) {
-                            inaccuracy += Math.max(aGunBase.getRecoilVertical(), aGunBase.getRecoilHorizontal()) * Main.settingsZp.dynamicStr.getValue();
+                            inaccuracy += (float) (Math.max(aGunBase.getRecoilVertical(), aGunBase.getRecoilHorizontal()) * Main.settingsZp.dynamicStr.getValue());
                         }
                         if (!aGunBase.canActivateCross(stack, entityPlayerSP)) {
                             inaccuracy = 0;
@@ -132,7 +132,7 @@ public class CrosshairManager {
                         }
                         GL11.glPushMatrix();
                         GL11.glTranslatef(-inaccuracyConst, 0, 0);
-                        x = (float) (scaledWidth / 2 - l) - d;
+                        x = (float) ((double) scaledWidth / 2 - l) - d;
                         y = (float) (scaledHeight / 2);
                         this.drawCross(x, y, x + 3 + (l - 3), y + 1);
                         GL11.glPopMatrix();
@@ -147,7 +147,7 @@ public class CrosshairManager {
                         GL11.glPushMatrix();
                         GL11.glTranslatef(0, -inaccuracyConst, 0);
                         x = (float) (scaledWidth / 2);
-                        y = (float) (scaledHeight / 2 - l) - d;
+                        y = (float) ((double) scaledHeight / 2 - l) - d;
                         this.drawCross(x, y, x + 1, y + 3 + (l - 3));
                         GL11.glPopMatrix();
 

@@ -12,6 +12,7 @@ import net.minecraft.entity.monster.EntityEnderman;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
+import ru.BouH_.ConfigZp;
 import ru.BouH_.Main;
 import ru.BouH_.entity.particle.EntityParticleColoredCloud;
 import ru.BouH_.entity.zombie.AZombieBase;
@@ -73,8 +74,10 @@ public class EntityAcid extends EntityThrowableZPBase {
                     if (!this.worldObj.isRemote) {
                         entity.attackEntityFrom(DamageSource.causeThrownDamage(this, this.getThrower() == null ? this : this.getThrower()), 1);
                         this.worldObj.playSoundAtEntity(this, "dig.glass", 1F, 0.8F);
-                        entity.getEntityData().setInteger("acid", entity.getEntityData().getInteger("acid") + 50 + Main.rand.nextInt(26));
-                        NetworkHandler.NETWORK.sendToAllAround(new PacketAcid(entity.getEntityId()), new NetworkRegistry.TargetPoint(entity.dimension, this.posX, this.posY, this.posZ, 256));
+                        if (ConfigZp.acidWorksInPrivates && !PluginUtils.isInPrivate(this)) {
+                            entity.getEntityData().setInteger("acid", entity.getEntityData().getInteger("acid") + 50 + Main.rand.nextInt(26));
+                            NetworkHandler.NETWORK.sendToAllAround(new PacketAcid(entity.getEntityId()), new NetworkRegistry.TargetPoint(entity.dimension, this.posX, this.posY, this.posZ, 256));
+                        }
                         if (!(entity instanceof EntityEnderman)) {
                             this.setDead();
                         }

@@ -494,7 +494,9 @@ public class PlayerManager {
             if (ev.world.getBlock(ev.x, ev.y, ev.z) == Blocks.ender_chest) {
                 if (!ev.world.isRemote) {
                     ev.world.playSoundAtEntity(ev.entityPlayer, "mob.endermen.portal", 5.0F, 0.8F + Main.rand.nextFloat() * 0.2f);
-                    ev.useBlock = Event.Result.DENY;
+                    if (stack == null || stack.getItem() != Items.ender_eye) {
+                        ev.useBlock = Event.Result.DENY;
+                    }
                 }
             }
             if (!ev.world.isRemote) {
@@ -518,7 +520,7 @@ public class PlayerManager {
                             ChatComponentTranslation chatComponentTranslation = new ChatComponentTranslation("misc.cantSleep.dimension");
                             ev.entityPlayer.addChatMessage(chatComponentTranslation);
                             ev.useBlock = Event.Result.DENY;
-                        } else if (ev.world.isDaytime()) {
+                        } else if (ev.world.provider.isDaytime()) {
                             ChatComponentTranslation chatComponentTranslation = new ChatComponentTranslation("tile.bed.noSleep");
                             ev.entityPlayer.addChatMessage(chatComponentTranslation);
                             ev.useBlock = Event.Result.DENY;

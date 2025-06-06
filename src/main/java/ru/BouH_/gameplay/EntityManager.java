@@ -12,6 +12,7 @@ import net.minecraft.client.particle.EntityBubbleFX;
 import net.minecraft.client.particle.EntityExplodeFX;
 import net.minecraft.command.IEntitySelector;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAvoidEntity;
@@ -66,6 +67,7 @@ import ru.BouH_.items.gun.crossbow.ItemCrossbow;
 import ru.BouH_.items.melee.ItemBloodsucker;
 import ru.BouH_.items.melee.ItemSpear;
 import ru.BouH_.misc.DamageSourceZp;
+import ru.BouH_.misc.ZpTeleport;
 import ru.BouH_.network.NetworkHandler;
 import ru.BouH_.network.packets.misc.PacketNausea;
 import ru.BouH_.network.packets.misc.PacketPain;
@@ -171,6 +173,16 @@ public class EntityManager {
                                     }
                                 }
                             }
+                        }
+
+                        if (EntityUtils.isInBlock(pl, FluidsZp.portalZp)) {
+                            if (!entityPlayerMP.getEntityData().getBoolean("wasInPortal")) {
+                                int dim = entityPlayerMP.dimension == 0 ? 2 : 0;
+                                MinecraftServer.getServer().getConfigurationManager().transferPlayerToDimension(entityPlayerMP, dim, new ZpTeleport(DimensionManager.getWorld(dim)));
+                                entityPlayerMP.getEntityData().setBoolean("wasInPortal", true);
+                            }
+                        } else {
+                            entityPlayerMP.getEntityData().setBoolean("wasInPortal", false);
                         }
                     }
                     if (!pl.capabilities.isCreativeMode) {
@@ -330,6 +342,15 @@ public class EntityManager {
                     }
                 }
             }
+            if (!(ent instanceof EntityPlayer)) {
+                boolean zm = (ent instanceof AZombieBase) && ent.worldObj.getBiomeGenForCoords(x, z) == CommonProxy.biome_antiZm || EntityUtils.isInBlock(ent, BlocksZp.barrier);
+                boolean oth = (ent instanceof EntityLiving) && EntityUtils.isInBlock(ent, BlocksZp.living_barrier);
+                if (zm || oth) {
+                    ent.worldObj.playSoundAtEntity(ent, "random.fizz", 1F, 0.8F);
+                    NetworkHandler.NETWORK.sendToAllAround(new ParticleCloud(ent.posX, ent.posY + 0.5f, ent.posZ, Main.rand.nextGaussian() * 0.05D, Main.rand.nextGaussian() * 0.05D + 0.1f, Main.rand.nextGaussian() * 0.05D, 0.8f, 1.0f, 1.0f, 1.2f - Main.rand.nextFloat() * 0.4f, 24), new NetworkRegistry.TargetPoint(ent.worldObj.getWorldInfo().getDimension(), ent.posX, ent.posY, ent.posZ, 256));
+                    ent.setDead();
+                }
+            }
             if (ent instanceof AZombieBase) {
                 if (!ent.worldObj.isRemote) {
                     AZombieBase aZombieBase = (AZombieBase) ent;
@@ -337,11 +358,6 @@ public class EntityManager {
                         aZombieBase.setModifierId(1);
                     } else if (ent.getEntityData().getInteger("radiation") > 360) {
                         aZombieBase.setModifierId(2);
-                    }
-                    if (ent.worldObj.getBiomeGenForCoords(x, z) == CommonProxy.biome_antiZm || EntityUtils.isInBlock(ent, BlocksZp.barrier)) {
-                        ent.worldObj.playSoundAtEntity(ent, "random.fizz", 1F, 0.8F);
-                        NetworkHandler.NETWORK.sendToAllAround(new ParticleCloud(ent.posX, ent.posY + 0.5f, ent.posZ, Main.rand.nextGaussian() * 0.05D, Main.rand.nextGaussian() * 0.05D + 0.1f, Main.rand.nextGaussian() * 0.05D, 0.8f, 1.0f, 1.0f, 1.2f - Main.rand.nextFloat() * 0.4f, 24), new NetworkRegistry.TargetPoint(ent.worldObj.getWorldInfo().getDimension(), ent.posX, ent.posY, ent.posZ, 256));
-                        ent.setDead();
                     }
                 }
             } else {
@@ -816,8 +832,10 @@ public class EntityManager {
         }
         if (ev.entity instanceof EntityPlayer) {
             EntityPlayer pl = (EntityPlayer) ev.entity;
-            pl.inventoryContainer = new ContainerPlayerNew(pl.inventory, !pl.worldObj.isRemote, pl);
-            pl.openContainer = pl.inventoryContainer;
+            if (!(pl.inventoryContainer instanceof ContainerPlayerNew)) {
+                pl.inventoryContainer = new ContainerPlayerNew(pl.inventory, !pl.worldObj.isRemote, pl);
+                pl.openContainer = pl.inventoryContainer;
+            }
             if (pl.isEntityAlive()) {
                 if (pl.worldObj.isRemote) {
                     if (pl instanceof EntityPlayerSP) {
@@ -848,7 +866,7 @@ public class EntityManager {
                         }
                     }
                     if (pl.getMaxHealth() != 100) {
-                        if (!pl.worldObj.isDaytime() && pl.getBedLocation(0) == null) {
+                        if (!pl.worldObj.provider.isDaytime() && pl.getBedLocation(0) == null) {
                             PotionEffect potionEffect = new PotionEffect(25, 1200);
                             pl.addPotionEffect(potionEffect);
                         }
@@ -1133,10 +1151,10 @@ public class EntityManager {
                     NetworkHandler.NETWORK.sendTo(new PacketPain(ev.ammount * 0.01f, ev.source.getSourceOfDamage() != null), (EntityPlayerMP) pl);
                 }
 
-                if (!pl.isPotionActive(30)) {
+                if (!PluginUtils.isInPrivate(pl) && !pl.isPotionActive(30)) {
                     if (!pl.isPotionActive(27) && pl.isPotionActive(32)) {
-                        if (ev.ammount >= 30 || ev.source == DamageSource.fall) {
-                            pl.addPotionEffect(new PotionEffect(27, (int) (7200 + pl.fallDistance * 600), 1));
+                        if (ev.ammount >= 36 || ev.source == DamageSource.fall) {
+                            pl.addPotionEffect(new PotionEffect(27, (int) (6000 + pl.fallDistance * 600), 1));
                             pl.removePotionEffect(32);
                             pl.worldObj.playSoundAtEntity(pl, Main.MODID + ":bone", 3.0F, 0.8F);
                         }
@@ -1184,11 +1202,11 @@ public class EntityManager {
                         pl.addPotionEffect(new PotionEffect(9, 1200, ev.ammount >= 75 ? 1 : 0));
                     }
                 }
-                double bleedingChance = Math.max(0.01f * ev.ammount - (0.01f * pl.getTotalArmorValue()), 0.01f);
-                if (pl.isPotionActive(28)) {
-                    bleedingChance += (pl.getActivePotionEffect(CommonProxy.bleeding).getAmplifier() + 1) * 0.1f;
-                }
                 if (ev.source.getEntity() == null || PluginUtils.canDamage(ev.source.getEntity(), ev.entityLiving)) {
+                    double bleedingChance = Math.max(0.01f * ev.ammount - (0.01f * pl.getTotalArmorValue()), 0.01f);
+                    if (pl.isPotionActive(28)) {
+                        bleedingChance += (pl.getActivePotionEffect(CommonProxy.bleeding).getAmplifier() + 1) * 0.1f;
+                    }
                     if (ev.source != DamageSource.fall && ev.source != DamageSource.generic && !ev.source.isMagicDamage() && ev.source != DamageSource.starve && ev.source != DamageSource.drown && ev.ammount >= 5.0f && (Main.rand.nextFloat() <= bleedingChance || bleedingChance >= 0.5f)) {
                         if (ev.source.getEntity() instanceof EntityPlayer) {
                             EntityPlayer entityPlayer = (EntityPlayer) ev.source.getEntity();

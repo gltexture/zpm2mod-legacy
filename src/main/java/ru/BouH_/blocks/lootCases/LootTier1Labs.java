@@ -104,7 +104,8 @@ public class LootTier1Labs extends BlockLootCase {
 
         specialList.add(new ItemToSpawn(Item.getItemFromBlock(BlocksZp.uranium), 2, 0.1f, 4));
         specialList.add(new ItemToSpawn(Items.gunpowder, 12, 0.7f, 6));
-        specialList.add(new ItemToSpawn(ItemsZp.toxicwater_bucket, 1, 10));
+        specialList.add(new ItemToSpawn(ItemsZp.toxicwater_bucket, 1, 6));
+        specialList.add(new ItemToSpawn(Items.ender_pearl, 1, 4));
         specialList.add(new ItemToSpawn(ItemsZp.acid_bucket, 1, 4));
         specialList.add(new ItemToSpawn(ItemsZp.chemicals2, 1.0f, 1.0f, 1.0f, 4));
         specialList.add(new ItemToSpawn(ItemsZp.chemicals1_a, 1, 8));

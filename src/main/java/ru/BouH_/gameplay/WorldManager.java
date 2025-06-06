@@ -230,7 +230,7 @@ public class WorldManager {
 
     public static boolean is7Night(World world) {
         int day1 = (int) (world.getTotalWorldTime() / 24000);
-        return ConfigZp.night7 && ((day1 > 0 && day1 % 7 == 0) || world.getWorldInfo().getTerrainType() instanceof WorldTypeHardcoreZp) && !world.isDaytime();
+        return ConfigZp.night7 && ((day1 > 0 && day1 % 7 == 0) || world.getWorldInfo().getTerrainType() instanceof WorldTypeHardcoreZp) && !world.provider.isDaytime();
     }
 
     public int getMidNightTime(World world) {
@@ -247,7 +247,7 @@ public class WorldManager {
     }
 
     private void slowDownTime(World world) {
-        if (!(world.getWorldInfo().getTerrainType() instanceof WorldTypeHardcoreZp) && ((ConfigZp.longDays && world.isDaytime()) || (ConfigZp.longNights && !world.isDaytime()))) {
+        if (!(world.getWorldInfo().getTerrainType() instanceof WorldTypeHardcoreZp) && ((ConfigZp.longDays && world.provider.isDaytime()) || (ConfigZp.longNights && !world.provider.isDaytime()))) {
             world.setWorldTime(world.getWorldTime() - 1);
             world.getWorldInfo().incrementTotalWorldTime(world.getTotalWorldTime() - 1);
         }

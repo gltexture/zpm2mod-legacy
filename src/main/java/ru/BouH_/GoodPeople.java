@@ -16,8 +16,12 @@ public class GoodPeople {
         GoodPeople.coolMans.add("DJKirs");
         GoodPeople.coolMans.add("LegendKOT");
         GoodPeople.coolMans.add("NeonStar");
+        GoodPeople.coolMans.add("Limos");
         GoodPeople.coolMans.add("SallyFace");
         GoodPeople.coolMans.add("MilaIIIka");
         GoodPeople.coolMans.add("JustKi11er");
+        GoodPeople.coolMans.add("Sareth");
+        GoodPeople.coolMans.add("AstroMaster");
+        GoodPeople.coolMans.add("Aggressive Metal");
     }
 }

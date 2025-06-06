@@ -47,28 +47,21 @@ public class ItemTransmitter extends Item {
     }
 
     public ItemStack onItemUseFinish(ItemStack stack, World world, EntityPlayer player) {
-        int dimension = -99;
-        if (player.dimension == 0) {
-            dimension = 2;
-        } else if (player.dimension == 2) {
-            dimension = 0;
-        }
-        if (dimension != -99) {
-            if (!world.isRemote) {
-                int x = MathHelper.floor_double(player.posX);
-                int y = (int) player.posY;
-                int z = MathHelper.floor_double(player.posZ);
-                if (!world.canBlockSeeTheSky(x, y, z)) {
-                    ChatComponentTranslation chatComponentTranslation = new ChatComponentTranslation("misc.travel.error.sky");
-                    chatComponentTranslation.getChatStyle().setColor(EnumChatFormatting.RED);
-                    player.addChatComponentMessage(chatComponentTranslation);
-                } else {
-                    player.getEntityData().setLong("transmitterTime", world.getTotalWorldTime());
-                    MinecraftServer.getServer().getConfigurationManager().transferPlayerToDimension((EntityPlayerMP) player, dimension, new EmptyTeleport(DimensionManager.getWorld(dimension)));
-                    stack.damageItem(1, player);
-                    if (stack.stackSize == 0) {
-                        return null;
-                    }
+        int dimension = player.dimension == 0 ? 2 : 0;
+        if (!world.isRemote) {
+            int x = MathHelper.floor_double(player.posX);
+            int y = (int) player.posY;
+            int z = MathHelper.floor_double(player.posZ);
+            if (!world.canBlockSeeTheSky(x, y, z)) {
+                ChatComponentTranslation chatComponentTranslation = new ChatComponentTranslation("misc.travel.error.sky");
+                chatComponentTranslation.getChatStyle().setColor(EnumChatFormatting.RED);
+                player.addChatComponentMessage(chatComponentTranslation);
+            } else {
+                player.getEntityData().setLong("transmitterTime", world.getTotalWorldTime());
+                MinecraftServer.getServer().getConfigurationManager().transferPlayerToDimension((EntityPlayerMP) player, dimension, new EmptyTeleport(DimensionManager.getWorld(dimension)));
+                stack.damageItem(1, player);
+                if (stack.stackSize == 0) {
+                    return null;
                 }
             }
         }

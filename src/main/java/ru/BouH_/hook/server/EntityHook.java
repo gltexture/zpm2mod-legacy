@@ -19,9 +19,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.scoreboard.IScoreObjectiveCriteria;
 import net.minecraft.scoreboard.Score;
 import net.minecraft.scoreboard.ScoreObjective;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.stats.StatList;
 import net.minecraft.util.*;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.ForgeHooks;
 import ru.BouH_.Main;
 import ru.BouH_.blocks.BlockTorchBase;
@@ -107,6 +109,149 @@ public class EntityHook {
         }
     }
 
+    @Hook(returnCondition = ReturnCondition.ALWAYS)
+    public static void onEntityUpdate(Entity entity)
+    {
+        entity.worldObj.theProfiler.startSection("entityBaseTick");
+
+        if (entity.ridingEntity != null && entity.ridingEntity.isDead)
+        {
+            entity.ridingEntity = null;
+        }
+
+        entity.prevDistanceWalkedModified = entity.distanceWalkedModified;
+        entity.prevPosX = entity.posX;
+        entity.prevPosY = entity.posY;
+        entity.prevPosZ = entity.posZ;
+        entity.prevRotationPitch = entity.rotationPitch;
+        entity.prevRotationYaw = entity.rotationYaw;
+        int i;
+
+        if (!entity.worldObj.isRemote && entity.worldObj instanceof WorldServer)
+        {
+            entity.worldObj.theProfiler.startSection("portal");
+            MinecraftServer minecraftserver = ((WorldServer)entity.worldObj).func_73046_m();
+            i = entity.getMaxInPortalTime();
+
+            if (entity.inPortal)
+            {
+                if (minecraftserver.getAllowNether())
+                {
+                    if (entity.ridingEntity == null && entity.portalCounter++ >= i)
+                    {
+                        entity.portalCounter = i;
+                        entity.timeUntilPortal = entity.getPortalCooldown();
+                        byte b0;
+
+                        if (entity.worldObj.provider.dimensionId == -1)
+                        {
+                            b0 = 0;
+                        }
+                        else
+                        {
+                            b0 = -1;
+                        }
+
+                        entity.travelToDimension(b0);
+                    }
+
+                    entity.inPortal = false;
+                }
+            }
+            else
+            {
+                if (entity.portalCounter > 0)
+                {
+                    entity.portalCounter -= 4;
+                }
+
+                if (entity.portalCounter < 0)
+                {
+                    entity.portalCounter = 0;
+                }
+            }
+
+            if (entity.timeUntilPortal > 0)
+            {
+                --entity.timeUntilPortal;
+            }
+
+            entity.worldObj.theProfiler.endSection();
+        }
+
+        if (entity.isSprinting() && !entity.isInWater())
+        {
+            int j = MathHelper.floor_double(entity.posX);
+            i = MathHelper.floor_double(entity.posY - 0.20000000298023224D - (double)entity.yOffset);
+            int k = MathHelper.floor_double(entity.posZ);
+            Block block = entity.worldObj.getBlock(j, i, k);
+
+            if (validate(block))
+            {
+                entity.worldObj.spawnParticle("blockcrack_" + Block.getIdFromBlock(block) + "_" + entity.worldObj.getBlockMetadata(j, i, k), entity.posX + ((double)entity.rand.nextFloat() - 0.5D) * (double)entity.width, entity.boundingBox.minY + 0.1D, entity.posZ + ((double)entity.rand.nextFloat() - 0.5D) * (double)entity.width, -entity.motionX * 4.0D, 1.5D, -entity.motionZ * 4.0D);
+            }
+        }
+
+        entity.handleWaterMovement();
+
+        if (entity.worldObj.isRemote)
+        {
+            entity.fire = 0;
+        }
+        else if (entity.fire > 0)
+        {
+            if (entity.isImmuneToFire)
+            {
+                entity.fire -= 4;
+
+                if (entity.fire < 0)
+                {
+                    entity.fire = 0;
+                }
+            }
+            else
+            {
+                if (entity.fire % 20 == 0)
+                {
+                    entity.attackEntityFrom(DamageSource.onFire, 1.0F);
+                }
+
+                --entity.fire;
+            }
+        }
+
+        if (entity.handleLavaMovement())
+        {
+            if (!entity.isImmuneToFire)
+            {
+                entity.attackEntityFrom(DamageSource.lava, 4.0F);
+                entity.setFire(15);
+            }
+            entity.fallDistance *= 0.5F;
+        }
+
+        if (entity.posY < -64.0D)
+        {
+            entity.setDead();
+        }
+
+        if (!entity.worldObj.isRemote)
+        {
+            byte b0 = entity.dataWatcher.getWatchableObjectByte(0);
+            if (entity.fire > 0)
+            {
+                entity.dataWatcher.updateObject(0, (byte) (b0 | 1));
+            }
+            else
+            {
+                entity.dataWatcher.updateObject(0, (byte) (b0 & ~(1)));
+            }
+        }
+
+        entity.firstUpdate = false;
+        entity.worldObj.theProfiler.endSection();
+    }
+    
     @Hook(returnCondition = ReturnCondition.ALWAYS, createMethod = true)
     public static void moveEntity(EntityPlayer entity, double x, double y, double z) {
         if (entity.noClip) {
@@ -360,10 +505,10 @@ public class EntityHook {
                         Block block2 = entity.worldObj.getBlock(MathHelper.floor_double(entity.boundingBox.minX), k, MathHelper.floor_double(entity.boundingBox.maxZ));
                         Block block3 = entity.worldObj.getBlock(MathHelper.floor_double(entity.boundingBox.maxX), k, MathHelper.floor_double(entity.boundingBox.minZ));
                         Block block4 = entity.worldObj.getBlock(MathHelper.floor_double(entity.boundingBox.maxX), k, MathHelper.floor_double(entity.boundingBox.maxZ));
-                        if (block.getMaterial() != Material.air) {
+                        if (validate(block)) {
                             EntityHook.playStepSound(entity, j1, k, l, block);
                         } else {
-                            Block valid = block1.getMaterial() != Material.air ? block1 : block2.getMaterial() != Material.air ? block2 : block3.getMaterial() != Material.air ? block3 : block4.getMaterial() != Material.air ? block4 : null;
+                            Block valid = validate(block1) ? block1 : validate(block2) ? block2 : validate(block3) ? block3 : validate(block4) ? block4 : null;
                             if (valid != null) {
                                 EntityHook.playStepSound(entity, j1, k, l, valid);
                             }
@@ -407,6 +552,10 @@ public class EntityHook {
 
             entity.worldObj.theProfiler.endSection();
         }
+    }
+
+    private static boolean validate(Block block) {
+        return block.getMaterial() != Material.air && block.getMaterial() != Material.portal;
     }
 
     public static void playStepSound(EntityLivingBase entityLivingBase, int x, int y, int z, Block blockIn) {

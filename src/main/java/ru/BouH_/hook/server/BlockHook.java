@@ -30,6 +30,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.*;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.util.ForgeDirection;
+import ru.BouH_.ConfigZp;
 import ru.BouH_.Main;
 import ru.BouH_.achievements.AchievementManager;
 import ru.BouH_.blocks.BlockLayer;
@@ -456,8 +457,12 @@ public class BlockHook {
         return Main.rand.nextFloat() <= 0.7f;
     }
 
-    @Hook(returnCondition = ReturnCondition.ALWAYS)
-    public static void updateTick(BlockDynamicLiquid blockDynamicLiquid, World worldIn, int x, int y, int z, Random random) {
+    @Hook(returnCondition = ReturnCondition.ON_TRUE)
+    public static boolean updateTick(BlockDynamicLiquid blockDynamicLiquid, World worldIn, int x, int y, int z, Random random) {
+        if (!ConfigZp.disabledWaterInfSources) {
+            return false;
+        }
+
         int l = BlockHook.func_149804_e(blockDynamicLiquid, worldIn, x, y, z);
         byte b0 = 1;
 
@@ -527,7 +532,7 @@ public class BlockHook {
             if (blockDynamicLiquid.getMaterial() == Material.lava && worldIn.getBlock(x, y - 1, z).getMaterial() == Material.water) {
                 worldIn.setBlock(x, y - 1, z, Blocks.stone);
                 BlockHook.func_149799_m(worldIn, x, y - 1, z);
-                return;
+                return true;
             }
 
             if (l >= 8) {
@@ -544,7 +549,7 @@ public class BlockHook {
             }
 
             if (j1 >= 8) {
-                return;
+                return true;
             }
 
             if (aboolean[0]) {
@@ -563,6 +568,8 @@ public class BlockHook {
                 blockDynamicLiquid.func_149813_h(worldIn, x, y, z + 1, j1);
             }
         }
+
+        return true;
     }
 
     public static int func_149804_e(BlockDynamicLiquid blockDynamicLiquid, World p_149804_1_, int p_149804_2_, int p_149804_3_, int p_149804_4_) {

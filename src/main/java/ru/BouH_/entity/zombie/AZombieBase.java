@@ -103,7 +103,7 @@ public abstract class AZombieBase extends EntityMob {
                 return false;
             }
             if (this.worldObj.difficultySetting != EnumDifficulty.HARD) {
-                if (this.worldObj.isDaytime()) {
+                if (this.worldObj.provider.isDaytime()) {
                     f1 *= 0.5f;
                 }
             }

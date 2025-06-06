@@ -3,8 +3,6 @@ package ru.BouH_.init;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
-import net.minecraft.init.Blocks;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.potion.PotionEffect;
 import ru.BouH_.Main;
@@ -74,6 +72,8 @@ public class BlocksZp {
     public static Block virus;
     public static Block hunger;
     public static Block barrier;
+    public static Block living_barrier;
+    public static Block movement_barrier;
     public static Block fireStone;
     //FUN
     public static Block c300Block;
@@ -176,9 +176,17 @@ public class BlocksZp {
         hunger.setCreativeTab(ItemsZp.admin_blocks);
         hunger.setUnlocalizedName("hunger");
 
-        barrier = new BlockBarrier();
+        barrier = new BlockZombieBarrier();
         barrier.setCreativeTab(ItemsZp.admin_blocks);
         barrier.setUnlocalizedName("barrier");
+
+        living_barrier = new BlockLivingBarrier();
+        living_barrier.setCreativeTab(ItemsZp.admin_blocks);
+        living_barrier.setUnlocalizedName("living_barrier");
+
+        movement_barrier = new BlockMovementBarrier();
+        movement_barrier.setCreativeTab(ItemsZp.admin_blocks);
+        movement_barrier.setUnlocalizedName("movement_barrier");
 
         scrap = new BlockScrap();
         scrap.setCreativeTab(ItemsZp.blocks);
@@ -503,6 +511,8 @@ public class BlocksZp {
         registerBlock(virus);
         registerBlock(hunger);
         registerBlock(barrier);
+        registerBlock(living_barrier);
+        registerBlock(movement_barrier);
 
         //FUN
         registerBlock(pancirBlock);

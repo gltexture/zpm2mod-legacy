@@ -9,6 +9,7 @@ import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraftforge.common.DimensionManager;
 import ru.BouH_.Main;
 import ru.BouH_.blocks.BlockArmorGlass;
 import ru.BouH_.gameplay.WorldManager;
@@ -103,6 +104,10 @@ public final class AmbientSounds {
         }
     }
 
+    public static boolean isClientDayTime(World world) {
+        return (Minecraft.getMinecraft().theWorld.provider.dimensionId == 2) != Minecraft.getMinecraft().theWorld.isDaytime();
+    }
+
     public void updateSounds() {
         Minecraft mc = Minecraft.getMinecraft();
         EntityPlayerSP player = mc.thePlayer;
@@ -155,7 +160,7 @@ public final class AmbientSounds {
                             this.smoothPlay = false;
                             this.setNewAmbient(this.water);
                         } else {
-                            boolean isDay = player.worldObj.isDaytime();
+                            boolean isDay = isClientDayTime(player.worldObj);
                             boolean isOppression = !isDay;
                             if (this.canHearRain) {
                                 float f1 = Math.max(WeatherHandler.instance.getWeatherRain().currentRainStrength + 0.3f, 0.75f);

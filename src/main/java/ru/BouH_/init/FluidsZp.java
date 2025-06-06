@@ -10,6 +10,7 @@ import ru.BouH_.blocks.fluids.BlockAcid;
 import ru.BouH_.blocks.fluids.BlockLavaZp;
 import ru.BouH_.blocks.fluids.BlockToxicwater;
 import ru.BouH_.blocks.fluids.BlockZPPortal;
+import ru.BouH_.misc.MaterialZp;
 
 public class FluidsZp {
     public static Block lava_new;
@@ -20,7 +21,7 @@ public class FluidsZp {
     public static Fluid newLava = new Fluid("newLava").setLuminosity(15).setDensity(3000).setViscosity(6000).setTemperature(1300);
     public static Fluid acid = new Fluid("acid").setViscosity(1000).setDensity(1000);
     public static Fluid toxicwater = new Fluid("toxicWater").setViscosity(1000).setDensity(1000).setTemperature(600);
-    public static Fluid portal = new Fluid("portalWater").setViscosity(1000).setDensity(1000).setTemperature(600);
+    public static Fluid portal = new Fluid("portal").setLuminosity(8).setViscosity(1000).setDensity(1000);
 
     public static void init() {
         FluidRegistry.registerFluid(newLava);
@@ -43,8 +44,8 @@ public class FluidsZp {
         toxicwater_block.setHardness(100.0f);
         toxicwater_block.setUnlocalizedName("toxicWater_block");
 
-        portalZp = new BlockZPPortal(portal, Material.water);
-        portalZp.setCreativeTab(ItemsZp.blocks);
+        portalZp = new BlockZPPortal(portal, MaterialZp.stakes);
+        portalZp.setCreativeTab(ItemsZp.admin_blocks);
         portalZp.setHardness(1000.0f);
         portalZp.setUnlocalizedName("portalZp");
     }
