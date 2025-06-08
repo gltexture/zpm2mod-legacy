@@ -35,7 +35,7 @@ public class BlockAcid extends BlockFluidClassic {
         super.onNeighborBlockChange(p_149695_1_, p_149695_2_, p_149695_3_, p_149695_4_, p_149695_5_);
         if (p_149695_1_.getBlock(p_149695_2_, p_149695_3_ + 1, p_149695_4_) instanceof BlockLilyPad) {
             p_149695_1_.playSoundEffect(p_149695_2_ + 0.5f, p_149695_3_ + 1, p_149695_4_ + 0.5f, "random.fizz", 1.0F, 2.6F + (Main.rand.nextFloat() - Main.rand.nextFloat()) * 0.8F);
-            NetworkHandler.NETWORK.sendToAllAround(new ParticleCloud(p_149695_2_ + 0.5f, p_149695_3_ + 1, p_149695_4_ + 0.5f, 0, 0.1f, 0, 0.85f, 1.0f, 0.85f, 1, 12), new NetworkRegistry.TargetPoint(p_149695_1_.getWorldInfo().getDimension(), p_149695_2_, p_149695_3_, p_149695_4_, 256));
+            NetworkHandler.NETWORK.sendToAllAround(new ParticleCloud(p_149695_2_ + 0.5f, p_149695_3_ + 1, p_149695_4_ + 0.5f, 0, 0.1f, 0, 0.85f, 1.0f, 0.85f, 1, 12), new NetworkRegistry.TargetPoint(p_149695_1_.getWorldInfo().getDimension(), p_149695_2_, p_149695_3_, p_149695_4_, 32));
             p_149695_1_.breakBlock(p_149695_2_, p_149695_3_ + 1, p_149695_4_, false);
         }
     }

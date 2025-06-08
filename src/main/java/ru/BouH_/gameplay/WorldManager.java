@@ -11,9 +11,11 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.*;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldSavedData;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.event.FuelBurnTimeEvent;
@@ -21,14 +23,26 @@ import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.world.ChunkEvent;
 import net.minecraftforge.event.world.WorldEvent;
 import ru.BouH_.ConfigZp;
+import ru.BouH_.Main;
+import ru.BouH_.gameplay.client.ClientHandler;
+import ru.BouH_.hook.client.MiscHook;
 import ru.BouH_.init.ItemsZp;
 import ru.BouH_.network.NetworkHandler;
+import ru.BouH_.network.packets.misc.PacketDay;
 import ru.BouH_.network.packets.misc.sound.PacketSound;
 import ru.BouH_.network.packets.nbt.PacketMiscPlayerNbtInfo;
 import ru.BouH_.weather.base.WeatherHandler;
+import ru.BouH_.weather.base.WorldSaveFog;
+import ru.BouH_.weather.base.WorldSaveRain;
+import ru.BouH_.world.generator.cities.CityType;
+import ru.BouH_.world.generator.cities.SpecialGenerator;
+import ru.BouH_.world.generator.save.WorldSaveCity;
 import ru.BouH_.world.type.WorldTypeHardcoreZp;
 
+import java.io.*;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 
 public class WorldManager {
     public static WorldManager instance = new WorldManager();
@@ -98,6 +112,16 @@ public class WorldManager {
         if (!ev.world.getGameRules().hasRule("keepSkillsAfterDeath")) {
             ev.world.getGameRules().addGameRule("keepSkillsAfterDeath", "false");
         }
+        if (!ev.world.provider.hasNoSky) {
+            WorldSaveDay.getStorage(ev.world);
+        }
+    }
+
+    @SubscribeEvent
+    public void onWorldSave(WorldEvent.Save ev) {
+        if (!ev.world.provider.hasNoSky) {
+            Objects.requireNonNull(WorldSaveDay.getStorage(ev.world)).markDirty();
+        }
     }
 
     @SuppressWarnings("deprecation")
@@ -114,6 +138,18 @@ public class WorldManager {
 
             if (block.getMaterial() == Material.wood) {
                 ev.burnTime = 200;
+            }
+
+            if (block.getMaterial() == Material.web) {
+                ev.burnTime = 40;
+            }
+
+            if (block.getMaterial() == Material.carpet) {
+                ev.burnTime = 40;
+            }
+
+            if (block.getMaterial() == Material.cloth) {
+                ev.burnTime = 80;
             }
 
             if (block == Blocks.coal_block) {
@@ -151,11 +187,11 @@ public class WorldManager {
         int nominalZombies = 0;
         switch (world1.difficultySetting) {
             case EASY: {
-                nominalZombies =  120;
+                nominalZombies = 120;
                 break;
             }
             case NORMAL: {
-                nominalZombies =  150;
+                nominalZombies = 150;
                 break;
             }
             case HARD: {
@@ -172,12 +208,18 @@ public class WorldManager {
         }
 
         if (WorldManager.is7Night(world1)) {
-            nominalZombies += 40;
+            nominalZombies += 32;
         }
 
         WorldManager.maxMonsterType = nominalZombies;
         WorldManager.maxMonsterType *= ConfigZp.zombieSpawnScale;
+
         if (ev.phase == TickEvent.Phase.START) {
+            if (ConfigZp.Dim2Dim0Sync) {
+                if (world1.getWorldTime() % 400 == 0) {
+                    world2.setWorldTime(world1.getWorldTime());
+                }
+            }
             if (this.currentTime != 0) {
                 if (world1.getGameRules().getGameRuleBooleanValue("disableNightSkipping")) {
                     MinecraftServer.getServer().worldServers[0].setWorldTime(WorldManager.instance.currentTime);
@@ -189,13 +231,25 @@ public class WorldManager {
                 this.serverWorldTickTime = 0;
             } else if (world1.getGameRules().getGameRuleBooleanValue("doDaylightCycle")) {
                 if (this.serverWorldTickTime++ >= 2) {
-                    if (world1.getWorldTime() % 24000 == 23500) {
+
+                    final int nightT = 13500;
+                    final int dayT = 23500;
+
+                    if (world1.getWorldTime() % 24000 == dayT) {
                         NetworkHandler.NETWORK.sendToDimension(new PacketSound(4), 0);
+                        WorldSaveDay saveDay = Objects.requireNonNull(WorldSaveDay.getStorage(world1));
+                        saveDay.day += 1;
+                        saveDay.markDirty();
+                        NetworkHandler.NETWORK.sendToDimension(new PacketDay(WorldManager.is7NightEnabled(), saveDay.day), 0);
                     }
-                    if (world2.getWorldTime() % 24000 == 11500) {
+                    if (world2.getWorldTime() % 24000 == (MiscHook.isSp() ? nightT : dayT)) {
                         NetworkHandler.NETWORK.sendToDimension(new PacketSound(4), 2);
+                        WorldSaveDay saveDay = Objects.requireNonNull(WorldSaveDay.getStorage(world2));
+                        saveDay.day += 1;
+                        saveDay.markDirty();
+                        NetworkHandler.NETWORK.sendToDimension(new PacketDay(WorldManager.is7NightEnabled(), saveDay.day), 2);
                     }
-                    if (world1.getWorldTime() % 24000 == 13500) {
+                    if (world1.getWorldTime() % 24000 == nightT) {
                         if (WorldManager.is7Night(world1)) {
                             WeatherHandler.instance.getWeatherFog().startWeatherFogPacket7Night(WeatherHandler.instance.fogManagerMap.get(0));
                             NetworkHandler.NETWORK.sendToDimension(new PacketSound(5), 0);
@@ -203,7 +257,7 @@ public class WorldManager {
                             NetworkHandler.NETWORK.sendToDimension(new PacketSound(1), 0);
                         }
                     }
-                    if (world2.getWorldTime() % 24000 == 1500) {
+                    if (world2.getWorldTime() % 24000 == (MiscHook.isSp() ? dayT : nightT)) {
                         if (WorldManager.is7Night(world2)) {
                             WeatherHandler.instance.getWeatherFog().startWeatherFogPacket7Night(WeatherHandler.instance.fogManagerMap.get(2));
                             NetworkHandler.NETWORK.sendToDimension(new PacketSound(5), 2);
@@ -221,35 +275,72 @@ public class WorldManager {
         if (!world1.getGameRules().getGameRuleBooleanValue("disableNightSkipping")) {
             if (ev.phase == TickEvent.Phase.END) {
                 if (world1.areAllPlayersAsleep()) {
-                    world1.getWorldInfo().incrementTotalWorldTime(((world1.getWorldInfo().getWorldTotalTime() / 24000) + 1) * 24000);
+                    world1.getWorldInfo().incrementTotalWorldTime(24000 - world1.getWorldTime());
                     world1.setWorldTime(0);
                 }
             }
         }
     }
 
+    public static boolean is7NightEnabled() {
+        return ConfigZp.night7;
+    }
+
     public static boolean is7Night(World world) {
-        int day1 = (int) (world.getTotalWorldTime() / 24000);
-        return ConfigZp.night7 && ((day1 > 0 && day1 % 7 == 0) || world.getWorldInfo().getTerrainType() instanceof WorldTypeHardcoreZp) && !world.provider.isDaytime();
+        if (world.isRemote) {
+            return ClientHandler.is7nightEnabled && (ClientHandler.day > 0 && ClientHandler.day % 7 == 0) || world.getWorldInfo().getTerrainType() instanceof WorldTypeHardcoreZp;
+        }
+        if (world.provider.dimensionId == 0 || world.provider.dimensionId == 2) {
+            if (world.getWorldInfo().getTerrainType() instanceof WorldTypeHardcoreZp) {
+                return true;
+            }
+            int dayZ = world.getWorldInfo().getNBTTagCompound().getInteger("dayZ");
+            return WorldManager.is7NightEnabled() && (dayZ > 0 && dayZ % 7 == 0) && !world.provider.isDaytime();
+        }
+        return false;
     }
 
     public int getMidNightTime(World world) {
-        int i1 = world.getWorldInfo().getDimension();
-        switch (i1) {
-            case 0: {
-                return 18000;
-            }
-            case 2: {
-                return 6000;
-            }
-        }
-        return 0;
+        return 18000;
     }
 
     private void slowDownTime(World world) {
         if (!(world.getWorldInfo().getTerrainType() instanceof WorldTypeHardcoreZp) && ((ConfigZp.longDays && world.provider.isDaytime()) || (ConfigZp.longNights && !world.provider.isDaytime()))) {
             world.setWorldTime(world.getWorldTime() - 1);
             world.getWorldInfo().incrementTotalWorldTime(world.getTotalWorldTime() - 1);
+        }
+    }
+
+    public static class WorldSaveDay extends WorldSavedData {
+        public int day;
+
+        public WorldSaveDay(String id) {
+            super(id);
+        }
+
+        public static WorldSaveDay getStorage(World world) {
+            if (world.mapStorage != null) {
+                String ID = WorldSaveDay.class.getName() + "_" + world.provider.dimensionId;
+                WorldSaveDay data = (WorldSaveDay) world.mapStorage.loadData(WorldSaveDay.class, ID);
+                if (data != null) {
+                    return data;
+                } else {
+                    data = new WorldSaveDay(ID);
+                    data.markDirty();
+                    world.mapStorage.setData(ID, data);
+                }
+            }
+            return null;
+        }
+
+        @Override
+        public void readFromNBT(NBTTagCompound p_76184_1_) {
+            this.day = p_76184_1_.getInteger("dayZ");
+        }
+
+        @Override
+        public void writeToNBT(NBTTagCompound p_76187_1_) {
+            p_76187_1_.setInteger("dayZ", this.day);
         }
     }
 }

@@ -5,17 +5,17 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldSavedData;
 import ru.BouH_.Main;
 import ru.BouH_.weather.managers.WeatherRainManager;
+import ru.BouH_.world.generator.save.WorldSaveEvents;
 
 import java.io.*;
 
 public class WorldSaveRain extends WorldSavedData {
-    private static final String ID = Main.MODID + "d2";
-
     public WorldSaveRain(String id) {
         super(id);
     }
 
     public static WorldSaveRain getStorage(World world) {
+        String ID = WorldSaveRain.class.getName() + "_" + world.provider.dimensionId;
         if (world.mapStorage != null) {
             WorldSaveRain data = (WorldSaveRain) world.mapStorage.loadData(WorldSaveRain.class, ID);
             if (data != null) {

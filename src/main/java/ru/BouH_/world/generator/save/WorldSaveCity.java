@@ -11,13 +11,12 @@ import java.io.*;
 import java.util.HashSet;
 
 public class WorldSaveCity extends WorldSavedData {
-    private static final String ID = Main.MODID + "d3";
-
     public WorldSaveCity(String id) {
         super(id);
     }
 
     public static WorldSaveCity getStorage(World world) {
+        String ID = WorldSaveCity.class.getName() + "_" + world.provider.dimensionId;
         if (world.mapStorage != null) {
             WorldSaveCity data = (WorldSaveCity) world.mapStorage.loadData(WorldSaveCity.class, ID);
             if (data != null) {

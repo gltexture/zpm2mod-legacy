@@ -11,6 +11,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IExtendedEntityProperties;
+import ru.BouH_.ConfigZp;
 import ru.BouH_.network.NetworkHandler;
 import ru.BouH_.network.packets.data.PacketHunger;
 
@@ -78,7 +79,7 @@ public class Hunger implements IExtendedEntityProperties {
     public void onUpdate() {
         EnumDifficulty enumdifficulty = this.player.worldObj.difficultySetting;
         this.prevHunger = this.hunger;
-        int i1 = enumdifficulty == EnumDifficulty.EASY ? 30 : enumdifficulty == EnumDifficulty.NORMAL ? 50 : 70;
+        int i1 = enumdifficulty == EnumDifficulty.EASY ? 40 : enumdifficulty == EnumDifficulty.NORMAL ? 50 : 60;
         float f1 = enumdifficulty == EnumDifficulty.EASY ? 1.1f : enumdifficulty == EnumDifficulty.NORMAL ? 1.0f : 0.9f;
         if (this.hungerExhaustionLevel > f1) {
             this.hungerExhaustionLevel -= f1;
@@ -112,7 +113,7 @@ public class Hunger implements IExtendedEntityProperties {
     }
 
     public void addExhaustion(float p_75113_1_) {
-        this.hungerExhaustionLevel = Math.min(this.hungerExhaustionLevel + p_75113_1_, 50.0F);
+        this.hungerExhaustionLevel = Math.min(this.hungerExhaustionLevel + p_75113_1_, 50.0F) * ConfigZp.hungerExhaustionMultiplier;
     }
 
     public void setExhaustion(float p_75113_1_) {

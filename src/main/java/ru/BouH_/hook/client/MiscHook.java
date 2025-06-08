@@ -1,6 +1,8 @@
 package ru.BouH_.hook.client;
 
+import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.client.SplashProgress;
+import cpw.mods.fml.relauncher.FMLLaunchHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
@@ -9,6 +11,7 @@ import net.minecraft.client.gui.GuiGameOver;
 import net.minecraft.client.gui.GuiMainMenu;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.client.network.NetHandlerPlayClient;
 import net.minecraft.client.renderer.EntityRenderer;
 import net.minecraft.client.shader.Framebuffer;
@@ -16,11 +19,14 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItemFrame;
 import net.minecraft.item.ItemStack;
+import net.minecraft.network.play.server.S03PacketTimeUpdate;
 import net.minecraft.network.play.server.S27PacketExplosion;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Vec3;
+import net.minecraft.world.WorldServer;
 import net.minecraftforge.client.ForgeHooksClient;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
@@ -34,6 +40,7 @@ import ru.BouH_.items.gun.base.AGunBase;
 import ru.BouH_.items.tools.ItemBinoculars;
 import ru.BouH_.misc.ExplosionZp;
 import ru.BouH_.utils.RenderUtils;
+import ru.BouH_.world.WorldZp;
 import ru.hook.asm.Hook;
 import ru.hook.asm.ReturnCondition;
 
@@ -234,6 +241,56 @@ public class MiscHook {
                 }
             }
         }
+    }
+
+    public static boolean isSp() {
+        return (MinecraftServer.getServer() != null && MinecraftServer.getServer().worldServers != null && MinecraftServer.getServer().worldServers.length > 0);
+    }
+
+    @Hook(returnCondition = ReturnCondition.ALWAYS)
+    public static void handleTimeUpdate(NetHandlerPlayClient netHandlerPlayClient, S03PacketTimeUpdate packetIn)
+    {
+        Minecraft.getMinecraft().theWorld.func_82738_a(packetIn.func_149366_c());
+        if (MiscHook.isSp() && Minecraft.getMinecraft().theWorld.provider.dimensionId == 2) {
+            Minecraft.getMinecraft().theWorld.setWorldTime(packetIn.func_149365_d() + 12000);
+        } else {
+            Minecraft.getMinecraft().theWorld.setWorldTime(packetIn.func_149365_d());
+        }
+    }
+
+   // @Hook(returnCondition = ReturnCondition.ALWAYS)
+    public static void tick(WorldClient worldClient)
+    {
+        worldClient.updateWeather();
+        worldClient.func_82738_a(worldClient.getTotalWorldTime() + 1L);
+
+        if (worldClient.getGameRules().getGameRuleBooleanValue("doDaylightCycle"))
+        {
+            {
+                worldClient.setWorldTime(worldClient.getWorldTime() + 1L);
+            }
+        }
+
+        worldClient.theProfiler.startSection("reEntryProcessing");
+
+        for (int i = 0; i < 10 && !worldClient.entitySpawnQueue.isEmpty(); ++i)
+        {
+            Entity entity = (Entity)worldClient.entitySpawnQueue.iterator().next();
+            worldClient.entitySpawnQueue.remove(entity);
+
+            if (!worldClient.loadedEntityList.contains(entity))
+            {
+                worldClient.spawnEntityInWorld(entity);
+            }
+        }
+
+        worldClient.theProfiler.endStartSection("connection");
+        worldClient.sendQueue.onNetworkTick();
+        worldClient.theProfiler.endStartSection("chunkCache");
+        worldClient.clientChunkProvider.unloadQueuedChunks();
+        worldClient.theProfiler.endStartSection("blocks");
+        worldClient.func_147456_g();
+        worldClient.theProfiler.endSection();
     }
 
     @Hook(returnCondition = ReturnCondition.ALWAYS)

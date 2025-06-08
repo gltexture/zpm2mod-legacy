@@ -34,6 +34,14 @@ public class ConfigZp {
     public static boolean disableCommonCities;
     public static boolean openEnderChestsViaEye;
 
+    public static float bagsFromZombiesChanceMultiplier;
+    public static float bleedingChanceMultiplier;
+
+    public static boolean Dim2Dim0Sync;
+
+    public static float hungerExhaustionMultiplier;
+    public static float thirstExhaustionMultiplier;
+
     public void register() {
         Configuration config = new Configuration(new File("config", "zpm2.cfg"));
         config.defaultEncoding = "UTF-8";
@@ -66,6 +74,13 @@ public class ConfigZp {
         disableIndustrialCities = config.getBoolean("disableIndustrialCities", "default", false, "Disable Industrial Cities");
         disableCommonCities = config.getBoolean("disableCommonCities", "default", false, "Disable Common Cities");
         openEnderChestsViaEye = config.getBoolean("openEnderChestsViaEye", "default", true, "Open Ender Chests with ender-eye");
+
+        bagsFromZombiesChanceMultiplier = config.getFloat("bagsFromZombiesChanceMultiplier", "default", 1.0f, 0.0f, 100.0f, "Bag drop from zombies chance multiplier");
+        bleedingChanceMultiplier = config.getFloat("bleedingChanceMultiplier", "default", 1.0f, 0.0f, 100.0f, "Bleeding Chance Multiplier");
+        Dim2Dim0Sync = config.getBoolean("Dim2Dim0Sync", "default", false, "Enable, if you have issues with Dim-0 and Dim-2 time-sync.");
+
+        hungerExhaustionMultiplier = config.getFloat("hungerExhaustionMultiplier", "default", 1.0f, 0.0f, 100.0f, "Hunger Exhaustion Multiplier");
+        thirstExhaustionMultiplier = config.getFloat("thirstExhaustionMultiplier", "default", 1.0f, 0.0f, 100.0f, "Thirst Exhaustion Multiplier");
 
         config.save();
     }

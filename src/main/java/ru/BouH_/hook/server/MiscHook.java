@@ -1,5 +1,6 @@
 package ru.BouH_.hook.server;
 
+import cpw.mods.fml.relauncher.FMLLaunchHandler;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.command.CommandBase;
@@ -28,6 +29,7 @@ import net.minecraft.world.WorldProvider;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.storage.WorldInfo;
+import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerFlyableFallEvent;
@@ -65,7 +67,8 @@ public class MiscHook {
 
     @Hook(returnCondition = ReturnCondition.ALWAYS)
     public static boolean isDaytime(World world) {
-        return world.getWorldTime() % 24000 < 13500 || world.getWorldTime() % 24000 >= 23500;
+        boolean r = world.getWorldTime() % 24000 < 13500 || world.getWorldTime() % 24000 >= 23500;
+        return (FMLLaunchHandler.side().isClient() && world.provider.dimensionId == 2) != r;
     }
 
     @Hook(returnCondition = ReturnCondition.ON_TRUE)

@@ -618,39 +618,39 @@ public class ItemsZp {
         antidote_syringe.setMaxStackSize(4);
         antidote_syringe.setCreativeTab(medicine);
 
-        beer = new FoodBeer("beer", 18, 1.0f, false, true);
+        beer = new FoodBeer("beer", 22, 1.0f, false, true);
         beer.setMaxStackSize(16);
         beer.setCreativeTab(food);
 
-        burn = new FoodSoda("burn", 15, 0.5f, false, true);
+        burn = new FoodSoda("burn", 16, 0.5f, false, true);
         burn.setMaxStackSize(16);
         burn.setCreativeTab(food);
 
-        cola = new FoodSoda("cola", 15, 0.5f, false, true);
+        cola = new FoodSoda("cola", 16, 0.5f, false, true);
         cola.setMaxStackSize(16);
         cola.setCreativeTab(food);
 
-        water = new FoodDrink("water", 24, 1.5f, false, true);
+        water = new FoodDrink("water", 34, 1.5f, false, true);
         water.setMaxStackSize(16);
         water.setCreativeTab(food);
 
-        boiled_water = new FoodDrinkGlass("boiled_water", 38, 2.0f, false, true);
+        boiled_water = new FoodDrinkGlass("boiled_water", 34, 2.0f, false, true);
         boiled_water.setMaxStackSize(1);
         boiled_water.setCreativeTab(food);
 
-        cactus_water = new FoodDrinkCactus("cactus_water", 12, 1.0f, false, true);
+        cactus_water = new FoodDrinkCactus("cactus_water", 20, 1.0f, false, true);
         cactus_water.setMaxStackSize(1);
         cactus_water.setCreativeTab(food);
 
-        cactus_food = new FoodCactusBowl("cactus_food", 12, 1.0f, false, true);
+        cactus_food = new FoodCactusBowl("cactus_food", 20, 1.0f, false, true);
         cactus_food.setMaxStackSize(1);
         cactus_food.setCreativeTab(food);
 
-        pepsi = new FoodSoda("pepsi", 15, 0.5f, false, true);
+        pepsi = new FoodSoda("pepsi", 16, 0.5f, false, true);
         pepsi.setMaxStackSize(16);
         pepsi.setCreativeTab(food);
 
-        stimulator = new FoodDrinkStimulator("stimulator", 15, 0.5f, false, true);
+        stimulator = new FoodDrinkStimulator("stimulator", 20, 0.5f, false, true);
         stimulator.setMaxStackSize(1);
         stimulator.setCreativeTab(medicine);
 
@@ -682,7 +682,7 @@ public class ItemsZp {
         rot_mass.setMaxStackSize(16);
         rot_mass.setCreativeTab(items);
 
-        soup = new FoodCan("soup", 24, 3.0f, true, true);
+        soup = new FoodCan("soup", 26, 3.0f, true, true);
         soup.setCreativeTab(food);
         soup.setMaxStackSize(16);
         soup.setCreativeTab(food);

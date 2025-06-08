@@ -1,14 +1,23 @@
 package ru.BouH_.world;
 
+import cpw.mods.fml.client.FMLClientHandler;
+import cpw.mods.fml.relauncher.FMLLaunchHandler;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.WorldProvider;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.WorldChunkManager;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.ChunkProviderGenerate;
+import net.minecraftforge.client.MinecraftForgeClient;
+import net.minecraftforge.common.DimensionManager;
 import ru.BouH_.ConfigZp;
 import ru.BouH_.proxy.CommonProxy;
 
 public class WorldZp extends WorldProvider {
+    public WorldZp() {
+    }
 
     public void registerWorldChunkManager() {
         WorldType worldType;
@@ -42,25 +51,18 @@ public class WorldZp extends WorldProvider {
         return "Plague Zone";
     }
 
-    public boolean isDaytime() {
-        return !super.isDaytime();
+    public void setWorldTime(long time) {
+        super.setWorldTime(time);
     }
 
     public long getWorldTime() {
-        return super.getWorldTime();
-    }
-
-    @Override
-    public float calculateCelestialAngle(long par1, float par2) {
-        return getProviderForDimension(0).calculateCelestialAngle(super.getWorldTime() + 12000, par2);
+        if (FMLLaunchHandler.side().isClient()) {
+            return super.getWorldTime();
+        }
+        return MinecraftServer.getServer().worldServers[0].getWorldTime() + 12000;
     }
 
     public IChunkProvider createChunkGenerator() {
         return new ChunkProviderGenerate(this.worldObj, this.getSeed(), false);
-    }
-
-    @Override
-    public int getMoonPhase(long par1) {
-        return getProviderForDimension(0).getMoonPhase(par1 + 12000);
     }
 }

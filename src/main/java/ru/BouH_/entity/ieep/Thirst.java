@@ -12,6 +12,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IExtendedEntityProperties;
+import ru.BouH_.ConfigZp;
 import ru.BouH_.network.NetworkHandler;
 import ru.BouH_.network.packets.data.PacketThirst;
 import ru.BouH_.utils.EntityUtils;
@@ -80,7 +81,7 @@ public class Thirst implements IExtendedEntityProperties {
     public void onUpdate() {
         EnumDifficulty enumdifficulty = this.player.worldObj.difficultySetting;
         this.prevThirst = this.thirst;
-        int i1 = enumdifficulty == EnumDifficulty.EASY ? 30 : enumdifficulty == EnumDifficulty.NORMAL ? 50 : 70;
+        int i1 = enumdifficulty == EnumDifficulty.EASY ? 40 : enumdifficulty == EnumDifficulty.NORMAL ? 50 : 60;
         float f1 = enumdifficulty == EnumDifficulty.EASY ? 1.1f : enumdifficulty == EnumDifficulty.NORMAL ? 1.0f : 0.9f;
         if (this.thirstExhaustionLevel > f1) {
             this.thirstExhaustionLevel -= f1;
@@ -117,7 +118,7 @@ public class Thirst implements IExtendedEntityProperties {
         if (EntityUtils.isInBlock(this.player, Blocks.water)) {
             p_75113_1_ *= 0.75f;
         }
-        this.thirstExhaustionLevel = Math.min(this.thirstExhaustionLevel + p_75113_1_, 50.0F);
+        this.thirstExhaustionLevel = Math.min(this.thirstExhaustionLevel + p_75113_1_, 50.0F) * ConfigZp.thirstExhaustionMultiplier;
     }
 
     public void setExhaustion(float p_75113_1_) {

@@ -33,7 +33,7 @@ public class BlockToxicwater extends BlockFluidClassic {
     public void onNeighborBlockChange(World p_149695_1_, int p_149695_2_, int p_149695_3_, int p_149695_4_, Block p_149695_5_) {
         super.onNeighborBlockChange(p_149695_1_, p_149695_2_, p_149695_3_, p_149695_4_, p_149695_5_);
         if (p_149695_1_.getBlock(p_149695_2_, p_149695_3_ + 1, p_149695_4_) instanceof BlockLilyPad) {
-            NetworkHandler.NETWORK.sendToAllAround(new ParticleCloud(p_149695_2_ + 0.5f, p_149695_3_ + 1, p_149695_4_ + 0.5f, 0, 0.1f, 0, 0.8f, 0.7f, 0.5f, 1, 6), new NetworkRegistry.TargetPoint(p_149695_1_.getWorldInfo().getDimension(), p_149695_2_, p_149695_3_, p_149695_4_, 256));
+            NetworkHandler.NETWORK.sendToAllAround(new ParticleCloud(p_149695_2_ + 0.5f, p_149695_3_ + 1, p_149695_4_ + 0.5f, 0, 0.1f, 0, 0.8f, 0.7f, 0.5f, 1, 6), new NetworkRegistry.TargetPoint(p_149695_1_.getWorldInfo().getDimension(), p_149695_2_, p_149695_3_, p_149695_4_, 32));
             p_149695_1_.breakBlock(p_149695_2_, p_149695_3_ + 1, p_149695_4_, false);
         }
     }

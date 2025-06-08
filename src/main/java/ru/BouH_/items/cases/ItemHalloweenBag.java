@@ -50,11 +50,13 @@ public class ItemHalloweenBag extends Item {
             } else if (Main.rand.nextFloat() <= 0.5f) {
                 this.startRandomHalloweenEvent(world, stack, player);
             } else {
-                List<LootSpawnManager> list = new ArrayList<>(EnumLootGroups.getLootGroupById(Main.rand.nextInt(EnumLootGroups.values().length)).getLSP());
-                ItemStack itemStack = list.get(Main.rand.nextInt(list.size())).getRandomItemStack();
-                if (itemStack != null) {
-                    if (!player.inventory.addItemStackToInventory(itemStack)) {
-                        player.entityDropItem(itemStack, 1.0f);
+                for (int i = 0; i < 3; i++) {
+                    List<LootSpawnManager> list = new ArrayList<>(EnumLootGroups.getLootGroupById(Main.rand.nextInt(EnumLootGroups.values().length)).getLSP());
+                    ItemStack itemStack = list.get(Main.rand.nextInt(list.size())).getRandomItemStack();
+                    if (itemStack != null) {
+                        if (!player.inventory.addItemStackToInventory(itemStack)) {
+                            player.entityDropItem(itemStack, 1.0f);
+                        }
                     }
                 }
             }

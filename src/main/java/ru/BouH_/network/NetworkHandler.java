@@ -40,6 +40,7 @@ public final class NetworkHandler {
     }
 
     public static void registerPacketsClient() throws IllegalAccessException {
+        NetworkHandler.register(PacketDay.class, Side.CLIENT);
         NetworkHandler.register(PacketSkillProgressData.class, Side.CLIENT);
         NetworkHandler.register(PacketAddSkillPoints.class, Side.CLIENT);
         NetworkHandler.register(PacketTriggerAchievement.class, Side.CLIENT);

@@ -498,7 +498,7 @@ public abstract class AZombieBase extends EntityMob {
                     return true;
                 }
             }
-            if (Main.rand.nextFloat() <= 1.5e-2f) {
+            if (Main.rand.nextFloat() <= (2.25e-2f * ConfigZp.bagsFromZombiesChanceMultiplier)) {
                 this.equipmentDropChances[0] = 2.0F;
                 this.setCurrentItemOrArmor(0, this.getBackpack());
                 return true;

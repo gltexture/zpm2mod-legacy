@@ -492,7 +492,7 @@ public class PlayerManager {
         ItemStack stack = ev.entityPlayer.getHeldItem();
         if (ev.action == PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK) {
             if (ev.world.getBlock(ev.x, ev.y, ev.z) == Blocks.ender_chest) {
-                if (!ev.world.isRemote) {
+                if (!ev.world.isRemote && ConfigZp.openEnderChestsViaEye) {
                     ev.world.playSoundAtEntity(ev.entityPlayer, "mob.endermen.portal", 5.0F, 0.8F + Main.rand.nextFloat() * 0.2f);
                     if (stack == null || stack.getItem() != Items.ender_eye) {
                         ev.useBlock = Event.Result.DENY;

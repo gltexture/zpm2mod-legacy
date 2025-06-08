@@ -2,6 +2,7 @@ package ru.BouH_.gameplay.client;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
+import cpw.mods.fml.relauncher.FMLLaunchHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -34,9 +35,14 @@ import ru.BouH_.utils.ClientUtils;
 import ru.BouH_.utils.EntityUtils;
 import ru.BouH_.utils.SoundUtils;
 import ru.BouH_.utils.TraceUtils;
+import ru.BouH_.weather.base.WeatherHandler;
+import ru.BouH_.weather.managers.WeatherRainManager;
 
 @SideOnly(Side.CLIENT)
 public class ClientHandler {
+    public static int day;
+    public static boolean is7nightEnabled;
+
     public static ClientHandler instance = new ClientHandler();
     public static long clientWorldTickTime;
     public int scaryTimer;
@@ -54,16 +60,23 @@ public class ClientHandler {
         if (player != null && !mc.isGamePaused()) {
             if (ev.phase == TickEvent.Phase.START) {
                 float f2 = 0.0f;
-                if (!AmbientSounds.isClientDayTime(player.worldObj) && AmbientSounds.instance.canPlayerHearAmbient) {
+                if (!AmbientSounds.isClientDayTime(player.worldObj) && AmbientSounds.instance.canPlayerHearAmbientBypassGlass) {
                     int curr = (int) player.worldObj.getWorldTime() % 24000;
                     int i1 = WorldManager.instance.getMidNightTime(player.worldObj);
-                    f2 = MathHelper.clamp_float(1.0f - Math.abs(curr - i1) / 4500.0f, 0.0f, 0.7f);
+                    f2 = MathHelper.clamp_float(1.0f - Math.abs(curr - i1) / 4500.0f, 0.0f, 1.0f);
                 }
+                float funN = (float) Math.pow(f2, 1.5f);
+                funN = Math.min(funN, 0.7f);
+
                 if (this.nightBrightConstant >= f2) {
-                    this.nightBrightConstant = Math.max(this.nightBrightConstant - 0.03f, f2);
+                    this.nightBrightConstant = Math.max(this.nightBrightConstant - 0.025f, funN);
                 } else {
-                    this.nightBrightConstant = Math.min(this.nightBrightConstant + 0.03f, f2);
+                    this.nightBrightConstant = Math.min(this.nightBrightConstant + 0.025f, funN);
                 }
+
+                WeatherRainManager weatherRainManager = (WeatherRainManager) WeatherHandler.instance.getWorldRainInfo(player.worldObj.provider.dimensionId);
+                this.nightBrightConstant *= (1.0f - weatherRainManager.getRainStrength());
+
                 float f1 = player.isSneaking() ? 1.2e-2f : PlayerMiscData.getPlayerData(player).isLying() ? 1.0e-3f : 2.0e-2f;
                 player.cameraPitch += MathHelper.sin(player.ticksExisted * 0.05f) * f1;
                 player.rotationPitch -= MathHelper.sin(player.ticksExisted * 0.05f) * f1;

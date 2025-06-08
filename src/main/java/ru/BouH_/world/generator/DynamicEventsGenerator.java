@@ -97,7 +97,7 @@ public class DynamicEventsGenerator extends AGenerator {
                 if (entityPlayer.getDistance(target.x, entityPlayer.posY, target.z) > 86 && entityPlayer.getDistance(target.x, entityPlayer.posY, target.z) <= 318) {
                     if (this.checkStructureRegion(world, target.getX(), target.getY(), target.getZ(), target.getX() + target.getStructure().getStructureHolder().getMaxX(), target.getY() + target.getStructure().getStructureHolder().getMaxY(), target.getZ() + target.getStructure().getStructureHolder().getMaxZ())) {
                         System.out.println(target.getX() + " " + target.getZ());
-                        NetworkHandler.NETWORK.sendToAllAround(new PacketSound(0), new NetworkRegistry.TargetPoint(0, target.x, entityPlayer.posY, target.z, 420));
+                        NetworkHandler.NETWORK.sendToAllAround(new PacketSound(0), new NetworkRegistry.TargetPoint(0, target.x, entityPlayer.posY, target.z, 324));
                         target.getStructure().runGenerator(world, target.getX(), target.getY(), target.getZ(), 0);
                         target.setGenerated(true);
                         break;

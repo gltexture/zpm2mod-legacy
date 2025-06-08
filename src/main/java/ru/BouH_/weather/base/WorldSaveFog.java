@@ -5,17 +5,17 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldSavedData;
 import ru.BouH_.Main;
 import ru.BouH_.weather.managers.WeatherFogManager;
+import ru.BouH_.world.generator.save.WorldSaveEvents;
 
 import java.io.*;
 
 public class WorldSaveFog extends WorldSavedData {
-    private static final String ID = Main.MODID + "d1";
-
     public WorldSaveFog(String id) {
         super(id);
     }
 
     public static WorldSaveFog getStorage(World world) {
+        String ID = WorldSaveFog.class.getName() + "_" + world.provider.dimensionId;
         if (world.mapStorage != null) {
             WorldSaveFog data = (WorldSaveFog) world.mapStorage.loadData(WorldSaveFog.class, ID);
             if (data != null) {

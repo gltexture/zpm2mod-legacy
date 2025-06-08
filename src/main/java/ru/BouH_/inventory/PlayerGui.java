@@ -8,6 +8,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 import ru.BouH_.Main;
+import ru.BouH_.gameplay.WorldManager;
+import ru.BouH_.gameplay.client.ClientHandler;
 import ru.BouH_.recipe_master.gui.GuiContainerRecipes;
 import ru.BouH_.skills.gui.GuiSkillsZp;
 import ru.BouH_.utils.RenderUtils;
@@ -77,13 +79,20 @@ public class PlayerGui extends GuiInventory {
         super.drawGuiContainerBackgroundLayer(partialTicks, mouseX, mouseY);
         WorldClient worldClient = Minecraft.getMinecraft().theWorld;
         if (worldClient != null) {
-            long wTime = worldClient.getWorldTime() + 6000L;
-            int hours = (int) ((wTime / 1000L) % 24);
-            int minutes = (int) ((wTime % 1000L) * 60L / 1000L);
-            int day_i = (int) (worldClient.getTotalWorldTime() / 24000.0f);
-            String day = "Day: " + day_i;
-            String time = "Time: " + String.format("%02d", hours) + ":" + String.format("%02d", minutes);
-            this.fontRendererObj.drawString(day, 6, 6, day_i > 0 && day_i % 7 == 0 ? 0xff0000 : 0xffffff);
+            String day = "";
+            String time = "";
+            if (worldClient.provider.dimensionId == 0 || worldClient.provider.dimensionId == 2) {
+                long wTime = worldClient.getWorldTime() + 6000L;
+                int hours = (int) ((wTime / 1000L) % 24);
+                int minutes = (int) ((wTime % 1000L) * 60L / 1000L);
+                int day_i = ClientHandler.day;
+                day = "Day: " + day_i;
+                time = "Time: " + String.format("%02d", hours) + ":" + String.format("%02d", minutes);
+            } else {
+                day = "???";
+                time = "???";
+            }
+            this.fontRendererObj.drawString(day, 6, 6, WorldManager.is7Night(worldClient) ? 0xff0000 : 0xffffff);
             this.fontRendererObj.drawString(time, 6, 16, 0xffffff);
         }
     }

@@ -4,19 +4,20 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldSavedData;
 import ru.BouH_.Main;
+import ru.BouH_.gameplay.WorldManager;
 import ru.BouH_.world.generator.DynamicEventsGenerator;
 
 import java.io.*;
 import java.util.Set;
 
 public class WorldSaveEvents extends WorldSavedData {
-    private static final String ID = Main.MODID + "d4";
 
     public WorldSaveEvents(String id) {
         super(id);
     }
 
     public static WorldSaveEvents getStorage(World world) {
+        String ID = WorldSaveEvents.class.getName() + "_" + world.provider.dimensionId;
         if (world.mapStorage != null) {
             WorldSaveEvents data = (WorldSaveEvents) world.mapStorage.loadData(WorldSaveEvents.class, ID);
             if (data != null) {

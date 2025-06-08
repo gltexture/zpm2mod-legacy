@@ -41,7 +41,7 @@ public class ItemOldBackpack2 extends Item {
                     player.entityDropItem(itemStack, 1.0f);
                 }
             } else {
-                for (int i = 0; i < 1 + Main.rand.nextInt(3); i++) {
+                for (int i = 0; i < 2 + Main.rand.nextInt(3); i++) {
                     float f1 = Main.rand.nextFloat();
                     List<LootSpawnManager> list = new ArrayList<>(f1 <= 0.2f ? EnumLootGroups.Tier1Police.getLSP() : f1 <= 0.4f ? EnumLootGroups.Tier1Medicine.getLSP() : Main.rand.nextFloat() <= 0.5f ? EnumLootGroups.Tier1Food.getLSP() : f1 <= 0.9f ? EnumLootGroups.Tier1MegaCity.getLSP() : EnumLootGroups.Tier1Military.getLSP());
                     ItemStack itemStack = list.get(Main.rand.nextInt(list.size())).getRandomItemStack();

@@ -132,7 +132,11 @@ public class EntityUtils {
                 ItemStack equipment = ((EntityLivingBase) ent).getEquipmentInSlot(j);
                 if (equipment != null && equipment.getItem() instanceof ItemArmor) {
                     ItemArmor armor = ((ItemArmor) ((EntityLivingBase) ent).getEquipmentInSlot(j).getItem());
-                    i -= materialProtection(armor.getArmorMaterial());
+                    float prot = materialProtection(armor.getArmorMaterial());
+                    if (prot < 0.0f) {
+                        prot = (armor.damageReduceAmount / 20.0f) * 0.8f;
+                    }
+                    i -= prot;
                 }
             }
         }
@@ -144,7 +148,11 @@ public class EntityUtils {
         if (ent instanceof EntityLivingBase) {
             if (((EntityLivingBase) ent).getEquipmentInSlot(id) != null) {
                 ItemArmor armor = ((ItemArmor) ((EntityLivingBase) ent).getEquipmentInSlot(id).getItem());
-                i -= materialProtection(armor.getArmorMaterial());
+                float prot = materialProtection(armor.getArmorMaterial());
+                if (prot < 0.0f) {
+                    prot = (armor.damageReduceAmount / 20.0f) * 0.8f;
+                }
+                i -= prot;
             }
         }
         return dmg * i;
@@ -166,6 +174,8 @@ public class EntityUtils {
             i += 0.2f;
         } else if (armorMaterial == ItemArmor.ArmorMaterial.CLOTH || armorMaterial == ItemsZp.cloth_mat || armorMaterial == ItemsZp.special_costume_mat || armorMaterial == ItemsZp.special_costume2_mat || armorMaterial == ItemsZp.special_costume3_mat) {
             i += 0.02f;
+        } else {
+            i = -1.0f;
         }
         return i;
     }

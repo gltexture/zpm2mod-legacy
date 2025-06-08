@@ -35,11 +35,13 @@ public class ItemFishCrate extends Item {
         if (!world.isRemote) {
             player.getEntityData().setInteger("cdThrow", 20);
             player.worldObj.playSoundAtEntity(player, Main.MODID + ":cloth", 1.0F, 0.9f + Main.rand.nextFloat() * 0.1f);
-            float f1 = Main.rand.nextFloat();
-            List<LootSpawnManager> list = new ArrayList<>(f1 <= 0.1f ? EnumLootGroups.Tier2Village.getLSP() : f1 <= 0.25f ? EnumLootGroups.Tier1Ammo.getLSP() : f1 <= 0.5f ? EnumLootGroups.Tier1Industry.getLSP() : EnumLootGroups.Tier1MegaCity.getLSP());
-            ItemStack itemStack = list.get(Main.rand.nextInt(list.size())).getRandomItemStack();
-            if (!player.inventory.addItemStackToInventory(itemStack)) {
-                player.entityDropItem(itemStack, 1.0f);
+            for (int i = 0; i < 2; i++) {
+                float f1 = Main.rand.nextFloat();
+                List<LootSpawnManager> list = new ArrayList<>(f1 <= 0.1f ? EnumLootGroups.Tier2Village.getLSP() : f1 <= 0.25f ? EnumLootGroups.Tier1Ammo.getLSP() : f1 <= 0.5f ? EnumLootGroups.Tier1Industry.getLSP() : EnumLootGroups.Tier1MegaCity.getLSP());
+                ItemStack itemStack = list.get(Main.rand.nextInt(list.size())).getRandomItemStack();
+                if (!player.inventory.addItemStackToInventory(itemStack)) {
+                    player.entityDropItem(itemStack, 1.0f);
+                }
             }
         }
         return null;

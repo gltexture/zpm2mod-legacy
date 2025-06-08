@@ -49,6 +49,7 @@ public final class AmbientSounds {
     public ALSoundZp seren;
     public boolean canPlayerHearWater = true;
     public boolean canPlayerHearAmbient = true;
+    public boolean canPlayerHearAmbientBypassGlass = true;
     public boolean isInCave = false;
     public boolean canHearRain = false;
     public boolean smoothPlay;
@@ -147,9 +148,11 @@ public final class AmbientSounds {
                 if (player.ticksExisted % 20 == 0) {
                     this.isInCave = this.checkPlayerIsInCave(player);
                     if (!this.isInCave) {
-                        this.canPlayerHearAmbient = this.checkPlayerPosition(player);
+                        this.canPlayerHearAmbient = this.checkPlayerPosition(player, false);
+                        this.canPlayerHearAmbientBypassGlass = this.checkPlayerPosition(player, true);
                     } else {
                         this.canPlayerHearAmbient = false;
+                        this.canPlayerHearAmbientBypassGlass = false;
                     }
                     this.canHearRain = this.checkCanHearRain(player);
                 }
@@ -261,12 +264,15 @@ public final class AmbientSounds {
         }
     }
 
-    private boolean checkBlock(World world, int x, int y, int z) {
+    private boolean checkBlock(World world, int x, int y, int z, boolean bypassGlass) {
         Block block = world.getBlock(x, y, z);
         if (block instanceof BlockLeaves || block.getMaterial().isReplaceable()) {
             return false;
         }
-        if (block instanceof BlockEnchantmentTable || block instanceof BlockPane || block instanceof BlockArmorGlass || block instanceof BlockStainedGlass || block instanceof BlockGlass || block instanceof BlockChest || block instanceof BlockSlab || block instanceof BlockStairs) {
+        if (!bypassGlass && (block instanceof BlockPane || block instanceof BlockArmorGlass || block instanceof BlockStainedGlass || block instanceof BlockGlass)) {
+            return true;
+        }
+        if (block instanceof BlockEnchantmentTable || block instanceof BlockChest || block instanceof BlockSlab || block instanceof BlockStairs) {
             return true;
         }
         return block.renderAsNormalBlock();
@@ -294,12 +300,12 @@ public final class AmbientSounds {
         return true;
     }
 
-    private boolean checkY(World world, int x, int y, int z) {
+    private boolean checkY(World world, int x, int y, int z, boolean bypassGlass) {
         if (y + 16 < world.getPrecipitationHeight(x, z)) {
             return false;
         }
         for (int i = y; i <= world.getPrecipitationHeight(x, z); i++) {
-            if (this.checkBlock(world, x, i, z)) {
+            if (this.checkBlock(world, x, i, z, bypassGlass)) {
                 return false;
             }
         }
@@ -359,16 +365,16 @@ public final class AmbientSounds {
         return num >= 86;
     }
 
-    private boolean checkPlayerPosition(EntityPlayerSP entityPlayerSP) {
+    private boolean checkPlayerPosition(EntityPlayerSP entityPlayerSP, boolean bypassGlass) {
         int x = MathHelper.floor_double(entityPlayerSP.posX);
         int z = MathHelper.floor_double(entityPlayerSP.posZ);
         int y = (int) (entityPlayerSP.posY) + 1;
-        return this.checkDistance(entityPlayerSP.worldObj, x, y, z) || this.checkDistance(entityPlayerSP.worldObj, x - 1, y, z) || this.checkDistance(entityPlayerSP.worldObj, x, y, z - 1) || this.checkDistance(entityPlayerSP.worldObj, x + 1, y, z) || this.checkDistance(entityPlayerSP.worldObj, x, y, z + 1);
+        return this.checkDistance(entityPlayerSP.worldObj, x, y, z, bypassGlass) || this.checkDistance(entityPlayerSP.worldObj, x - 1, y, z, bypassGlass) || this.checkDistance(entityPlayerSP.worldObj, x, y, z - 1, bypassGlass) || this.checkDistance(entityPlayerSP.worldObj, x + 1, y, z, bypassGlass) || this.checkDistance(entityPlayerSP.worldObj, x, y, z + 1, bypassGlass);
     }
 
-    private boolean checkDistance(World world, int x, int y, int z) {
+    private boolean checkDistance(World world, int x, int y, int z, boolean bypassGlass) {
         for (int k = y - 1; k < y + 2; k++) {
-            if (this.checkBlock(world, x, k, z)) {
+            if (this.checkBlock(world, x, k, z, bypassGlass)) {
                 break;
             }
 
@@ -380,10 +386,10 @@ public final class AmbientSounds {
                     }
                     continue;
                 }
-                if (this.checkBlock(world, i, k, z)) {
+                if (this.checkBlock(world, i, k, z, bypassGlass)) {
                     break;
                 }
-                if (this.checkY(world, i, k, z)) {
+                if (this.checkY(world, i, k, z, bypassGlass)) {
                     return true;
                 }
             }
@@ -396,10 +402,10 @@ public final class AmbientSounds {
                     }
                     continue;
                 }
-                if (this.checkBlock(world, i, k, z)) {
+                if (this.checkBlock(world, i, k, z, bypassGlass)) {
                     break;
                 }
-                if (this.checkY(world, i, k, z)) {
+                if (this.checkY(world, i, k, z, bypassGlass)) {
                     return true;
                 }
             }
@@ -412,10 +418,10 @@ public final class AmbientSounds {
                     }
                     continue;
                 }
-                if (this.checkBlock(world, x, k, o)) {
+                if (this.checkBlock(world, x, k, o, bypassGlass)) {
                     break;
                 }
-                if (this.checkY(world, x, k, o)) {
+                if (this.checkY(world, x, k, o, bypassGlass)) {
                     return true;
                 }
             }
@@ -428,10 +434,10 @@ public final class AmbientSounds {
                     }
                     continue;
                 }
-                if (this.checkBlock(world, x, k, o)) {
+                if (this.checkBlock(world, x, k, o, bypassGlass)) {
                     break;
                 }
-                if (this.checkY(world, x, k, o)) {
+                if (this.checkY(world, x, k, o, bypassGlass)) {
                     return true;
                 }
             }

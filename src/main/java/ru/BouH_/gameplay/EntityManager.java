@@ -69,6 +69,7 @@ import ru.BouH_.items.melee.ItemSpear;
 import ru.BouH_.misc.DamageSourceZp;
 import ru.BouH_.misc.ZpTeleport;
 import ru.BouH_.network.NetworkHandler;
+import ru.BouH_.network.packets.misc.PacketDay;
 import ru.BouH_.network.packets.misc.PacketNausea;
 import ru.BouH_.network.packets.misc.PacketPain;
 import ru.BouH_.network.packets.particles.ParticleBlood2;
@@ -82,6 +83,7 @@ import ru.BouH_.weather.managers.WeatherFogManager;
 import ru.BouH_.weather.managers.WeatherRainManager;
 
 import java.util.List;
+import java.util.Objects;
 
 
 public class EntityManager {
@@ -178,7 +180,9 @@ public class EntityManager {
                         if (EntityUtils.isInBlock(pl, FluidsZp.portalZp)) {
                             if (!entityPlayerMP.getEntityData().getBoolean("wasInPortal")) {
                                 int dim = entityPlayerMP.dimension == 0 ? 2 : 0;
+                                NetworkHandler.NETWORK.sendToAllAround(new ParticleCloud(entityPlayerMP.posX, entityPlayerMP.posY + 0.25f, entityPlayerMP.posZ, 0, 0.1f, 0, 0.85f, 0.85f, 1.0f, 0.5f, 18), new NetworkRegistry.TargetPoint(entityPlayerMP.dimension, entityPlayerMP.posX, entityPlayerMP.posY + 1.0f, entityPlayerMP.posZ, 32));
                                 MinecraftServer.getServer().getConfigurationManager().transferPlayerToDimension(entityPlayerMP, dim, new ZpTeleport(DimensionManager.getWorld(dim)));
+                                NetworkHandler.NETWORK.sendToAllAround(new ParticleCloud(entityPlayerMP.posX, entityPlayerMP.posY + 0.25f, entityPlayerMP.posZ, 0, 0.1f, 0, 0.85f, 0.85f, 1.0f, 0.5f, 18), new NetworkRegistry.TargetPoint(entityPlayerMP.dimension, entityPlayerMP.posX, entityPlayerMP.posY + 1.0f, entityPlayerMP.posZ, 32));
                                 entityPlayerMP.getEntityData().setBoolean("wasInPortal", true);
                             }
                         } else {
@@ -857,6 +861,12 @@ public class EntityManager {
                     this.sendStatsData(pl);
                     if (pl instanceof EntityPlayerMP) {
                         EntityPlayerMP entityPlayerMP = (EntityPlayerMP) pl;
+                        int dayZ = -1;
+                        if (entityPlayerMP.dimension == 0 || entityPlayerMP.dimension == 2) {
+                            WorldManager.WorldSaveDay saveDay = Objects.requireNonNull(WorldManager.WorldSaveDay.getStorage(MinecraftServer.getServer().worldServers[entityPlayerMP.dimension]));
+                            dayZ = saveDay.day;
+                        }
+                        NetworkHandler.NETWORK.sendTo(new PacketDay(WorldManager.is7NightEnabled(), dayZ), entityPlayerMP);
                         entityPlayerMP.playerNetServerHandler.sendPacket(new S1FPacketSetExperience(entityPlayerMP.experience, entityPlayerMP.experienceTotal, entityPlayerMP.experienceLevel));
                         entityPlayerMP.playerNetServerHandler.sendPacket(new S03PacketTimeUpdate(entityPlayerMP.worldObj.getTotalWorldTime(), entityPlayerMP.worldObj.getWorldTime(), entityPlayerMP.worldObj.getGameRules().getGameRuleBooleanValue("doDaylightCycle")));
                         PlayerManager.instance.sendAchievementData(pl);
@@ -1207,6 +1217,8 @@ public class EntityManager {
                     if (pl.isPotionActive(28)) {
                         bleedingChance += (pl.getActivePotionEffect(CommonProxy.bleeding).getAmplifier() + 1) * 0.1f;
                     }
+                    bleedingChance *= ConfigZp.bleedingChanceMultiplier;
+
                     if (ev.source != DamageSource.fall && ev.source != DamageSource.generic && !ev.source.isMagicDamage() && ev.source != DamageSource.starve && ev.source != DamageSource.drown && ev.ammount >= 5.0f && (Main.rand.nextFloat() <= bleedingChance || bleedingChance >= 0.5f)) {
                         if (ev.source.getEntity() instanceof EntityPlayer) {
                             EntityPlayer entityPlayer = (EntityPlayer) ev.source.getEntity();

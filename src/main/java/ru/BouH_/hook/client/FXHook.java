@@ -391,12 +391,19 @@ public class FXHook {
 
     @Hook(returnCondition = ReturnCondition.ON_TRUE, returnAnotherMethod = "getSkyNew")
     public static boolean getSkyColor(WorldProvider provider, Entity cameraEntity, float partialTicks) {
-        return ClientUtils.isClientInNVG() || ClientUtils.isClientInNightVisionScope() || Minecraft.getMinecraft().thePlayer.isPotionActive(CommonProxy.zpm);
+        return ClientUtils.isClientInNVG() || ClientUtils.isClientInNightVisionScope() || Minecraft.getMinecraft().thePlayer.isPotionActive(CommonProxy.zpm) || WorldManager.is7Night(provider.worldObj);
     }
 
     public static Vec3 getSkyNew(WorldProvider provider, Entity cameraEntity, float partialTicks) {
         if (ClientUtils.isClientInNVG() || ClientUtils.isClientInNightVisionScope()) {
             return Vec3.createVectorHelper(0.0f, 1.0f, 0.0f);
+        } else if (WorldManager.is7Night(provider.worldObj)) {
+            Vec3 vec3 = provider.worldObj.getSkyColorBody(cameraEntity, partialTicks);
+            EntityPlayerSP entityPlayerSP = Minecraft.getMinecraft().thePlayer;
+            float f1 = FXHook.get7NightBrightness(entityPlayerSP);
+            vec3.yCoord *= f1;
+            vec3.zCoord *= f1;
+            return vec3;
         } else {
             Vec3 vec3 = provider.worldObj.getSkyColorBody(cameraEntity, partialTicks);
             EntityPlayerSP entityPlayerSP = Minecraft.getMinecraft().thePlayer;

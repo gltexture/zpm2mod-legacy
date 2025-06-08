@@ -46,6 +46,7 @@ import ru.BouH_.proxy.CommonProxy;
 import ru.BouH_.tiles.TileBrewingStand;
 import ru.BouH_.utils.EntityUtils;
 import ru.BouH_.utils.SoundUtils;
+import ru.BouH_.weather.base.WeatherHandler;
 import ru.hook.asm.Hook;
 import ru.hook.asm.ReturnCondition;
 
@@ -428,33 +429,56 @@ public class BlockHook {
         return ground == BlocksZp.debrisand || ground == BlocksZp.frozen_dirt || ground == Blocks.sand || ground == Blocks.hardened_clay || ground == Blocks.stained_hardened_clay || ground == Blocks.dirt;
     }
 
+    private static double chance(float y) {
+        return y < 99 ? -1.0f : (Math.exp((y - 100.0f) * 0.02625f) - 1.0f);
+    }
+
+    private static boolean rainAt(int x, int y, int z, World world) {
+        BiomeGenBase biomegenbase = world.getBiomeGenForCoords(x, z);
+        if (!(biomegenbase == BiomeGenBase.desert || biomegenbase == BiomeGenBase.desertHills)) {
+            if (biomegenbase.getFloatTemperature(x, y, z) > 0.15f) {
+                return world.isRainingAt(x, y, z);
+            }
+        }
+        return false;
+    }
+
     @Hook(returnCondition = ReturnCondition.ON_TRUE)
     public static boolean updateTick(BlockCrops blockCrops, World worldIn, int x, int y, int z, Random random) {
-        if (Main.rand.nextFloat() < Math.exp(Math.max(y - 100, 0) * 0.1f)) {
+        if (Main.rand.nextFloat() < chance(y)) {
             return true;
         }
-        return Main.rand.nextBoolean();
+        if (BlockHook.rainAt(x, y, z, worldIn)) {
+            return false;
+        }
+        return Main.rand.nextFloat() <= 0.375f;
     }
 
     @Hook(returnCondition = ReturnCondition.ON_TRUE)
     public static boolean updateTick(BlockStem blockStem, World worldIn, int x, int y, int z, Random random) {
-        if (Main.rand.nextFloat() < Math.exp(Math.max(y - 100, 0) * 0.1f)) {
+        if (Main.rand.nextFloat() < chance(y)) {
             return true;
         }
-        return Main.rand.nextBoolean();
+        if (BlockHook.rainAt(x, y, z, worldIn)) {
+            return false;
+        }
+        return Main.rand.nextFloat() <= 0.375f;
     }
 
     @Hook(returnCondition = ReturnCondition.ON_TRUE)
     public static boolean updateTick(BlockReed blockReed, World worldIn, int x, int y, int z, Random random) {
-        if (Main.rand.nextFloat() < Math.exp(Math.max(y - 100, 0) * 0.1f)) {
+        if (Main.rand.nextFloat() < chance(y)) {
             return true;
         }
-        return Main.rand.nextBoolean();
+        if (BlockHook.rainAt(x, y, z, worldIn)) {
+            return false;
+        }
+        return Main.rand.nextFloat() <= 0.375f;
     }
 
     @Hook(returnCondition = ReturnCondition.ON_TRUE)
     public static boolean updateTick(BlockNetherWart blockNetherWart, World worldIn, int x, int y, int z, Random random) {
-        return Main.rand.nextFloat() <= 0.7f;
+        return Main.rand.nextFloat() <= 0.65f;
     }
 
     @Hook(returnCondition = ReturnCondition.ON_TRUE)
