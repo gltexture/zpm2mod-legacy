@@ -104,10 +104,16 @@ public class AISpecialFindTarget extends AITargetZp {
             }
         }
         if (this.taskOwner.ticksExisted % 300 == 0) {
-            if (Main.rand.nextFloat() <= 0.5f) {
+            if (Main.rand.nextBoolean()) {
                 AZombieBase aZombieBase = (AZombieBase) this.getClosestEntity(this.taskOwner.worldObj, AZombieBase.class, this.helpWantingSelector, this.taskOwner.posX, this.taskOwner.posY, this.taskOwner.posZ, 24);
                 if (aZombieBase != null) {
-                    aZombieBase.setAttackTarget(this.taskOwner.getAttackTarget());
+                    float rand = 1.0f;
+                    if (this.taskOwner.getAttackTarget() instanceof EntityPlayer) {
+                        rand = this.getRottenDefence(((EntityPlayer) this.taskOwner.getAttackTarget()));
+                    }
+                    if (Main.rand.nextFloat() <= rand) {
+                        aZombieBase.setAttackTarget(this.taskOwner.getAttackTarget());
+                    }
                 }
             }
         }
@@ -165,11 +171,9 @@ public class AISpecialFindTarget extends AITargetZp {
             if (findClass.isAssignableFrom(entity.getClass())) {
                 EntityLivingBase entityLivingBase1 = (EntityLivingBase) entity;
                 if (entityLivingBase1 instanceof EntityPlayer) {
-                    boolean isRotten = this.isPlayerInRotten((EntityPlayer) entityLivingBase1);
-                    if (isRotten) {
-                        distance = 0;
-                    }
-                    distance = (WorldManager.is7Night(world)) ? 48 : MathHelper.clamp_double(distance + this.seekDistanceModifier((EntityPlayer) entityLivingBase1), isRotten ? 1 : 6, 48);
+                    double calcDost = (distance + this.seekDistanceModifier((EntityPlayer) entityLivingBase1));
+                    calcDost *= this.getRottenDefence((EntityPlayer) entityLivingBase1);
+                    distance = (WorldManager.is7Night(world)) ? 48 : MathHelper.clamp_double(calcDost, 2, 48);
                 }
                 double d5 = entityLivingBase1.getDistanceSq(x, y, z);
                 if ((distance < 0.0D || d5 < distance * distance) && (d4 == -1.0D || d5 < d4)) {
@@ -183,8 +187,18 @@ public class AISpecialFindTarget extends AITargetZp {
         return entityLivingBase;
     }
 
-    private boolean isPlayerInRotten(EntityPlayer player) {
-        return !player.isSprinting() && EntityUtils.isInArmor(player, null, ItemsZp.rotten_chestplate, ItemsZp.rotten_leggings, ItemsZp.rotten_boots);
+    private float getRottenDefence(EntityPlayer player) {
+        float f = 1.0f;
+        if (EntityUtils.isInArmor(player, null, ItemsZp.rotten_chestplate, null, null)) {
+            f -= 0.25f;
+        }
+        if (EntityUtils.isInArmor(player, null, null, ItemsZp.rotten_leggings, null)) {
+            f -= 0.25f;
+        }
+        if (EntityUtils.isInArmor(player, null, null, null, ItemsZp.rotten_boots)) {
+            f -= 0.25f;
+        }
+        return f;
     }
 
     protected int seekDistanceModifier(EntityPlayer player) {
@@ -198,7 +212,7 @@ public class AISpecialFindTarget extends AITargetZp {
         } else if (EntityUtils.isInArmor(player, ItemsZp.balaclava, null, null, null)) {
             mod -= 4;
         } else if (EntityUtils.isInArmor(player, ItemsZp.pnv, null, null, null)) {
-            mod += 2;
+            mod += 4;
         }
 
         if (loudness == 0) {
@@ -208,6 +222,7 @@ public class AISpecialFindTarget extends AITargetZp {
                 mod -= 8;
             }
         }
+
         if (player.isPotionActive(26)) {
             if (player.getActivePotionEffect(CommonProxy.zpm).getDuration() <= 16000) {
                 mod -= (int) (32.0f - (player.getActivePotionEffect(CommonProxy.zpm).getDuration() / 500.0f));
@@ -215,9 +230,6 @@ public class AISpecialFindTarget extends AITargetZp {
         }
         if (player.isSprinting()) {
             mod += 6;
-        }
-        if (Math.abs(player.motionY) > 0.1f) {
-            mod += 3;
         }
         if (player.isUsingItem()) {
             if (player.getHeldItem() != null && (player.getHeldItem().getItem() instanceof ItemFood)) {
@@ -231,7 +243,7 @@ public class AISpecialFindTarget extends AITargetZp {
             mod += 8;
         }
         if (player.hurtResistantTime > 0) {
-            mod += 2;
+            mod += 4;
         }
         return mod + loudness;
     }

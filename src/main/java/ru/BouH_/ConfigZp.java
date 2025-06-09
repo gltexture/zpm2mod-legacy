@@ -42,6 +42,9 @@ public class ConfigZp {
     public static float hungerExhaustionMultiplier;
     public static float thirstExhaustionMultiplier;
 
+    public static float rainAndFogChanceMultiplier;
+    public static int lootRespawnLootcaseTime;
+
     public void register() {
         Configuration config = new Configuration(new File("config", "zpm2.cfg"));
         config.defaultEncoding = "UTF-8";
@@ -82,6 +85,8 @@ public class ConfigZp {
         hungerExhaustionMultiplier = config.getFloat("hungerExhaustionMultiplier", "default", 1.0f, 0.0f, 100.0f, "Hunger Exhaustion Multiplier");
         thirstExhaustionMultiplier = config.getFloat("thirstExhaustionMultiplier", "default", 1.0f, 0.0f, 100.0f, "Thirst Exhaustion Multiplier");
 
+        rainAndFogChanceMultiplier = config.getFloat("rainAndFogChanceMultiplier", "default", 1.0f, 0.0f, 100.0f, "Rain And Fog Chance Multiplier");
+        lootRespawnLootcaseTime = config.getInt("lootRespawnLootcaseTime", "default", 36000, 1, 3600000, "Loot Respawn Lootcase Time(ticks). (20 ticks = 1 sec)");
         config.save();
     }
 }

@@ -131,7 +131,7 @@ public class PlayerMiscData implements IExtendedEntityProperties {
     }
 
     public void addPlayerLoudness(int loud) {
-        this.playerLoudness = Math.min(this.playerLoudness + loud, 32);
+        this.playerLoudness = Math.min(this.playerLoudness + loud, 48);
     }
 
     public int getPlayerLoudness() {

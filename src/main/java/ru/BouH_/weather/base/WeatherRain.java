@@ -12,6 +12,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.DimensionManager;
+import ru.BouH_.ConfigZp;
 import ru.BouH_.Main;
 import ru.BouH_.init.BlocksZp;
 import ru.BouH_.network.NetworkHandler;
@@ -67,7 +68,7 @@ public class WeatherRain implements IWeather {
             if (iWeatherInfo.getTimeUntilStart() > 0) {
                 iWeatherInfo.setTimeUntilStart(iWeatherInfo.getTimeUntilStart() - 1);
             } else {
-                if (Main.rand.nextFloat() <= 0.2f) {
+                if (Main.rand.nextFloat() <= 0.2f * ConfigZp.rainAndFogChanceMultiplier) {
                     this.startWeatherRainPacket((WeatherRainManager) iWeatherInfo);
                 } else {
                     iWeatherInfo.resetTimer();

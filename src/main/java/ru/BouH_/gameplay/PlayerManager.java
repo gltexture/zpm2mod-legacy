@@ -856,7 +856,6 @@ public class PlayerManager {
             Hunger hunger = Hunger.getHunger(ev.getPlayer());
             thirst.addExhaustion(0.025f);
             hunger.addExhaustion(0.05f);
-            PlayerMiscData.getPlayerData(ev.getPlayer()).addPlayerLoudness(1);
         }
     }
 
@@ -871,7 +870,6 @@ public class PlayerManager {
             Hunger hunger = Hunger.getHunger(ev.player);
             thirst.addExhaustion(0.05f);
             hunger.addExhaustion(0.025f);
-            PlayerMiscData.getPlayerData(ev.player).addPlayerLoudness(1);
         }
     }
 

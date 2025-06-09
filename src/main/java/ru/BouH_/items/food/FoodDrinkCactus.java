@@ -21,8 +21,8 @@ public class FoodDrinkCactus extends FoodZp {
         if (!world.isRemote) {
             world.playSoundAtEntity(player, "random.burp", 0.5F, Main.rand.nextFloat() * 0.1F + 0.9F);
             Thirst.getThirst(player).addThirst(getHealAmount(stack), getSaturationModifier(stack));
-            player.addPotionEffect(new PotionEffect(31, 600));
-            player.addPotionEffect(new PotionEffect(17, 200));
+            player.addPotionEffect(new PotionEffect(31, 200));
+            player.addPotionEffect(new PotionEffect(17, 600));
         }
         return new ItemStack(Items.glass_bottle);
     }

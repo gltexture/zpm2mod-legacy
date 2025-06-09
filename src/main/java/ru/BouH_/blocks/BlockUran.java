@@ -16,7 +16,6 @@ public class BlockUran extends Block {
         super(Material.iron);
     }
 
-
     @SideOnly(Side.CLIENT)
     public void randomDisplayTick(World p_149734_1_, int p_149734_2_, int p_149734_3_, int p_149734_4_, Random p_149734_5_) {
         super.randomDisplayTick(p_149734_1_, p_149734_2_, p_149734_3_, p_149734_4_, p_149734_5_);

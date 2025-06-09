@@ -363,25 +363,8 @@ public class ItemsZp {
     public static Item raw_copper;
     public static Item raw_gold;
     public static Item raw_titan;
-    public static CustomTab blocks;
-    public static CustomTab decorations;
-    public static CustomTab admin_blocks;
-    public static CustomTab weap;
-    public static CustomTab items;
-    public static CustomTab armor;
-    public static CustomTab melee;
-    public static CustomTab food;
-    public static CustomTab medicine;
-    public static CustomTab tools;
-    public static CustomTab ammo;
-    public static CustomTab mods;
-    public static CustomTab progs;
-    public static CustomTab camo;
-    public static CustomTab special;
 
     //FUN//
-    public static CustomTab fun;
-    public static CustomTab books;
     public static Item _customRocket;
     public static Item _katyushaRocket;
     public static Item _gradRocket;
@@ -457,336 +440,318 @@ public class ItemsZp {
     public static Item.ToolMaterial bone_mat = EnumHelper.addToolMaterial("bone", 0, 10, 0.0F, 0.0F, 14);
 
     public static void init() {
-        weap = new CustomTab("item.category.weapons");
-        ammo = new CustomTab("item.category.ammo");
-        items = new CustomTab("item.category.items");
-        armor = new CustomTab("item.category.armor");
-        camo = new CustomTab("item.category.camo");
-        melee = new CustomTab("item.category.melee");
-        tools = new CustomTab("item.category.tools");
-        books = new CustomTab("item.category.books");
-        blocks = new CustomTab("item.category.blocks");
-        decorations = new CustomTab("item.category.decorations");
-        admin_blocks = new CustomTab("item.category.admin_blocks");
-        food = new CustomTab("item.category.food");
-        medicine = new CustomTab("item.category.medicine");
-        fun = new CustomTab("item.category.fun");
-        special = new CustomTab("item.category.special");
-        mods = new CustomTab("item.category.mods");
-        progs = new CustomTab("item.category.programmers");
-
         cash_coin = new ItemCoin();
-        cash_coin.setCreativeTab(items);
+        cash_coin.setCreativeTab(TabsZP.items);
         cash_coin.setMaxStackSize(10);
 
         adrenaline = new MedicineSyringe("adrenaline", new PotionEffect[]{new PotionEffect(29, 1200), new PotionEffect(3, 1200)}, false, true);
         adrenaline.setMaxStackSize(4);
-        adrenaline.setCreativeTab(medicine);
+        adrenaline.setCreativeTab(TabsZP.medicine);
 
         coke = new MedicineCoke("coke", false, true);
         coke.setMaxStackSize(4);
-        coke.setCreativeTab(medicine);
+        coke.setCreativeTab(TabsZP.medicine);
 
         nuka_cola = new FoodNuka("nuka_cola", 12, 1, false, true);
         nuka_cola.setMaxStackSize(16);
-        nuka_cola.setCreativeTab(food);
+        nuka_cola.setCreativeTab(TabsZP.food);
 
         antiheadache = new MedicinePill("antiheadache", new PotionEffect[]{new PotionEffect(9, -1)}, false, true);
         antiheadache.setMaxStackSize(4);
-        antiheadache.setCreativeTab(medicine);
+        antiheadache.setCreativeTab(TabsZP.medicine);
 
         antihunger = new MedicinePill("antihunger", new PotionEffect[]{new PotionEffect(17, -1), new PotionEffect(31, -1)}, false, true);
         antihunger.setMaxStackSize(4);
-        antihunger.setCreativeTab(medicine);
+        antihunger.setCreativeTab(TabsZP.medicine);
 
         antipoison = new MedicinePill("antipoison", new PotionEffect[]{new PotionEffect(19, -1)}, false, true);
         antipoison.setMaxStackSize(4);
-        antipoison.setCreativeTab(medicine);
+        antipoison.setCreativeTab(TabsZP.medicine);
 
         poison = new MedicinePoisonousPill("poison", false, false);
         poison.setMaxStackSize(1);
         poison.setMaxDurability(4);
-        poison.setCreativeTab(medicine);
+        poison.setCreativeTab(TabsZP.medicine);
 
         antitoxin = new MedicinePill("antitoxin", new PotionEffect[]{new PotionEffect(9, -1), new PotionEffect(17, -1), new PotionEffect(19, -1), new PotionEffect(31, -1)}, false, true);
         antitoxin.setMaxStackSize(4);
-        antitoxin.setCreativeTab(medicine);
+        antitoxin.setCreativeTab(TabsZP.medicine);
 
         good_vision = new MedicinePill("good_vision", new PotionEffect[]{new PotionEffect(25, 12000)}, false, true);
         good_vision.setMaxStackSize(4);
-        good_vision.setCreativeTab(medicine);
+        good_vision.setCreativeTab(TabsZP.medicine);
 
         heal = new MedicinePill("heal", new PotionEffect[]{new PotionEffect(10, 300)}, false, true);
         heal.setMaxStackSize(4);
-        heal.setCreativeTab(medicine);
+        heal.setCreativeTab(TabsZP.medicine);
 
         antiradiation = new MedicinePill("antiradiation", new PotionEffect[]{new PotionEffect(33, 1800)}, false, true);
         antiradiation.setMaxStackSize(4);
-        antiradiation.setCreativeTab(medicine);
+        antiradiation.setCreativeTab(TabsZP.medicine);
 
         meth = new MedicinePill("meth", new PotionEffect[]{new PotionEffect(29, 8400), new PotionEffect(9, 12000), new PotionEffect(31, 1800)}, false, true);
         meth.setMaxStackSize(4);
-        meth.setCreativeTab(medicine);
+        meth.setCreativeTab(TabsZP.medicine);
 
         night_vision = new MedicinePill("night_vision", new PotionEffect[]{new PotionEffect(16, 6000)}, false, true);
         night_vision.setMaxStackSize(4);
-        night_vision.setCreativeTab(medicine);
+        night_vision.setCreativeTab(TabsZP.medicine);
 
         steroid = new MedicinePill("steroid", new PotionEffect[]{new PotionEffect(30, 1200), new PotionEffect(1, 6000), new PotionEffect(5, 6000, 1), new PotionEffect(11, 6000, 1)}, false, true);
         steroid.setMaxStackSize(4);
-        steroid.setCreativeTab(medicine);
+        steroid.setCreativeTab(TabsZP.medicine);
 
         antivirus_syringe = new MedicineAntivirusSyringe("antivirus_syringe", false, true);
         antivirus_syringe.setMaxStackSize(4);
-        antivirus_syringe.setCreativeTab(medicine);
+        antivirus_syringe.setCreativeTab(TabsZP.medicine);
 
         bandage = new MedicineBandage("bandage", false, true);
         bandage.setMaxStackSize(4);
-        bandage.setCreativeTab(medicine);
+        bandage.setCreativeTab(TabsZP.medicine);
 
         tire = new MedicineTire("tire", false, true);
         tire.setMaxStackSize(4);
-        tire.setCreativeTab(medicine);
+        tire.setCreativeTab(TabsZP.medicine);
 
         military_bandage = new MedicineBandage("military_bandage", false, true);
         military_bandage.setMaxStackSize(1);
         military_bandage.setMaxDurability(5);
-        military_bandage.setCreativeTab(medicine);
+        military_bandage.setCreativeTab(TabsZP.medicine);
 
         blind_syringe = new MedicineSyringe("blind_syringe", new PotionEffect[]{new PotionEffect(15, 200), new PotionEffect(9, 600)}, false, true);
         blind_syringe.setMaxStackSize(4);
-        blind_syringe.setCreativeTab(medicine);
+        blind_syringe.setCreativeTab(TabsZP.medicine);
 
         blood_bag = new MedicineBloodBag("blood_bag", false, true);
         blood_bag.setMaxStackSize(8);
-        blood_bag.setCreativeTab(medicine);
+        blood_bag.setCreativeTab(TabsZP.medicine);
 
         heroin = new MedicineSyringe("heroin", new PotionEffect[]{new PotionEffect(29, 6000), new PotionEffect(11, 3600, 1), new PotionEffect(9, 18000), new PotionEffect(31, 1800)}, false, true);
         heroin.setMaxStackSize(4);
-        heroin.setCreativeTab(medicine);
+        heroin.setCreativeTab(TabsZP.medicine);
 
         morphine = new MedicineSyringe("morphine", new PotionEffect[]{new PotionEffect(27, -1)}, false, true);
         morphine.setUnlocalizedName("morphine");
         morphine.setMaxStackSize(4);
-        morphine.setCreativeTab(medicine);
+        morphine.setCreativeTab(TabsZP.medicine);
 
         death_syringe = new MedicineDeathSyringe("death_syringe", false, true);
         death_syringe.setMaxStackSize(4);
-        death_syringe.setCreativeTab(medicine);
+        death_syringe.setCreativeTab(TabsZP.medicine);
 
         virus_syringe = new MedicineSyringe("virus_syringe", new PotionEffect[]{new PotionEffect(26, 21600)}, false, true);
         virus_syringe.setMaxStackSize(4);
-        virus_syringe.setCreativeTab(medicine);
+        virus_syringe.setCreativeTab(TabsZP.medicine);
 
         ai2_kit = new MedicineAi2("ai2_kit", false, true);
         ai2_kit.setMaxStackSize(4);
-        ai2_kit.setCreativeTab(medicine);
+        ai2_kit.setCreativeTab(TabsZP.medicine);
 
         aid_kit = new MedicineAid("aid_kit", false, true);
         aid_kit.setMaxStackSize(4);
-        aid_kit.setCreativeTab(medicine);
+        aid_kit.setCreativeTab(TabsZP.medicine);
 
         binoculars = new ItemBinoculars("binoculars");
         binoculars.setMaxStackSize(1);
-        binoculars.setCreativeTab(tools);
+        binoculars.setCreativeTab(TabsZP.tools);
 
         mem_elixir = new FoodMemElixir("mem_elixir", 10, 0.5f, false, true);
         mem_elixir.setMaxStackSize(1);
-        mem_elixir.setCreativeTab(medicine);
+        mem_elixir.setCreativeTab(TabsZP.medicine);
 
         ananas = new FoodCan("ananas", 18, 1.5f, false, true);
         ananas.setMaxStackSize(16);
-        ananas.setCreativeTab(food);
+        ananas.setCreativeTab(TabsZP.food);
 
         banana = new FoodCommon("banana", 14, 1.0f, false, true);
         banana.setMaxStackSize(16);
-        banana.setCreativeTab(food);
+        banana.setCreativeTab(TabsZP.food);
 
         jam = new FoodCommon("jam", 15, 0.5f, false, true);
         jam.setMaxStackSize(16);
-        jam.setCreativeTab(food);
+        jam.setCreativeTab(TabsZP.food);
 
         burger = new FoodCommon("burger", 20, 1.0f, false, true);
         burger.setMaxStackSize(16);
-        burger.setCreativeTab(food);
+        burger.setCreativeTab(TabsZP.food);
 
         donut = new FoodCommon("donut", 12, 0.5f, false, true);
         donut.setMaxStackSize(16);
-        donut.setCreativeTab(food);
+        donut.setCreativeTab(TabsZP.food);
 
         antidote_syringe = new MedicineAntidoteSyringe("antidote_syringe", false, true);
         antidote_syringe.setMaxStackSize(4);
-        antidote_syringe.setCreativeTab(medicine);
+        antidote_syringe.setCreativeTab(TabsZP.medicine);
 
         beer = new FoodBeer("beer", 22, 1.0f, false, true);
         beer.setMaxStackSize(16);
-        beer.setCreativeTab(food);
+        beer.setCreativeTab(TabsZP.food);
 
         burn = new FoodSoda("burn", 16, 0.5f, false, true);
         burn.setMaxStackSize(16);
-        burn.setCreativeTab(food);
+        burn.setCreativeTab(TabsZP.food);
 
         cola = new FoodSoda("cola", 16, 0.5f, false, true);
         cola.setMaxStackSize(16);
-        cola.setCreativeTab(food);
+        cola.setCreativeTab(TabsZP.food);
 
         water = new FoodDrink("water", 34, 1.5f, false, true);
         water.setMaxStackSize(16);
-        water.setCreativeTab(food);
+        water.setCreativeTab(TabsZP.food);
 
         boiled_water = new FoodDrinkGlass("boiled_water", 34, 2.0f, false, true);
         boiled_water.setMaxStackSize(1);
-        boiled_water.setCreativeTab(food);
+        boiled_water.setCreativeTab(TabsZP.food);
 
         cactus_water = new FoodDrinkCactus("cactus_water", 20, 1.0f, false, true);
         cactus_water.setMaxStackSize(1);
-        cactus_water.setCreativeTab(food);
+        cactus_water.setCreativeTab(TabsZP.food);
 
         cactus_food = new FoodCactusBowl("cactus_food", 20, 1.0f, false, true);
         cactus_food.setMaxStackSize(1);
-        cactus_food.setCreativeTab(food);
+        cactus_food.setCreativeTab(TabsZP.food);
 
         pepsi = new FoodSoda("pepsi", 16, 0.5f, false, true);
         pepsi.setMaxStackSize(16);
-        pepsi.setCreativeTab(food);
+        pepsi.setCreativeTab(TabsZP.food);
 
         stimulator = new FoodDrinkStimulator("stimulator", 20, 0.5f, false, true);
         stimulator.setMaxStackSize(1);
-        stimulator.setCreativeTab(medicine);
+        stimulator.setCreativeTab(TabsZP.medicine);
 
         fish_canned = new FoodFish("fish", 18, 1.5f, true, true);
         fish_canned.setMaxStackSize(16);
-        fish_canned.setCreativeTab(food);
+        fish_canned.setCreativeTab(TabsZP.food);
 
         orange = new FoodCommon("orange", 14, 1.0f, true, true);
         orange.setMaxStackSize(16);
-        orange.setCreativeTab(food);
+        orange.setCreativeTab(TabsZP.food);
 
         pea = new FoodCan("pea", 20, 1.5f, false, true);
         pea.setMaxStackSize(16);
-        pea.setCreativeTab(food);
+        pea.setCreativeTab(TabsZP.food);
 
         rotten_apple = new FoodRottenApple("rotten_apple", 8, 1.0f, false, true);
         rotten_apple.setMaxStackSize(16);
-        rotten_apple.setCreativeTab(food);
+        rotten_apple.setCreativeTab(TabsZP.food);
 
         boiled_egg = new FoodEgg("boiled_egg", 6, 0.05f, false, true);
         boiled_egg.setMaxStackSize(16);
-        boiled_egg.setCreativeTab(food);
+        boiled_egg.setCreativeTab(TabsZP.food);
 
         hotdog = new FoodCommon("hotdog", 20, 1.5f, false, true);
         hotdog.setMaxStackSize(16);
-        hotdog.setCreativeTab(food);
+        hotdog.setCreativeTab(TabsZP.food);
 
         rot_mass = new FoodRotMass("rot_mass", 1, 0.0f, false, false);
         rot_mass.setMaxStackSize(16);
-        rot_mass.setCreativeTab(items);
+        rot_mass.setCreativeTab(TabsZP.items);
 
         soup = new FoodCan("soup", 26, 3.0f, true, true);
-        soup.setCreativeTab(food);
+        soup.setCreativeTab(TabsZP.food);
         soup.setMaxStackSize(16);
-        soup.setCreativeTab(food);
+        soup.setCreativeTab(TabsZP.food);
 
         stewed_meat = new FoodCan("stewed_meat", 30, 1.5f, true, true);
         stewed_meat.setMaxStackSize(16);
-        stewed_meat.setCreativeTab(food);
+        stewed_meat.setCreativeTab(TabsZP.food);
 
         mutton = new FoodCan("mutton", 8, 0.0f, true, true);
         mutton.setMaxStackSize(16);
-        mutton.setCreativeTab(food);
+        mutton.setCreativeTab(TabsZP.food);
 
         cooked_mutton = new FoodCan("cooked_mutton", 30, 1.5f, true, true);
         cooked_mutton.setMaxStackSize(16);
-        cooked_mutton.setCreativeTab(food);
+        cooked_mutton.setCreativeTab(TabsZP.food);
 
         vodka = new FoodVodka("vodka", 15, 1.5f, false, true);
         vodka.setMaxStackSize(16);
-        vodka.setCreativeTab(food);
+        vodka.setCreativeTab(TabsZP.food);
 
         fish_zp = new FoodWaterFish(false);
         fish_zp.setMaxStackSize(16);
-        fish_zp.setCreativeTab(food);
+        fish_zp.setCreativeTab(TabsZP.food);
 
         fish_zp_cooked = new FoodWaterFish(true);
         fish_zp_cooked.setMaxStackSize(16);
-        fish_zp_cooked.setCreativeTab(food);
+        fish_zp_cooked.setCreativeTab(TabsZP.food);
 
         gift = new ItemGift("gift");
         gift.setMaxStackSize(1);
-        gift.setCreativeTab(special);
+        gift.setCreativeTab(TabsZP.special);
 
         bag = new ItemHalloweenBag("bag");
         bag.setMaxStackSize(1);
-        bag.setCreativeTab(special);
+        bag.setCreativeTab(TabsZP.special);
 
         old_backpack = new ItemOldBackpack("old_backpack");
         old_backpack.setMaxStackSize(1);
-        old_backpack.setCreativeTab(items);
+        old_backpack.setCreativeTab(TabsZP.items);
 
         old_backpack2 = new ItemOldBackpack2("old_backpack2");
         old_backpack2.setMaxStackSize(1);
-        old_backpack2.setCreativeTab(items);
+        old_backpack2.setCreativeTab(TabsZP.items);
 
         fish_box = new ItemFishBox("fish_box");
         fish_box.setMaxStackSize(1);
-        fish_box.setCreativeTab(items);
+        fish_box.setCreativeTab(TabsZP.items);
 
         fish_crate = new ItemFishCrate("fish_crate");
         fish_crate.setMaxStackSize(1);
-        fish_crate.setCreativeTab(items);
+        fish_crate.setCreativeTab(TabsZP.items);
 
         fish_iron_crate = new ItemFishIronCrate("fish_iron_crate");
         fish_iron_crate.setMaxStackSize(1);
-        fish_iron_crate.setCreativeTab(items);
+        fish_iron_crate.setCreativeTab(TabsZP.items);
 
         book_hunter = new ItemBookSkill("book_hunter", SkillManager.instance.hunter);
         book_hunter.setMaxStackSize(1);
-        book_hunter.setCreativeTab(books);
+        book_hunter.setCreativeTab(TabsZP.books);
 
         book_fisher = new ItemBookSkill("book_fisher", SkillManager.instance.fisher);
         book_fisher.setMaxStackSize(1);
-        book_fisher.setCreativeTab(books);
+        book_fisher.setCreativeTab(TabsZP.books);
 
         book_miner = new ItemBookSkill("book_miner", SkillManager.instance.miner);
         book_miner.setMaxStackSize(1);
-        book_miner.setCreativeTab(books);
+        book_miner.setCreativeTab(TabsZP.books);
 
         book_survivor = new ItemBookSkill("book_survivor", SkillManager.instance.survivor);
         book_survivor.setMaxStackSize(1);
-        book_survivor.setCreativeTab(books);
+        book_survivor.setCreativeTab(TabsZP.books);
 
         book_farmer = new ItemBookSkill("book_farmer", SkillManager.instance.farmer);
         book_farmer.setMaxStackSize(1);
-        book_farmer.setCreativeTab(books);
+        book_farmer.setCreativeTab(TabsZP.books);
 
         book_gunsmith = new ItemBookSkill("book_gunsmith", SkillManager.instance.gunSmith);
         book_gunsmith.setMaxStackSize(1);
-        book_gunsmith.setCreativeTab(books);
+        book_gunsmith.setCreativeTab(TabsZP.books);
 
         bag_random = new ItemBagRandom("bag_random");
         bag_random.setMaxStackSize(1);
-        bag_random.setCreativeTab(fun);
+        bag_random.setCreativeTab(TabsZP.fun);
 
         transmitter = new ItemTransmitter("transmitter");
         transmitter.setMaxStackSize(1);
         transmitter.setMaxDurability(8);
-        transmitter.setCreativeTab(tools);
+        transmitter.setCreativeTab(TabsZP.tools);
 
         transmitter_tactic = new ItemTransmitterTactic("transmitter_tactic");
         transmitter_tactic.setMaxStackSize(1);
-        transmitter_tactic.setCreativeTab(fun);
+        transmitter_tactic.setCreativeTab(TabsZP.fun);
 
         freezer = new ItemFreezer("freezer");
         freezer.setMaxStackSize(1);
-        freezer.setCreativeTab(progs);
+        freezer.setCreativeTab(TabsZP.progs);
 
         chance = new ItemChance("chance");
         chance.setMaxStackSize(1);
-        chance.setCreativeTab(progs);
+        chance.setCreativeTab(TabsZP.progs);
 
         antigarbage = new ItemAntiGarbage("antigarbage");
         antigarbage.setMaxStackSize(1);
-        antigarbage.setCreativeTab(progs);
+        antigarbage.setCreativeTab(TabsZP.progs);
 
         scare_sword = new ItemSword(scare_mat) {
             @SideOnly(Side.CLIENT)
@@ -796,7 +761,7 @@ public class ItemsZp {
             }
         };
         scare_sword.setUnlocalizedName("scare_sword");
-        scare_sword.setCreativeTab(special);
+        scare_sword.setCreativeTab(TabsZP.special);
 
         caramel_sword = new ItemSword(caramel_mat) {
             @SideOnly(Side.CLIENT)
@@ -806,656 +771,656 @@ public class ItemsZp {
             }
         };
         caramel_sword.setUnlocalizedName("caramel_sword");
-        caramel_sword.setCreativeTab(special);
+        caramel_sword.setCreativeTab(TabsZP.special);
 
         armature = new ItemSword(armature_mat);
         armature.setUnlocalizedName("armature");
-        armature.setCreativeTab(melee);
+        armature.setCreativeTab(TabsZP.melee);
 
         bone_knife = new ItemSword(bone_mat);
         bone_knife.setUnlocalizedName("bone_knife");
-        bone_knife.setCreativeTab(melee);
+        bone_knife.setCreativeTab(TabsZP.melee);
 
         bat = new ItemSword(bat_mat);
         bat.setUnlocalizedName("bat");
-        bat.setCreativeTab(melee);
+        bat.setCreativeTab(TabsZP.melee);
 
         lucille = new ItemSword(lucille_mat);
         lucille.setUnlocalizedName("lucille");
-        lucille.setCreativeTab(melee);
+        lucille.setCreativeTab(TabsZP.melee);
 
         ripper = new ItemBloodsucker(ripper_mat);
         ripper.setUnlocalizedName("ripper");
-        ripper.setCreativeTab(melee);
+        ripper.setCreativeTab(TabsZP.melee);
 
         inferno = new ItemTorch(inferno_mat);
         inferno.setUnlocalizedName("inferno");
-        inferno.setCreativeTab(melee);
+        inferno.setCreativeTab(TabsZP.melee);
 
         mjolnir = new ItemMjolnir(mjolnir_mat);
         mjolnir.setUnlocalizedName("mjolnir");
-        mjolnir.setCreativeTab(melee);
+        mjolnir.setCreativeTab(TabsZP.melee);
 
         cleaver = new ItemSword(cleaver_mat);
         cleaver.setUnlocalizedName("cleaver");
-        cleaver.setCreativeTab(melee);
+        cleaver.setCreativeTab(TabsZP.melee);
 
         crowbar = new ItemCrowbar(crowbar_mat);
         crowbar.setUnlocalizedName("crowbar");
-        crowbar.setCreativeTab(melee);
+        crowbar.setCreativeTab(TabsZP.melee);
 
         golf_club = new ItemSword(golf_club_mat);
         golf_club.setUnlocalizedName("golf_club");
-        golf_club.setCreativeTab(melee);
+        golf_club.setCreativeTab(TabsZP.melee);
 
         hammer = new ItemSword(hammer_mat);
         hammer.setUnlocalizedName("hammer");
-        hammer.setCreativeTab(melee);
+        hammer.setCreativeTab(TabsZP.melee);
 
         hatchet = new ItemHatchet(hatchet_mat);
         hatchet.setUnlocalizedName("hatchet");
-        hatchet.setCreativeTab(melee);
+        hatchet.setCreativeTab(TabsZP.melee);
 
         iron_club = new ItemSword(iron_club_mat);
         iron_club.setUnlocalizedName("iron_club");
-        iron_club.setCreativeTab(melee);
+        iron_club.setCreativeTab(TabsZP.melee);
 
         katana = new ItemSword(katana_mat);
         katana.setUnlocalizedName("katana");
-        katana.setCreativeTab(melee);
+        katana.setCreativeTab(TabsZP.melee);
 
         steel_sword = new ItemSword(steelItem_mat);
         steel_sword.setUnlocalizedName("steel_sword");
-        steel_sword.setCreativeTab(melee);
+        steel_sword.setCreativeTab(TabsZP.melee);
 
         steel_hoe = new ItemHoe(steelItem_mat);
         steel_hoe.setUnlocalizedName("steel_hoe");
-        steel_hoe.setCreativeTab(tools);
+        steel_hoe.setCreativeTab(TabsZP.tools);
 
         steel_axe = new ItemHatchet(steelItem_mat);
         steel_axe.setUnlocalizedName("steel_axe");
-        steel_axe.setCreativeTab(tools);
+        steel_axe.setCreativeTab(TabsZP.tools);
 
         steel_pickaxe = new ItemHammer(steelItem_mat);
         steel_pickaxe.setUnlocalizedName("steel_pickaxe");
-        steel_pickaxe.setCreativeTab(tools);
+        steel_pickaxe.setCreativeTab(TabsZP.tools);
 
         steel_shovel = new ItemSpade(steelItem_mat);
         steel_shovel.setUnlocalizedName("steel_shovel");
-        steel_shovel.setCreativeTab(tools);
+        steel_shovel.setCreativeTab(TabsZP.tools);
 
         titan_sword = new ItemSword(titanItem_mat);
         titan_sword.setUnlocalizedName("titan_sword");
-        titan_sword.setCreativeTab(melee);
+        titan_sword.setCreativeTab(TabsZP.melee);
 
         titan_hoe = new ItemHoe(titanItem_mat);
         titan_hoe.setUnlocalizedName("titan_hoe");
-        titan_hoe.setCreativeTab(tools);
+        titan_hoe.setCreativeTab(TabsZP.tools);
 
         titan_axe = new ItemHatchet(titanItem_mat);
         titan_axe.setUnlocalizedName("titan_axe");
-        titan_axe.setCreativeTab(tools);
+        titan_axe.setCreativeTab(TabsZP.tools);
 
         titan_pickaxe = new ItemHammer(titanItem_mat);
         titan_pickaxe.setUnlocalizedName("titan_pickaxe");
-        titan_pickaxe.setCreativeTab(tools);
+        titan_pickaxe.setCreativeTab(TabsZP.tools);
 
         titan_shovel = new ItemSpade(titanItem_mat);
         titan_shovel.setUnlocalizedName("titan_shovel");
-        titan_shovel.setCreativeTab(tools);
+        titan_shovel.setCreativeTab(TabsZP.tools);
 
         steel_spear = new ItemSpear(steelItem_mat);
         steel_spear.setUnlocalizedName("steel_spear");
         steel_spear.setMaxDurability((int) (steel_spear.getMaxDurability() / 2.0f));
-        steel_spear.setCreativeTab(melee);
+        steel_spear.setCreativeTab(TabsZP.melee);
 
         copper_spear = new ItemSpear(copperItem_mat);
         copper_spear.setUnlocalizedName("copper_spear");
         copper_spear.setMaxDurability((int) (copper_spear.getMaxDurability() / 2.0f));
-        copper_spear.setCreativeTab(melee);
+        copper_spear.setCreativeTab(TabsZP.melee);
 
         copper_sword = new ItemSword(copperItem_mat);
         copper_sword.setUnlocalizedName("copper_sword");
-        copper_sword.setCreativeTab(melee);
+        copper_sword.setCreativeTab(TabsZP.melee);
 
         copper_hoe = new ItemHoe(copperItem_mat);
         copper_hoe.setUnlocalizedName("copper_hoe");
-        copper_hoe.setCreativeTab(tools);
+        copper_hoe.setCreativeTab(TabsZP.tools);
 
         copper_axe = new ItemHatchet(copperItem_mat);
         copper_axe.setUnlocalizedName("copper_axe");
-        copper_axe.setCreativeTab(tools);
+        copper_axe.setCreativeTab(TabsZP.tools);
 
         copper_pickaxe = new ItemHammer(copperItem_mat);
         copper_pickaxe.setUnlocalizedName("copper_pickaxe");
-        copper_pickaxe.setCreativeTab(tools);
+        copper_pickaxe.setCreativeTab(TabsZP.tools);
 
         copper_shovel = new ItemSpade(copperItem_mat);
         copper_shovel.setUnlocalizedName("copper_shovel");
-        copper_shovel.setCreativeTab(tools);
+        copper_shovel.setCreativeTab(TabsZP.tools);
 
         machete = new ItemSword(machete_mat);
         machete.setUnlocalizedName("machete");
-        machete.setCreativeTab(melee);
+        machete.setCreativeTab(TabsZP.melee);
 
         pipe = new ItemSword(pipe_mat);
         pipe.setUnlocalizedName("pipe");
-        pipe.setCreativeTab(melee);
+        pipe.setCreativeTab(TabsZP.melee);
 
         police_club = new ItemSword(police_club_mat);
         police_club.setUnlocalizedName("police_club");
-        police_club.setCreativeTab(melee);
+        police_club.setCreativeTab(TabsZP.melee);
 
         screwdriver = new ItemSword(screwdriver_mat);
         screwdriver.setUnlocalizedName("screwdriver");
-        screwdriver.setCreativeTab(melee);
+        screwdriver.setCreativeTab(TabsZP.melee);
 
         sledgehammer = new ItemHammer(sledgehammer_mat);
         sledgehammer.setUnlocalizedName("sledgehammer");
-        sledgehammer.setCreativeTab(melee);
+        sledgehammer.setCreativeTab(TabsZP.melee);
 
         acid_bucket = new ItemFluidBucket(FluidsZp.acidblock, "acid_bucket");
-        acid_bucket.setCreativeTab(items);
+        acid_bucket.setCreativeTab(TabsZP.items);
         acid_bucket.setMaxStackSize(1);
 
         toxicwater_bucket = new ItemFluidBucket(FluidsZp.toxicwater_block, "toxicwater_bucket");
-        toxicwater_bucket.setCreativeTab(items);
+        toxicwater_bucket.setCreativeTab(TabsZP.items);
         toxicwater_bucket.setMaxStackSize(1);
 
         oxygen = new ItemOxygen("oxygen", oxygen_mat);
-        oxygen.setCreativeTab(items);
+        oxygen.setCreativeTab(TabsZP.items);
         oxygen.setMaxStackSize(1);
 
         custom_gunpowder = new Item().setUnlocalizedName("custom_gunpowder");
-        custom_gunpowder.setCreativeTab(items);
+        custom_gunpowder.setCreativeTab(TabsZP.items);
         custom_gunpowder.setMaxStackSize(16);
 
         raw_iron = new Item().setUnlocalizedName("raw_iron");
-        raw_iron.setCreativeTab(items);
+        raw_iron.setCreativeTab(TabsZP.items);
         raw_iron.setMaxStackSize(16);
 
         raw_copper = new Item().setUnlocalizedName("raw_copper");
-        raw_copper.setCreativeTab(items);
+        raw_copper.setCreativeTab(TabsZP.items);
         raw_copper.setMaxStackSize(16);
 
         raw_gold = new Item().setUnlocalizedName("raw_gold");
-        raw_gold.setCreativeTab(items);
+        raw_gold.setCreativeTab(TabsZP.items);
         raw_gold.setMaxStackSize(16);
 
         raw_titan = new Item().setUnlocalizedName("raw_titan");
-        raw_titan.setCreativeTab(items);
+        raw_titan.setCreativeTab(TabsZP.items);
         raw_titan.setMaxStackSize(16);
 
         lubricant = new Item().setUnlocalizedName("lubricant");
-        lubricant.setCreativeTab(items);
+        lubricant.setCreativeTab(TabsZP.items);
         lubricant.setMaxStackSize(1);
 
         electronic = new Item().setUnlocalizedName("electronic");
-        electronic.setCreativeTab(items);
+        electronic.setCreativeTab(TabsZP.items);
         electronic.setMaxStackSize(16);
 
         solid_fuel = new Item().setUnlocalizedName("solid_fuel");
-        solid_fuel.setCreativeTab(items);
+        solid_fuel.setCreativeTab(TabsZP.items);
         solid_fuel.setMaxStackSize(4);
 
         battery = new Item().setUnlocalizedName("battery");
-        battery.setCreativeTab(items);
+        battery.setCreativeTab(TabsZP.items);
         battery.setMaxStackSize(16);
 
         copper_ingot = new Item().setUnlocalizedName("copper_ingot");
-        copper_ingot.setCreativeTab(items);
+        copper_ingot.setCreativeTab(TabsZP.items);
         copper_ingot.setMaxStackSize(16);
 
         brass_nugget = new Item().setUnlocalizedName("brass_nugget");
-        brass_nugget.setCreativeTab(items);
+        brass_nugget.setCreativeTab(TabsZP.items);
 
         brass_material = new ItemBrassMaterial("brass_material");
-        brass_material.setCreativeTab(items);
+        brass_material.setCreativeTab(TabsZP.items);
         brass_material.setMaxStackSize(16);
 
         fish_bones = new Item().setUnlocalizedName("fish_bones");
-        fish_bones.setCreativeTab(items);
+        fish_bones.setCreativeTab(TabsZP.items);
 
         ammo_press = new ItemAmmoPress("ammo_press");
         ammo_press.setMaxStackSize(1);
         ammo_press.setMaxDurability(16);
-        ammo_press.setCreativeTab(items);
+        ammo_press.setCreativeTab(TabsZP.items);
         ammo_press.setNoRepair();
 
         coils = new Item().setUnlocalizedName("coils");
-        coils.setCreativeTab(items);
+        coils.setCreativeTab(TabsZP.items);
         coils.setMaxStackSize(16);
 
         bellows = new Item().setUnlocalizedName("bellows");
-        bellows.setCreativeTab(items);
+        bellows.setCreativeTab(TabsZP.items);
         bellows.setMaxStackSize(1);
 
         lockpick = new Item().setUnlocalizedName("lockpick");
-        lockpick.setCreativeTab(tools);
+        lockpick.setCreativeTab(TabsZP.tools);
         lockpick.setMaxStackSize(1);
 
         kevlar = new Item().setUnlocalizedName("kevlar");
-        kevlar.setCreativeTab(items);
+        kevlar.setCreativeTab(TabsZP.items);
         kevlar.setMaxStackSize(16);
 
         frame_helmet = new Item().setUnlocalizedName("frame_helmet");
-        frame_helmet.setCreativeTab(items);
+        frame_helmet.setCreativeTab(TabsZP.items);
         frame_helmet.setMaxStackSize(1);
 
         frame_chestplate = new Item().setUnlocalizedName("frame_chestplate");
-        frame_chestplate.setCreativeTab(items);
+        frame_chestplate.setCreativeTab(TabsZP.items);
         frame_chestplate.setMaxStackSize(1);
 
         frame_leggings = new Item().setUnlocalizedName("frame_leggings");
-        frame_leggings.setCreativeTab(items);
+        frame_leggings.setCreativeTab(TabsZP.items);
         frame_leggings.setMaxStackSize(1);
 
         frame_boots = new Item().setUnlocalizedName("frame_boots");
-        frame_boots.setCreativeTab(items);
+        frame_boots.setCreativeTab(TabsZP.items);
         frame_boots.setMaxStackSize(1);
 
         scare_pumpkin = new Item().setUnlocalizedName("scare_pumpkin");
-        scare_pumpkin.setCreativeTab(special);
+        scare_pumpkin.setCreativeTab(TabsZP.special);
         scare_pumpkin.setMaxStackSize(1);
 
         caramel = new Item().setUnlocalizedName("caramel");
-        caramel.setCreativeTab(special);
+        caramel.setCreativeTab(TabsZP.special);
         caramel.setMaxStackSize(1);
 
         gps = new Item().setUnlocalizedName("gps");
-        gps.setCreativeTab(tools);
+        gps.setCreativeTab(TabsZP.tools);
         gps.setMaxDurability(120);
         gps.setMaxStackSize(1);
 
         upd_leather = new Item().setUnlocalizedName("upd_leather");
-        upd_leather.setCreativeTab(items);
+        upd_leather.setCreativeTab(TabsZP.items);
         upd_leather.setMaxStackSize(16);
 
         tanning = new Item().setUnlocalizedName("tanning");
-        tanning.setCreativeTab(items);
+        tanning.setCreativeTab(TabsZP.items);
         tanning.setMaxStackSize(3);
 
         chisel = new Item().setUnlocalizedName("chisel");
-        chisel.setCreativeTab(items);
+        chisel.setCreativeTab(TabsZP.items);
         chisel.setMaxStackSize(6);
 
         table = new Item().setUnlocalizedName("table");
-        table.setCreativeTab(items);
+        table.setCreativeTab(TabsZP.items);
         table.setMaxStackSize(6);
 
         shelves = new Item().setUnlocalizedName("shelves");
-        shelves.setCreativeTab(items);
+        shelves.setCreativeTab(TabsZP.items);
         shelves.setMaxStackSize(6);
 
         box_paper = new Item().setUnlocalizedName("box_paper");
-        box_paper.setCreativeTab(items);
+        box_paper.setCreativeTab(TabsZP.items);
         box_paper.setMaxStackSize(64);
 
         dosimeter = new Item().setUnlocalizedName("dosimeter");
-        dosimeter.setCreativeTab(tools);
+        dosimeter.setCreativeTab(TabsZP.tools);
         dosimeter.setMaxDurability(180);
         dosimeter.setMaxStackSize(1);
 
         CBS = new Item().setUnlocalizedName("CBS");
-        CBS.setCreativeTab(items);
+        CBS.setCreativeTab(TabsZP.items);
         CBS.setMaxDurability(180);
         CBS.setMaxStackSize(1);
 
         electrician_kit = new ItemLampTool("electrician_kit");
-        electrician_kit.setCreativeTab(items);
+        electrician_kit.setCreativeTab(TabsZP.items);
         electrician_kit.setMaxStackSize(1);
         electrician_kit.setMaxDurability(5);
         electrician_kit.setNoRepair();
 
         cement = new Item().setUnlocalizedName("cement").setContainerItem(Items.bucket);
-        cement.setCreativeTab(items);
+        cement.setCreativeTab(TabsZP.items);
         cement.setMaxStackSize(1);
 
         chemres = new Item().setUnlocalizedName("chemres");
-        chemres.setCreativeTab(items);
+        chemres.setCreativeTab(TabsZP.items);
         chemres.setMaxStackSize(6);
 
         matches = new ItemMatches("matches");
-        matches.setCreativeTab(items);
+        matches.setCreativeTab(TabsZP.items);
         matches.setMaxDurability(24);
         matches.setMaxStackSize(1);
 
         wrench = new ItemWrench("wrench");
-        wrench.setCreativeTab(tools);
+        wrench.setCreativeTab(TabsZP.tools);
         wrench.setMaxDurability(48);
         wrench.setMaxStackSize(1);
 
         blood_material = new Item().setUnlocalizedName("blood_material");
-        blood_material.setCreativeTab(items);
+        blood_material.setCreativeTab(TabsZP.items);
         blood_material.setMaxStackSize(1);
 
         steel_ingot = new Item().setUnlocalizedName("steel_ingot");
-        steel_ingot.setCreativeTab(items);
+        steel_ingot.setCreativeTab(TabsZP.items);
         steel_ingot.setMaxStackSize(16);
 
         steel_material = new ItemSteelMaterial("steel_material");
-        steel_material.setCreativeTab(items);
+        steel_material.setCreativeTab(TabsZP.items);
         steel_material.setMaxStackSize(16);
 
         chemicals2 = new Item().setUnlocalizedName("chemicals2");
-        chemicals2.setCreativeTab(items);
+        chemicals2.setCreativeTab(TabsZP.items);
         chemicals2.setMaxDurability(24);
         chemicals2.setMaxStackSize(1);
 
         gasmask = new ItemArmor("gasmask", special_costume_mat, 1, 0);
-        gasmask.setCreativeTab(armor);
+        gasmask.setCreativeTab(TabsZP.armor);
 
         pnv = new ItemArmor("pnv", steel_mat, 1, 0);
-        pnv.setCreativeTab(armor);
+        pnv.setCreativeTab(TabsZP.armor);
 
         balaclava = new ItemArmorCamo("balaclava", cloth_mat, 1, CamoType.UNIVERSAL, 0);
-        balaclava.setCreativeTab(camo);
+        balaclava.setCreativeTab(TabsZP.camo);
 
         dynamike = new ItemArmor("dynamike", cloth_mat, 1, 1);
-        dynamike.setCreativeTab(armor);
+        dynamike.setCreativeTab(TabsZP.armor);
 
         kevlar_vest = new ItemArmor("kevlar_vest", kevlar_mat, 1, 1);
-        kevlar_vest.setCreativeTab(armor);
+        kevlar_vest.setCreativeTab(TabsZP.armor);
 
         kevlar_helmet = new ItemArmor("kevlar_helmet", kevlar_mat, 1, 0);
-        kevlar_helmet.setCreativeTab(armor);
+        kevlar_helmet.setCreativeTab(TabsZP.armor);
 
         forest_helmet = new ItemArmorCamo("forest_helmet", cloth_mat, 1, CamoType.FOREST, 0);
-        forest_helmet.setCreativeTab(camo);
+        forest_helmet.setCreativeTab(TabsZP.camo);
 
         forest_chestplate = new ItemArmorCamo("forest_chestplate", cloth_mat, 1, CamoType.FOREST, 1);
-        forest_chestplate.setCreativeTab(camo);
+        forest_chestplate.setCreativeTab(TabsZP.camo);
 
         forest_leggings = new ItemArmorCamo("forest_leggings", cloth_mat, 2, CamoType.FOREST, 2);
-        forest_leggings.setCreativeTab(camo);
+        forest_leggings.setCreativeTab(TabsZP.camo);
 
         forest_boots = new ItemArmorCamo("forest_boots", cloth_mat, 1, CamoType.FOREST, 3);
-        forest_boots.setCreativeTab(camo);
+        forest_boots.setCreativeTab(TabsZP.camo);
 
         rotten_chestplate = new ItemArmor("rotten_chestplate", rotten_mat, 1, 1);
-        rotten_chestplate.setCreativeTab(camo);
+        rotten_chestplate.setCreativeTab(TabsZP.camo);
 
         rotten_leggings = new ItemArmor("rotten_leggings", rotten_mat, 2, 2);
-        rotten_leggings.setCreativeTab(camo);
+        rotten_leggings.setCreativeTab(TabsZP.camo);
 
         rotten_boots = new ItemArmor("rotten_boots", rotten_mat, 1, 3);
-        rotten_boots.setCreativeTab(camo);
+        rotten_boots.setCreativeTab(TabsZP.camo);
 
         winter_helmet = new ItemArmorCamo("winter_helmet", cloth_mat, 1, CamoType.WINTER, 0);
-        winter_helmet.setCreativeTab(camo);
+        winter_helmet.setCreativeTab(TabsZP.camo);
 
         winter_chestplate = new ItemArmorCamo("winter_chestplate", cloth_mat, 1, CamoType.WINTER, 1);
-        winter_chestplate.setCreativeTab(camo);
+        winter_chestplate.setCreativeTab(TabsZP.camo);
 
         winter_leggings = new ItemArmorCamo("winter_leggings", cloth_mat, 2, CamoType.WINTER, 2);
-        winter_leggings.setCreativeTab(camo);
+        winter_leggings.setCreativeTab(TabsZP.camo);
 
         winter_boots = new ItemArmorCamo("winter_boots", cloth_mat, 1, CamoType.WINTER, 3);
-        winter_boots.setCreativeTab(camo);
+        winter_boots.setCreativeTab(TabsZP.camo);
 
         sand_helmet = new ItemArmorCamo("sand_helmet", cloth_mat, 1, CamoType.SAND, 0);
-        sand_helmet.setCreativeTab(camo);
+        sand_helmet.setCreativeTab(TabsZP.camo);
 
         sand_chestplate = new ItemArmorCamo("sand_chestplate", cloth_mat, 1, CamoType.SAND, 1);
-        sand_chestplate.setCreativeTab(camo);
+        sand_chestplate.setCreativeTab(TabsZP.camo);
 
         sand_leggings = new ItemArmorCamo("sand_leggings", cloth_mat, 2, CamoType.SAND, 2);
-        sand_leggings.setCreativeTab(camo);
+        sand_leggings.setCreativeTab(TabsZP.camo);
 
         sand_boots = new ItemArmorCamo("sand_boots", cloth_mat, 1, CamoType.SAND, 3);
-        sand_boots.setCreativeTab(camo);
+        sand_boots.setCreativeTab(TabsZP.camo);
 
         armor_material = new Item().setUnlocalizedName("armor_material");
-        armor_material.setCreativeTab(items);
+        armor_material.setCreativeTab(TabsZP.items);
         armor_material.setMaxStackSize(8);
 
         steel_helmet = new ItemArmor("steel_helmet", steel_mat, 1, 0);
-        steel_helmet.setCreativeTab(armor);
+        steel_helmet.setCreativeTab(TabsZP.armor);
 
         steel_chestplate = new ItemArmor("steel_chestplate", steel_mat, 1, 1);
-        steel_chestplate.setCreativeTab(armor);
+        steel_chestplate.setCreativeTab(TabsZP.armor);
 
         steel_leggings = new ItemArmor("steel_leggings", steel_mat, 2, 2);
-        steel_leggings.setCreativeTab(armor);
+        steel_leggings.setCreativeTab(TabsZP.armor);
 
         steel_boots = new ItemArmor("steel_boots", steel_mat, 1, 3);
-        steel_boots.setCreativeTab(armor);
+        steel_boots.setCreativeTab(TabsZP.armor);
 
         titan_ingot = new Item().setUnlocalizedName("titan_ingot");
-        titan_ingot.setCreativeTab(items);
+        titan_ingot.setCreativeTab(TabsZP.items);
         titan_ingot.setMaxStackSize(16);
 
         juggernaut_helmet = new ItemArmor("juggernaut_helmet", titan_mat, 1, 0);
-        juggernaut_helmet.setCreativeTab(armor);
+        juggernaut_helmet.setCreativeTab(TabsZP.armor);
 
         juggernaut_chestplate = new ItemArmor("juggernaut_chestplate", titan_mat, 1, 1);
-        juggernaut_chestplate.setCreativeTab(armor);
+        juggernaut_chestplate.setCreativeTab(TabsZP.armor);
 
         juggernaut_leggings = new ItemArmor("juggernaut_leggings", titan_mat, 2, 2);
-        juggernaut_leggings.setCreativeTab(armor);
+        juggernaut_leggings.setCreativeTab(TabsZP.armor);
 
         juggernaut_boots = new ItemArmor("juggernaut_boots", titan_mat, 1, 3);
-        juggernaut_boots.setCreativeTab(armor);
+        juggernaut_boots.setCreativeTab(TabsZP.armor);
 
         rad_helmet = new ItemArmor("rad_helmet", special_costume_mat, 1, 0);
-        rad_helmet.setCreativeTab(armor);
+        rad_helmet.setCreativeTab(TabsZP.armor);
 
         rad_chestplate = new ItemArmor("rad_chestplate", special_costume_mat, 1, 1);
-        rad_chestplate.setCreativeTab(armor);
+        rad_chestplate.setCreativeTab(TabsZP.armor);
 
         rad_leggings = new ItemArmor("rad_leggings", special_costume_mat, 2, 2);
-        rad_leggings.setCreativeTab(armor);
+        rad_leggings.setCreativeTab(TabsZP.armor);
 
         rad_boots = new ItemArmor("rad_boots", special_costume_mat, 1, 3);
-        rad_boots.setCreativeTab(armor);
+        rad_boots.setCreativeTab(TabsZP.armor);
 
         indcostume_helmet = new ItemArmor("indcostume_helmet", special_costume2_mat, 1, 0);
-        indcostume_helmet.setCreativeTab(armor);
+        indcostume_helmet.setCreativeTab(TabsZP.armor);
 
         indcostume_chestplate = new ItemArmor("indcostume_chestplate", special_costume2_mat, 1, 1);
-        indcostume_chestplate.setCreativeTab(armor);
+        indcostume_chestplate.setCreativeTab(TabsZP.armor);
 
         indcostume_leggings = new ItemArmor("indcostume_leggings", special_costume2_mat, 2, 2);
-        indcostume_leggings.setCreativeTab(armor);
+        indcostume_leggings.setCreativeTab(TabsZP.armor);
 
         indcostume_boots = new ItemArmor("indcostume_boots", special_costume2_mat, 1, 3);
-        indcostume_boots.setCreativeTab(armor);
+        indcostume_boots.setCreativeTab(TabsZP.armor);
 
         aqualung_helmet = new ItemArmor("aqualung_helmet", special_costume3_mat, 1, 0);
-        aqualung_helmet.setCreativeTab(armor);
+        aqualung_helmet.setCreativeTab(TabsZP.armor);
 
         aqualung_chestplate = new ItemArmor("aqualung_chestplate", special_costume3_mat, 1, 1);
-        aqualung_chestplate.setCreativeTab(armor);
+        aqualung_chestplate.setCreativeTab(TabsZP.armor);
 
         aqualung_leggings = new ItemArmor("aqualung_leggings", special_costume3_mat, 2, 2);
-        aqualung_leggings.setCreativeTab(armor);
+        aqualung_leggings.setCreativeTab(TabsZP.armor);
 
         aqualung_boots = new ItemArmor("aqualung_boots", special_costume3_mat, 1, 3);
-        aqualung_boots.setCreativeTab(armor);
+        aqualung_boots.setCreativeTab(TabsZP.armor);
 
         chemicals1 = new Item().setUnlocalizedName("chemicals1");
-        chemicals1.setCreativeTab(items);
+        chemicals1.setCreativeTab(TabsZP.items);
         chemicals1.setMaxDurability(9);
         chemicals1.setMaxStackSize(1);
 
         chemicals1_a = new Item().setUnlocalizedName("chemicals1_a");
-        chemicals1_a.setCreativeTab(items);
+        chemicals1_a.setCreativeTab(TabsZP.items);
         chemicals1_a.setMaxStackSize(16);
 
         chemicals1_b = new Item().setUnlocalizedName("chemicals1_b");
-        chemicals1_b.setCreativeTab(items);
+        chemicals1_b.setCreativeTab(TabsZP.items);
         chemicals1_b.setMaxStackSize(16);
 
         chemicals1_c = new Item().setUnlocalizedName("chemicals1_c");
-        chemicals1_c.setCreativeTab(items);
+        chemicals1_c.setCreativeTab(TabsZP.items);
         chemicals1_c.setMaxDurability(9);
         chemicals1_c.setMaxStackSize(1);
 
         custom_repair = new Item().setUnlocalizedName("custom_repair");
-        custom_repair.setCreativeTab(items);
+        custom_repair.setCreativeTab(TabsZP.items);
         custom_repair.setMaxDurability(100);
         custom_repair.setMaxStackSize(1);
 
         repair = new Item().setUnlocalizedName("repair");
-        repair.setCreativeTab(items);
+        repair.setCreativeTab(TabsZP.items);
         repair.setMaxDurability(100);
         repair.setMaxStackSize(1);
 
         scrap_material = new Item().setUnlocalizedName("scrap_material");
-        scrap_material.setCreativeTab(items);
+        scrap_material.setCreativeTab(TabsZP.items);
         scrap_material.setMaxStackSize(64);
 
         uran_material = new Item().setUnlocalizedName("uran_material");
-        uran_material.setCreativeTab(items);
+        uran_material.setCreativeTab(TabsZP.items);
         uran_material.setMaxStackSize(1);
 
         m_scissors = new ItemMetalScissors().setUnlocalizedName("m_scissors");
-        m_scissors.setCreativeTab(tools);
+        m_scissors.setCreativeTab(TabsZP.tools);
         m_scissors.setMaxDurability(16);
         m_scissors.setMaxStackSize(1);
 
         manyscrap = new Item().setUnlocalizedName("manyscrap");
-        manyscrap.setCreativeTab(items);
+        manyscrap.setCreativeTab(TabsZP.items);
         manyscrap.setMaxStackSize(16);
 
         acid = new ItemThrowable("acid", EntityAcid.class, 1.6f, 1.0f);
-        acid.setCreativeTab(items);
+        acid.setCreativeTab(TabsZP.items);
         acid.setMaxStackSize(1);
 
         trap_grenade = new ItemThrowable("trap_grenade", EntityTrapGrenade.class, 1.6f, 1.0f);
-        trap_grenade.setCreativeTab(items);
+        trap_grenade.setCreativeTab(TabsZP.items);
         trap_grenade.setMaxStackSize(1);
 
         frag_grenade = new ItemGrenade("frag_grenade", EntityGrenade.class, 1.6f, 1.0f);
-        frag_grenade.setCreativeTab(items);
+        frag_grenade.setCreativeTab(TabsZP.items);
         frag_grenade.setMaxStackSize(1);
 
         smoke_grenade = new ItemGrenade("smoke_grenade", EntityGrenadeSmoke.class, 1.6f, 1.0f);
-        smoke_grenade.setCreativeTab(items);
+        smoke_grenade.setCreativeTab(TabsZP.items);
         smoke_grenade.setMaxStackSize(1);
 
         gas_grenade = new ItemGrenade("gas_grenade", EntityGrenadeGas.class, 1.6f, 1.0f);
-        gas_grenade.setCreativeTab(items);
+        gas_grenade.setCreativeTab(TabsZP.items);
         gas_grenade.setMaxStackSize(1);
 
         holywater = new ItemThrowable("holywater", EntityHolywater.class, 1.6f, 1.0f);
-        holywater.setCreativeTab(items);
+        holywater.setCreativeTab(TabsZP.items);
         holywater.setMaxStackSize(1);
 
         tnt = new ItemGrenade("tnt", EntityTnt.class, 1.6f, 3.0f);
-        tnt.setCreativeTab(items);
+        tnt.setCreativeTab(TabsZP.items);
         tnt.setMaxStackSize(4);
 
         plate = new ItemThrowable("plate", EntityPlate.class, 1.6f, 1.0f);
-        plate.setCreativeTab(items);
+        plate.setCreativeTab(TabsZP.items);
         plate.setMaxStackSize(16);
 
         plate_meat = new ItemThrowable("plate_meat", EntityPlateBait.class, 1.6f, 1.0f);
-        plate_meat.setCreativeTab(items);
+        plate_meat.setCreativeTab(TabsZP.items);
         plate_meat.setMaxStackSize(16);
 
         rock = new ItemThrowable("rock", EntityRock.class, 1.6f, 1.0f);
-        rock.setCreativeTab(items);
+        rock.setCreativeTab(TabsZP.items);
         rock.setMaxStackSize(1);
 
         _scare = new Item().setUnlocalizedName("_scare");
-        _scare.setCreativeTab(special);
+        _scare.setCreativeTab(TabsZP.special);
         _scare.setMaxStackSize(32);
 
         _caramel = new Item().setUnlocalizedName("_caramel");
-        _caramel.setCreativeTab(special);
+        _caramel.setCreativeTab(TabsZP.special);
         _caramel.setMaxStackSize(32);
 
         _9mm = new Item().setUnlocalizedName("_9mm");
-        _9mm.setCreativeTab(ammo);
+        _9mm.setCreativeTab(TabsZP.ammo);
         _9mm.setMaxStackSize(32);
 
         _custom = new Item().setUnlocalizedName("_custom");
-        _custom.setCreativeTab(ammo);
+        _custom.setCreativeTab(TabsZP.ammo);
         _custom.setMaxStackSize(32);
 
         _custom2 = new Item().setUnlocalizedName("_custom2");
-        _custom2.setCreativeTab(ammo);
+        _custom2.setCreativeTab(TabsZP.ammo);
         _custom2.setMaxStackSize(32);
 
         _22lr = new Item().setUnlocalizedName("_22lr");
-        _22lr.setCreativeTab(ammo);
+        _22lr.setCreativeTab(TabsZP.ammo);
         _22lr.setMaxStackSize(32);
 
         _5_45x39 = new Item().setUnlocalizedName("_5_45x39");
-        _5_45x39.setCreativeTab(ammo);
+        _5_45x39.setCreativeTab(TabsZP.ammo);
         _5_45x39.setMaxStackSize(32);
 
         _5_56x45 = new Item().setUnlocalizedName("_5_56x45");
-        _5_56x45.setCreativeTab(ammo);
+        _5_56x45.setCreativeTab(TabsZP.ammo);
         _5_56x45.setMaxStackSize(32);
 
         _12 = new Item().setUnlocalizedName("_12");
-        _12.setCreativeTab(ammo);
+        _12.setCreativeTab(TabsZP.ammo);
         _12.setMaxStackSize(32);
 
         _rocket = new Item().setUnlocalizedName("_rocket");
-        _rocket.setCreativeTab(ammo);
+        _rocket.setCreativeTab(TabsZP.ammo);
         _rocket.setMaxStackSize(1);
 
         _javelin = new Item().setUnlocalizedName("_javelin");
-        _javelin.setCreativeTab(fun);
+        _javelin.setCreativeTab(TabsZP.fun);
         _javelin.setMaxStackSize(1);
 
         _igla = new Item().setUnlocalizedName("_igla");
-        _igla.setCreativeTab(fun);
+        _igla.setCreativeTab(TabsZP.fun);
         _igla.setMaxStackSize(4);
 
         _flare = new Item().setUnlocalizedName("_flare");
-        _flare.setCreativeTab(ammo);
+        _flare.setCreativeTab(TabsZP.ammo);
         _flare.setMaxStackSize(1);
 
         _gauss = new Item().setUnlocalizedName("_gauss");
-        _gauss.setCreativeTab(ammo);
+        _gauss.setCreativeTab(TabsZP.ammo);
         _gauss.setMaxStackSize(32);
 
         _grenade40mm = new Item().setUnlocalizedName("_grenade40mm");
-        _grenade40mm.setCreativeTab(ammo);
+        _grenade40mm.setCreativeTab(TabsZP.ammo);
         _grenade40mm.setMaxStackSize(1);
 
         _wog25 = new Item().setUnlocalizedName("_wog25");
-        _wog25.setCreativeTab(ammo);
+        _wog25.setCreativeTab(TabsZP.ammo);
         _wog25.setMaxStackSize(1);
 
         _7_62x25 = new Item().setUnlocalizedName("_7_62x25");
-        _7_62x25.setCreativeTab(ammo);
+        _7_62x25.setCreativeTab(TabsZP.ammo);
         _7_62x25.setMaxStackSize(32);
 
         _7_62x39 = new Item().setUnlocalizedName("_7_62x39");
-        _7_62x39.setCreativeTab(ammo);
+        _7_62x39.setCreativeTab(TabsZP.ammo);
         _7_62x39.setMaxStackSize(32);
 
         _7_62x54R = new Item().setUnlocalizedName("_7_62x54R");
-        _7_62x54R.setCreativeTab(ammo);
+        _7_62x54R.setCreativeTab(TabsZP.ammo);
         _7_62x54R.setMaxStackSize(32);
 
         _9x39 = new Item().setUnlocalizedName("_9x39");
-        _9x39.setCreativeTab(ammo);
+        _9x39.setCreativeTab(TabsZP.ammo);
         _9x39.setMaxStackSize(32);
 
         _45acp = new Item().setUnlocalizedName("_45acp");
-        _45acp.setCreativeTab(ammo);
+        _45acp.setCreativeTab(TabsZP.ammo);
         _45acp.setMaxStackSize(32);
 
         _5_7x28 = new Item().setUnlocalizedName("_5_7x28");
-        _5_7x28.setCreativeTab(ammo);
+        _5_7x28.setCreativeTab(TabsZP.ammo);
         _5_7x28.setMaxStackSize(32);
 
         _308win = new Item().setUnlocalizedName("_308win");
-        _308win.setCreativeTab(ammo);
+        _308win.setCreativeTab(TabsZP.ammo);
         _308win.setMaxStackSize(32);
 
         _357m = new Item().setUnlocalizedName("_357m");
-        _357m.setCreativeTab(ammo);
+        _357m.setCreativeTab(TabsZP.ammo);
         _357m.setMaxStackSize(32);
 
         _50bmg = new Item().setUnlocalizedName("_50bmg");
-        _50bmg.setCreativeTab(ammo);
+        _50bmg.setCreativeTab(TabsZP.ammo);
         _50bmg.setMaxStackSize(32);
 
         ACommonAmmo _scareAmmo = new ACommonAmmo(_scare, new Shell(1.0f, 0.8f, 0.4f, 0.26f), 8.0f);
@@ -1513,115 +1478,115 @@ public class ItemsZp {
 
         laser = new ItemLaser("laser");
         laser.setInaccuracyModifier(-0.05f);
-        laser.setCreativeTab(mods);
+        laser.setCreativeTab(TabsZP.mods);
 
         angle_foregrip = new ItemForegrip("angle_foregrip");
         angle_foregrip.setRecoilHorizontalModifier(-0.1f);
         angle_foregrip.setRecoilVerticalModifier(-0.05f);
         angle_foregrip.setStabilityModifier(0.3f);
-        angle_foregrip.setCreativeTab(mods);
+        angle_foregrip.setCreativeTab(TabsZP.mods);
 
         foregrip = new ItemForegrip("foregrip");
         foregrip.setRecoilHorizontalModifier(-0.05f);
         foregrip.setRecoilVerticalModifier(-0.1f);
         foregrip.setStabilityModifier(0.3f);
-        foregrip.setCreativeTab(mods);
+        foregrip.setCreativeTab(TabsZP.mods);
 
         m203 = new ItemM203("m203", "m79_s", "m79_r", 20, 50, _grenade40mmAmmo, 1);
-        m203.setCreativeTab(mods);
+        m203.setCreativeTab(TabsZP.mods);
 
         gp25 = new ItemGP25("gp25", "m79_s", "m79_r", 20, 50, _wog25Ammo, 1);
-        gp25.setCreativeTab(mods);
+        gp25.setCreativeTab(TabsZP.mods);
 
         bipod = new ItemBipod("bipod");
         bipod.setRecoilHorizontalModifier(-0.2f);
         bipod.setRecoilVerticalModifier(-0.2f);
         bipod.setStabilityModifier(0.8f);
-        bipod.setCreativeTab(mods);
+        bipod.setCreativeTab(TabsZP.mods);
 
         acog2x = new ItemScope("acog2x", "acogCross", 0.5f);
         acog2x.setInaccuracyModifier(-0.05f);
-        acog2x.setCreativeTab(mods);
+        acog2x.setCreativeTab(TabsZP.mods);
 
         scope_eotech = new ItemScope("scope_eotech", "null", -1);
         scope_eotech.setInaccuracyModifier(-0.12f);
-        scope_eotech.setCreativeTab(mods);
+        scope_eotech.setCreativeTab(TabsZP.mods);
 
         scope_kobra = new ItemScope("scope_kobra", "null", -1);
         scope_kobra.setInaccuracyModifier(-0.12f);
-        scope_kobra.setCreativeTab(mods);
+        scope_kobra.setCreativeTab(TabsZP.mods);
 
         scope_kashtan = new ItemScope("scope_kashtan", "psoCross", 0.5f);
         scope_kashtan.setInaccuracyModifier(-0.1f);
-        scope_kashtan.setCreativeTab(mods);
+        scope_kashtan.setCreativeTab(TabsZP.mods);
 
         pistol_scope = new ItemScope("pistol_scope", "huntingCross", 0.55f);
         pistol_scope.setInaccuracyModifier(-0.05f);
-        pistol_scope.setCreativeTab(mods);
+        pistol_scope.setCreativeTab(TabsZP.mods);
 
         scope_pu = new ItemScope("scope_pu", "puCross", 0.6f);
         scope_pu.setInaccuracyModifier(-0.05f);
-        scope_pu.setCreativeTab(mods);
+        scope_pu.setCreativeTab(TabsZP.mods);
 
         hunting_scope = new ItemScope("hunting_scope", "huntingCross", 0.7f);
         hunting_scope.setInaccuracyModifier(-0.08f);
-        hunting_scope.setCreativeTab(mods);
+        hunting_scope.setCreativeTab(TabsZP.mods);
 
         scope4x = new ItemScope("scope4x", "poCross", 0.65f);
         scope4x.setInaccuracyModifier(-0.08f);
-        scope4x.setCreativeTab(mods);
+        scope4x.setCreativeTab(TabsZP.mods);
 
         pso4x = new ItemScope("pso4x", "psoCross", 0.65f);
         pso4x.setInaccuracyModifier(-0.08f);
-        pso4x.setCreativeTab(mods);
+        pso4x.setCreativeTab(TabsZP.mods);
 
         scope6x = new ItemScope("scope6x", "poCross", 0.8f);
         scope6x.setInaccuracyModifier(-0.1f);
-        scope6x.setCreativeTab(mods);
+        scope6x.setCreativeTab(TabsZP.mods);
 
         pso6x = new ItemScope("pso6x", "psoCross", 0.8f);
         pso6x.setInaccuracyModifier(-0.1f);
-        pso6x.setCreativeTab(mods);
+        pso6x.setCreativeTab(TabsZP.mods);
 
         anPvs4 = new ItemNVScope("anPvs4", "anPvsCross", 0.6f);
         anPvs4.setInaccuracyModifier(-0.08f);
-        anPvs4.setCreativeTab(mods);
+        anPvs4.setCreativeTab(TabsZP.mods);
 
         nspu = new ItemNVScope("nspu", "psoCross", 0.6f);
         nspu.setInaccuracyModifier(-0.08f);
-        nspu.setCreativeTab(mods);
+        nspu.setCreativeTab(TabsZP.mods);
 
         flashSuppressor_pistol = new ItemFlashSuppressor("flashSuppressor_pistol");
         flashSuppressor_pistol.setRecoilHorizontalModifier(-0.06f);
-        flashSuppressor_pistol.setCreativeTab(mods);
+        flashSuppressor_pistol.setCreativeTab(TabsZP.mods);
 
         flashSuppressor_rifle = new ItemFlashSuppressor("flashSuppressor_rifle");
         flashSuppressor_rifle.setRecoilHorizontalModifier(-0.06f);
-        flashSuppressor_rifle.setCreativeTab(mods);
+        flashSuppressor_rifle.setCreativeTab(TabsZP.mods);
 
         muzzlebrake_rifle = new ItemMuzzleBrake("muzzlebrake_rifle");
         muzzlebrake_rifle.setRecoilVerticalModifier(-0.1f);
         muzzlebrake_rifle.setRecoilHorizontalModifier(-0.1f);
         muzzlebrake_rifle.setDistanceModifier(-0.1f);
-        muzzlebrake_rifle.setCreativeTab(mods);
+        muzzlebrake_rifle.setCreativeTab(TabsZP.mods);
 
         muzzlebrake_pistol = new ItemMuzzleBrake("muzzlebrake_pistol");
         muzzlebrake_pistol.setRecoilVerticalModifier(-0.1f);
         muzzlebrake_pistol.setRecoilHorizontalModifier(-0.1f);
         muzzlebrake_pistol.setDistanceModifier(-0.1f);
-        muzzlebrake_pistol.setCreativeTab(mods);
+        muzzlebrake_pistol.setCreativeTab(TabsZP.mods);
 
         silencer_rifle = new ItemSilencer("silencer_rifle");
         silencer_rifle.setRecoilVerticalModifier(-0.05f);
         silencer_rifle.setRecoilHorizontalModifier(0.05f);
         silencer_rifle.setInaccuracyModifier(-0.05f);
-        silencer_rifle.setCreativeTab(mods);
+        silencer_rifle.setCreativeTab(TabsZP.mods);
 
         silencer_pistol = new ItemSilencer("silencer_pistol");
         silencer_pistol.setRecoilVerticalModifier(-0.05f);
         silencer_pistol.setRecoilHorizontalModifier(0.05f);
         silencer_pistol.setInaccuracyModifier(-0.05f);
-        silencer_pistol.setCreativeTab(mods);
+        silencer_pistol.setCreativeTab(TabsZP.mods);
 
         _customRocket = new Item() {
             @SideOnly(Side.CLIENT)
@@ -1631,7 +1596,7 @@ public class ItemsZp {
             }
         };
         _customRocket.setUnlocalizedName("_customRocket");
-        _customRocket.setCreativeTab(items);
+        _customRocket.setCreativeTab(TabsZP.items);
         _customRocket.setMaxStackSize(4);
 
 
@@ -1639,11 +1604,11 @@ public class ItemsZp {
         rpg28.setMaxDurability(15);
 
         javelin = new ItemJavelin("javelin", "rpg_s", "rpg_r", 1, 100, 20, 6.0f, 6.0f, 1.5f, 0, 0.0f, false, false, _javelinAmmo);
-        javelin.setCreativeTab(fun);
+        javelin.setCreativeTab(TabsZP.fun);
         javelin.setMaxDurability(15);
 
         igla = new ItemIgla("igla", "rpg_s", "rpg_r", 1, 100, 20, 6.0f, 6.0f, 1.5f, 0, 0.0f, false, false, _iglaAmmo);
-        igla.setCreativeTab(fun);
+        igla.setCreativeTab(TabsZP.fun);
         igla.setMaxDurability(15);
 
         m79 = new ItemM79("m79", "m79_s", "m79_r", 1, 100, 20, 6.0f, 6.0f, 2.5f, 0.5f, 0.0f, false, false, _grenade40mmAmmo);
@@ -1763,7 +1728,7 @@ public class ItemsZp {
         scare_gun.addModule(new ModuleInfo(ItemsZp.flashSuppressor_rifle, 11, 11));
         scare_gun.addModule(new ModuleInfo(ItemsZp.muzzlebrake_rifle, 11, 11));
         scare_gun.addModule(new ModuleInfo(ItemsZp.silencer_rifle, 11, 11));
-        scare_gun.setCreativeTab(special);
+        scare_gun.setCreativeTab(TabsZP.special);
         scare_gun.setMaxDurability(390);
 
         caramel_gun = new ItemRifleHoliday("caramel_gun", "caramel_gun_s", "caramel_gun_r", 30, 60, 20, 2, 240, 186, 1.6f, 0.2f, 2.5f, 0.5f, 0.07f, 1.5f, 0.15f, true, true, _caramelAmmo) {
@@ -1777,7 +1742,7 @@ public class ItemsZp {
         caramel_gun.addModule(new ModuleInfo(ItemsZp.flashSuppressor_rifle, 11, 11));
         caramel_gun.addModule(new ModuleInfo(ItemsZp.muzzlebrake_rifle, 11, 11));
         caramel_gun.addModule(new ModuleInfo(ItemsZp.silencer_rifle, 11, 11));
-        caramel_gun.setCreativeTab(special);
+        caramel_gun.setCreativeTab(TabsZP.special);
         caramel_gun.setMaxDurability(390);
 
         akm = new ItemRifle("akm", "akm_s", "akm_r", 30, 90, 22, 2, 238, 186, 1.85f, 0.3f, 3.5f, 1.5f, 0.075f, 2.0f, 0.25f, true, true, _7_62x39Ammo);
@@ -2181,7 +2146,7 @@ public class ItemsZp {
         spas12.setMaxDurability(140);
 
         sodagun = new ItemSodaGun("sodagun", "soda_s", "shotgun_r2", 4, 16, 12, 12, 52, 32, 7.0f, 3.5f, 32.0f, 30.0f, 0.5f, 3.0f, 0.0f, false, true, _burnAmmo);
-        sodagun.setCreativeTab(fun);
+        sodagun.setCreativeTab(TabsZP.fun);
         sodagun.setMaxDurability(140);
 
         steel_mat.customCraftingMaterial = steel_ingot;
@@ -2199,59 +2164,59 @@ public class ItemsZp {
         //FUN//
 
         _solncepekRocket = new ItemRocket().setUnlocalizedName("_solncepekRocket");
-        _solncepekRocket.setCreativeTab(fun);
+        _solncepekRocket.setCreativeTab(TabsZP.fun);
         _solncepekRocket.setMaxStackSize(10);
 
         _katyushaRocket = new ItemRocket().setUnlocalizedName("_katyushaRocket");
-        _katyushaRocket.setCreativeTab(fun);
+        _katyushaRocket.setCreativeTab(TabsZP.fun);
         _katyushaRocket.setMaxStackSize(64);
 
         _gradRocket = new ItemRocket().setUnlocalizedName("_gradRocket");
-        _gradRocket.setCreativeTab(fun);
+        _gradRocket.setCreativeTab(TabsZP.fun);
         _gradRocket.setMaxStackSize(48);
 
         _geran2 = new ItemRocket().setUnlocalizedName("_geran2");
-        _geran2.setCreativeTab(fun);
+        _geran2.setCreativeTab(TabsZP.fun);
         _geran2.setMaxStackSize(4);
 
         _kalibrRocket = new ItemRocket().setUnlocalizedName("_kalibrRocket");
-        _kalibrRocket.setCreativeTab(fun);
+        _kalibrRocket.setCreativeTab(TabsZP.fun);
         _kalibrRocket.setMaxStackSize(4);
 
         _iskanderRocket = new ItemRocket().setUnlocalizedName("_iskanderRocket");
-        _iskanderRocket.setCreativeTab(fun);
+        _iskanderRocket.setCreativeTab(TabsZP.fun);
         _iskanderRocket.setMaxStackSize(1);
 
         _c300Rocket = new ItemRocket().setUnlocalizedName("_c300Rocket");
-        _c300Rocket.setCreativeTab(fun);
+        _c300Rocket.setCreativeTab(TabsZP.fun);
         _c300Rocket.setMaxStackSize(4);
 
         _r27Rocket = new ItemRocket().setUnlocalizedName("_r27Rocket");
-        _r27Rocket.setCreativeTab(fun);
+        _r27Rocket.setCreativeTab(TabsZP.fun);
         _r27Rocket.setMaxStackSize(8);
 
         _ovodRocket = new ItemRocket().setUnlocalizedName("_ovodRocket");
-        _ovodRocket.setCreativeTab(fun);
+        _ovodRocket.setCreativeTab(TabsZP.fun);
         _ovodRocket.setMaxStackSize(4);
 
         _x101Rocket = new ItemRocket().setUnlocalizedName("_x101Rocket");
-        _x101Rocket.setCreativeTab(fun);
+        _x101Rocket.setCreativeTab(TabsZP.fun);
         _x101Rocket.setMaxStackSize(2);
 
         _pancirRocket = new ItemRocket().setUnlocalizedName("_pancirRocket");
-        _pancirRocket.setCreativeTab(fun);
+        _pancirRocket.setCreativeTab(TabsZP.fun);
         _pancirRocket.setMaxStackSize(14);
 
         _uraganRocket = new ItemRocket().setUnlocalizedName("_uraganRocket");
-        _uraganRocket.setCreativeTab(fun);
+        _uraganRocket.setCreativeTab(TabsZP.fun);
         _uraganRocket.setMaxStackSize(16);
 
         _bastionRocket = new ItemRocket().setUnlocalizedName("_bastionRocket");
-        _bastionRocket.setCreativeTab(fun);
+        _bastionRocket.setCreativeTab(TabsZP.fun);
         _bastionRocket.setMaxStackSize(1);
 
         _kinzhalRocket = new ItemRocket().setUnlocalizedName("_kinzhalRocket");
-        _kinzhalRocket.setCreativeTab(fun);
+        _kinzhalRocket.setCreativeTab(TabsZP.fun);
         _kinzhalRocket.setMaxStackSize(1);
     }
 
@@ -2655,23 +2620,23 @@ public class ItemsZp {
 
         registerItem(_customRocket);
         if (FMLLaunchHandler.side().isClient()) {
-            weap.loadTable();
-            ammo.loadTable();
-            items.loadTable();
-            armor.loadTable();
-            camo.loadTable();
-            melee.loadTable();
-            tools.loadTable();
-            blocks.loadTable();
-            decorations.loadTable();
-            admin_blocks.loadTable();
-            food.loadTable();
-            medicine.loadTable();
-            fun.loadTable();
-            special.loadTable();
-            mods.loadTable();
-            progs.loadTable();
-            books.loadTable();
+            TabsZP.weap.loadTable();
+            TabsZP.ammo.loadTable();
+            TabsZP.items.loadTable();
+            TabsZP.armor.loadTable();
+            TabsZP.camo.loadTable();
+            TabsZP.melee.loadTable();
+            TabsZP.tools.loadTable();
+            TabsZP.blocks.loadTable();
+            TabsZP.decorations.loadTable();
+            TabsZP.admin_blocks.loadTable();
+            TabsZP.food.loadTable();
+            TabsZP.medicine.loadTable();
+            TabsZP.fun.loadTable();
+            TabsZP.special.loadTable();
+            TabsZP.mods.loadTable();
+            TabsZP.progs.loadTable();
+            TabsZP.books.loadTable();
         }
 
         Item.getItemFromBlock(BlocksZp.copper_ore).setMaxStackSize(32);

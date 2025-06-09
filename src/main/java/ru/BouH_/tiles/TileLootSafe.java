@@ -21,7 +21,7 @@ public class TileLootSafe extends TileLootCase {
         lootList.add(new ItemToSpawn(ItemsZp.book_fisher, 1, 16));
         lootList.add(new ItemToSpawn(ItemsZp.book_survivor, 1, 16));
 
-        lootList.add(new ItemToSpawn(ItemsZp.chemicals2, 1.0f, 1.0f, 1.0f, 4));
+        lootList.add(new ItemToSpawn(ItemsZp.chemicals2, 1.0f, 1.0f, 1.0f, 5));
     }
 
     private boolean isClosed;

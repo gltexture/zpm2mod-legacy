@@ -149,11 +149,11 @@ public class CommonProxy {
     public void registerBaseZp() throws IllegalAccessException {
         NetworkHandler.registerPackets();
         NetworkHandler.registerPacketsClient();
-        ItemsZp.init();
         FluidsZp.init();
         FluidsZp.register();
         BlocksZp.init();
         BlocksZp.register();
+        ItemsZp.init();
         this.registerBiomes();
         ItemsZp.register();
         EntitiesZp.registerEntityDisplacer();

@@ -15,6 +15,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fluids.BlockFluidClassic;
 import net.minecraftforge.fluids.Fluid;
 import ru.BouH_.Main;
+import ru.BouH_.init.BlocksZp;
 import ru.BouH_.tiles.TileLava;
 
 import java.util.Random;
@@ -28,7 +29,7 @@ public class BlockLavaZp extends BlockFluidClassic implements ITileEntityProvide
 
     public BlockLavaZp(Fluid fluid) {
         super(fluid, Material.lava);
-        this.setQuantaPerBlock(4);
+        this.setQuantaPerBlock(9);
         this.setTickRandomly(true);
     }
 
@@ -119,10 +120,10 @@ public class BlockLavaZp extends BlockFluidClassic implements ITileEntityProvide
     private void func_149805_n(World p_149805_1_, int x, int y, int z) {
         if (p_149805_1_.getBlock(x, y, z) == this) {
             if (p_149805_1_.getBlock(x - 1, y, z).getMaterial() == Material.water || p_149805_1_.getBlock(x + 1, y, z).getMaterial() == Material.water || p_149805_1_.getBlock(x, y, z - 1).getMaterial() == Material.water || p_149805_1_.getBlock(x, y, z + 1).getMaterial() == Material.water) {
-                p_149805_1_.setBlock(x, y, z, Blocks.cobblestone);
+                p_149805_1_.setBlock(x, y, z, BlocksZp.temp_stone);
                 this.func_149799_m(p_149805_1_, x, y, z);
             } else if (p_149805_1_.getBlock(x, y - 1, z).getMaterial() == Material.water) {
-                p_149805_1_.setBlock(x, y - 1, z, Blocks.cobblestone);
+                p_149805_1_.setBlock(x, y - 1, z, BlocksZp.temp_stone);
                 this.func_149799_m(p_149805_1_, x, y - 1, z);
             } else if (p_149805_1_.getBlock(x, y + 1, z).getMaterial() == Material.water) {
                 int l = p_149805_1_.getBlockMetadata(x, y, z);

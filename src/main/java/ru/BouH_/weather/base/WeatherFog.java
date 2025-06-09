@@ -41,7 +41,7 @@ public class WeatherFog implements IWeather {
             if (iWeatherInfo.getTimeUntilStart() > 0) {
                 iWeatherInfo.setTimeUntilStart(iWeatherInfo.getTimeUntilStart() - 1);
             } else {
-                if (Main.rand.nextFloat() <= 0.2f) {
+                if (Main.rand.nextFloat() <= 0.2f * ConfigZp.rainAndFogChanceMultiplier) {
                     this.startWeatherFogPacket((WeatherFogManager) iWeatherInfo);
                 } else {
                     iWeatherInfo.resetTimer();

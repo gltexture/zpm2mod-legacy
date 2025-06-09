@@ -22,9 +22,9 @@ public class FoodVodka extends FoodZp {
             AchievementManager.instance.triggerAchievement(AchievementManager.instance.alcohol, player);
             Thirst.getThirst(player).addThirst(getHealAmount(stack), getSaturationModifier(stack));
             player.addPotionEffect(new PotionEffect(5, 300));
-            player.addPotionEffect(new PotionEffect(9, 3600));
-            player.addPotionEffect(new PotionEffect(33, 600));
-            player.addPotionEffect(new PotionEffect(29, 600));
+            player.addPotionEffect(new PotionEffect(9, 1200));
+            player.addPotionEffect(new PotionEffect(33, 900));
+            player.addPotionEffect(new PotionEffect(29, 900));
             player.getEntityData().setInteger("radiation", Math.max(player.getEntityData().getInteger("radiation") - 70, 0));
             player.getEntityData().setInteger("nausea", (player.getEntityData().getInteger("nausea") + 40));
         }

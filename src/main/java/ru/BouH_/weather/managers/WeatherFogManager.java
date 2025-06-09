@@ -26,7 +26,7 @@ public class WeatherFogManager implements IWeatherInfo {
     }
 
     public void resetTimer() {
-        this.timeUntilStart = 18000 + Main.rand.nextInt(40001);
+        this.timeUntilStart = 20000 + Main.rand.nextInt(40001);
     }
 
     public int getTimeUntilStart() {

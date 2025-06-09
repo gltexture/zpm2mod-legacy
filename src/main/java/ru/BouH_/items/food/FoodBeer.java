@@ -21,9 +21,9 @@ public class FoodBeer extends FoodZp {
             AchievementManager.instance.triggerAchievement(AchievementManager.instance.alcohol, player);
             Thirst.getThirst(player).addThirst(getHealAmount(stack), getSaturationModifier(stack));
             player.addPotionEffect(new PotionEffect(5, 150));
-            player.addPotionEffect(new PotionEffect(9, 1800));
-            player.addPotionEffect(new PotionEffect(33, 300));
-            player.addPotionEffect(new PotionEffect(29, 300));
+            player.addPotionEffect(new PotionEffect(9, 300));
+            player.addPotionEffect(new PotionEffect(33, 500));
+            player.addPotionEffect(new PotionEffect(29, 500));
             player.getEntityData().setInteger("radiation", Math.max(player.getEntityData().getInteger("radiation") - 35, 0));
             player.getEntityData().setInteger("nausea", (player.getEntityData().getInteger("nausea") + 20));
         }

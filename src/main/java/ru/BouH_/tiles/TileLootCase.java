@@ -195,7 +195,7 @@ public class TileLootCase extends TileEntityChest {
 
     protected void onOpen() {
         if (!this.worldObj.isRemote) {
-            int i = 36000;
+            int i = ConfigZp.lootRespawnLootcaseTime;
             if (ConfigZp.longDays) {
                 i -= 12000;
             }

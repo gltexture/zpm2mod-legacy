@@ -65,7 +65,7 @@ public class ClientHandler {
                     int i1 = WorldManager.instance.getMidNightTime(player.worldObj);
                     f2 = MathHelper.clamp_float(1.0f - Math.abs(curr - i1) / 4500.0f, 0.0f, 1.0f);
                 }
-                float funN = (float) Math.pow(f2, 1.5f);
+                float funN = (float) Math.pow(f2, 2.0f);
                 funN = Math.min(funN, 0.7f);
 
                 if (this.nightBrightConstant >= f2) {
@@ -112,7 +112,7 @@ public class ClientHandler {
                         this.seeTimer += 1;
                     }
                     if (this.horror != null) {
-                        if (this.seeTimer >= 20 || this.horror.ticksExisted > 1200) {
+                        if (this.seeTimer >= 40 || this.horror.ticksExisted > 1200) {
                             this.horror.setDead();
                             this.horror = null;
                             this.seeTimer = 0;

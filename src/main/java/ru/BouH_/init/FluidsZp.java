@@ -45,7 +45,7 @@ public class FluidsZp {
         toxicwater_block.setUnlocalizedName("toxicWater_block");
 
         portalZp = new BlockZPPortal(portal, MaterialZp.stakes);
-        portalZp.setCreativeTab(ItemsZp.admin_blocks);
+        portalZp.setCreativeTab(TabsZP.admin_blocks);
         portalZp.setHardness(1000.0f);
         portalZp.setUnlocalizedName("portalZp");
     }

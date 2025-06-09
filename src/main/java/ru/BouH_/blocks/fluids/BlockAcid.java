@@ -28,7 +28,7 @@ public class BlockAcid extends BlockFluidClassic {
 
     public BlockAcid(Fluid fluid, Material mat) {
         super(fluid, mat);
-        this.setQuantaPerBlock(5);
+        this.setQuantaPerBlock(12);
     }
 
     public void onNeighborBlockChange(World p_149695_1_, int p_149695_2_, int p_149695_3_, int p_149695_4_, Block p_149695_5_) {

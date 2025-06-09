@@ -30,6 +30,7 @@ import ru.BouH_.entity.ieep.PlayerMiscData;
 import ru.BouH_.entity.particle.EntityParticleShell;
 import ru.BouH_.entity.particle.EntityParticleSpark;
 import ru.BouH_.init.ItemsZp;
+import ru.BouH_.init.TabsZP;
 import ru.BouH_.items.gun.ammo.AAmmo;
 import ru.BouH_.items.gun.crossbow.ItemCrossbow;
 import ru.BouH_.items.gun.modules.ItemFlashSuppressor;
@@ -103,7 +104,7 @@ public abstract class AGunBase extends Item {
         this.addRepair();
 
         this.setMaxStackSize(1);
-        this.setCreativeTab(ItemsZp.weap);
+        this.setCreativeTab(TabsZP.weap);
         this.shootSound = shootSound;
         this.reloadSound = reloadSound;
         this.renderType = renderType;
@@ -698,7 +699,7 @@ public abstract class AGunBase extends Item {
     public float getShootVolume(ItemStack stack) {
         float volume = Math.min(this.shootVolume, 16);
         if (this.isSilenced(stack)) {
-            volume *= 0.3f;
+            volume *= 0.2f;
         }
         return volume;
     }
