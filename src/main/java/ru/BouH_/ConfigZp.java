@@ -16,7 +16,10 @@ public class ConfigZp {
     public static boolean isAirdropEnabled;
     public static boolean clientHigherBrightness;
     public static boolean achievementsSystem;
-    public static boolean skillsSystem;
+
+    public static boolean skillsSystemCrafts;
+    public static boolean skillsSystemProgression;
+
     public static boolean dynamicEvents;
     public static boolean zombieDifficultyProgression;
     public static float zombieSpawnScale;
@@ -55,14 +58,17 @@ public class ConfigZp {
         forcePlayerTrackingUpdate = config.getBoolean("forcePlayerTrackingUpdate", "default", false, "Player tracking update. Bugfix");
         enableKitStart = config.getBoolean("enableKitStart", "default", true, "Kit start");
         explosionDestruction = config.getBoolean("explosionDestruction", "default", true, "Explosion destruction");
-        plagueZoneType = config.getInt("plagueZoneType", "default", 1, 0, 3, "Type of Plague Zone generation[0 = FLAT, 1 = DEFAULT, 2 = ZPW, 3 = ZPF]");
+        plagueZoneType = config.getInt("plagueZoneType", "default", 2, 0, 3, "Type of Plague Zone generation[0 = FLAT, 1 = DEFAULT, 2 = ZPW, 3 = ZPF]");
         lootMultiplier = config.getFloat("lootMultiplier", "default", 1.0f, 0.0f, 100.0f, "Loot-luckiness chance multiplier");
         longDays = config.getBoolean("longDays", "default", true, "Longer Days");
         longNights = config.getBoolean("longNights", "default", true, "Longer Nights");
         isAirdropEnabled = config.getBoolean("isAirdropEnabled", "default", true, "Airdrops");
         clientHigherBrightness = config.getBoolean("clientHigherBrightness", "default", false, "Increases the brightness of the players. ATTENTION! Setting can spoil the impression of the game. If the value is \"false\" on the server, the setting will not work on the client");
         achievementsSystem = config.getBoolean("achievementsSystem", "default", true, "Advancements");
-        skillsSystem = config.getBoolean("skillsSystem", "default", true, "Advancements");
+
+        skillsSystemCrafts = config.getBoolean("skillsSystemProgression", "default", true, "Skills Crafts");
+        skillsSystemProgression = config.getBoolean("skillsSystemCrafts", "default", true, "Skills Progression");
+
         dynamicEvents = config.getBoolean("dynamicEvents", "default", true, "Dynamic Events");
         zombieDifficultyProgression = config.getBoolean("zombieDifficultyProgression", "default", true, "Zombie Progression");
         zombieSpawnScale = config.getFloat("zombieSpawnScale", "default", 1.0f, 0.0f, 100.0f, "Zombie Spawn Scale");

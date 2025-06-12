@@ -4,11 +4,15 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
+import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.IChunkProvider;
+import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.event.world.WorldEvent;
 import ru.BouH_.Main;
 import ru.BouH_.proxy.CommonProxy;
+import ru.BouH_.world.WorldZp;
 import ru.BouH_.world.biome.ICityBiome;
 import ru.BouH_.world.generator.AGenerator;
 import ru.BouH_.world.generator.save.WorldSaveCity;
@@ -45,28 +49,36 @@ public class SpecialGenerator extends AGenerator {
         Objects.requireNonNull(WorldSaveCity.getStorage(ev.world)).markDirty();
     }
 
+    public static WorldType getTerType(World world) {
+        if (world.provider instanceof WorldZp) {
+            WorldZp worldZp = (WorldZp) world.provider;
+            return worldZp.getWorldType();
+        }
+        return world.getWorldInfo().getTerrainType();
+    }
+
     //6224601282917129618
     @Override
     public void generate(Random random, int chunkX, int chunkZ, World world, IChunkProvider chunkGenerator, IChunkProvider chunkProvider) {
-        if (world.getWorldInfo().getTerrainType() instanceof IWorldWithCities) {
-            IWorldWithCities iWorldWithCities = (IWorldWithCities) world.getWorldInfo().getTerrainType();
+        if (SpecialGenerator.getTerType(world) instanceof IWorldWithCities) {
+            IWorldWithCities iWorldWithCities = (IWorldWithCities) SpecialGenerator.getTerType(world);
             int x = chunkX * 16 + 8;
             int z = chunkZ * 16 + 8;
             int y = this.findY(world, x, z);
             if (this.checkRegion(world, x, z)) {
                 ICityGen iCityGen = this.chooseCityGen((ICityBiome) world.getBiomeGenForCoords(x, z));
                 int i1 = iCityGen.getScale(world);
-                int i2 = iCityGen.defaultMatrixSize() + ((world.getWorldInfo().getTerrainType() instanceof WorldTypeCrazyZp) ? -1 : (Main.rand.nextInt(3) - 1));
+                int i2 = iCityGen.defaultMatrixSize() + ((SpecialGenerator.getTerType(world) instanceof WorldTypeCrazyZp) ? -1 : (Main.rand.nextInt(3) - 1));
 
                 int pX = x + (i1 * (i2 - 1)) / 2;
                 int pZ = z + (i1 * (i2 - 1)) / 2;
-                if (this.isPointInsideCityRange(null, pX, pZ, ((i2 * i1) * 2 + (iCityGen.getScale(world) / 2 + 2)) + 1 + iWorldWithCities.getDistanceBetweenCities())) {
+                if (this.isPointInsideCityRange(world, null, pX, pZ, ((i2 * i1) * 2 + (iCityGen.getScale(world) / 2 + 2)) + 1 + iWorldWithCities.getDistanceBetweenCities())) {
                     return;
                 }
                 iCityGen.setMatrixSize(i2);
                 CityCheckResult cityCheckResult = iCityGen.tryGenCity(world, x, y, z);
                 if (cityCheckResult != null) {
-                    this.cities.add(new WorldSaveCity.CityInfo(cityCheckResult.getCityType(), pX, pZ));
+                    this.cities.add(new WorldSaveCity.CityInfo(cityCheckResult.getCityType(), world.provider.dimensionId, pX, pZ));
                     System.out.println(x + " " + z);
                     iCityGen.genCity(random, world, cityCheckResult.getX(), cityCheckResult.getY(), cityCheckResult.getZ());
                     System.gc();
@@ -110,8 +122,11 @@ public class SpecialGenerator extends AGenerator {
         return pX >= startX && pZ >= startZ && pX <= widthX && pZ <= widthZ;
     }
 
-    public boolean isPointInsideCityRange(CityType cityType, int pX, int pZ, int range) {
+    public boolean isPointInsideCityRange(World world, CityType cityType, int pX, int pZ, int range) {
         for (WorldSaveCity.CityInfo cityInfo : this.cities) {
+            if (cityInfo.getDim() != world.provider.dimensionId) {
+                continue;
+            }
             int i1 = range / 2;
             int startX = cityInfo.getX() - i1;
             int startZ = cityInfo.getZ() - i1;

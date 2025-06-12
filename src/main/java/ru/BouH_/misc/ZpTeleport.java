@@ -219,9 +219,6 @@ public class ZpTeleport extends Teleporter {
         EntityPlayer player = (EntityPlayer) entityIn;
         World world = DimensionManager.getWorld(dimension);
         ChunkCoordinates chunkCoordinates = world.provider.getRandomizedSpawnPoint();
-        if (player.getBedLocation(dimension) != null) {
-            chunkCoordinates = player.getBedLocation(dimension);
-        }
         entityIn.setLocationAndAngles(chunkCoordinates.posX, chunkCoordinates.posY, chunkCoordinates.posZ, 0, 0);
         return false;
     }

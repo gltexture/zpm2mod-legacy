@@ -863,8 +863,12 @@ public class EntityManager {
                         EntityPlayerMP entityPlayerMP = (EntityPlayerMP) pl;
                         int dayZ = -1;
                         if (entityPlayerMP.dimension == 0 || entityPlayerMP.dimension == 2) {
-                            WorldManager.WorldSaveDay saveDay = Objects.requireNonNull(WorldManager.WorldSaveDay.getStorage(MinecraftServer.getServer().worldServers[entityPlayerMP.dimension]));
-                            dayZ = saveDay.day;
+                            if (MinecraftServer.getServer().worldServers.length >= 3) {
+                                WorldManager.WorldSaveDay saveDay = WorldManager.WorldSaveDay.getStorage(MinecraftServer.getServer().worldServers[entityPlayerMP.dimension]);
+                                if (saveDay != null) {
+                                    dayZ = saveDay.day;
+                                }
+                            }
                         }
                         NetworkHandler.NETWORK.sendTo(new PacketDay(WorldManager.is7NightEnabled(), dayZ), entityPlayerMP);
                         entityPlayerMP.playerNetServerHandler.sendPacket(new S1FPacketSetExperience(entityPlayerMP.experience, entityPlayerMP.experienceTotal, entityPlayerMP.experienceLevel));

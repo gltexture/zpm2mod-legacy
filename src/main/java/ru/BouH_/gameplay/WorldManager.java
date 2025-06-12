@@ -23,24 +23,17 @@ import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.world.ChunkEvent;
 import net.minecraftforge.event.world.WorldEvent;
 import ru.BouH_.ConfigZp;
-import ru.BouH_.Main;
 import ru.BouH_.gameplay.client.ClientHandler;
-import ru.BouH_.hook.client.MiscHook;
 import ru.BouH_.init.ItemsZp;
 import ru.BouH_.network.NetworkHandler;
 import ru.BouH_.network.packets.misc.PacketDay;
 import ru.BouH_.network.packets.misc.sound.PacketSound;
 import ru.BouH_.network.packets.nbt.PacketMiscPlayerNbtInfo;
+import ru.BouH_.proxy.CommonProxy;
 import ru.BouH_.weather.base.WeatherHandler;
-import ru.BouH_.weather.base.WorldSaveFog;
-import ru.BouH_.weather.base.WorldSaveRain;
-import ru.BouH_.world.generator.cities.CityType;
 import ru.BouH_.world.generator.cities.SpecialGenerator;
-import ru.BouH_.world.generator.save.WorldSaveCity;
 import ru.BouH_.world.type.WorldTypeHardcoreZp;
 
-import java.io.*;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 
@@ -49,6 +42,10 @@ public class WorldManager {
     public static int maxMonsterType;
     public long serverWorldTickTime;
     public long currentTime;
+
+    public static boolean isSp() {
+        return (MinecraftServer.getServer() != null && MinecraftServer.getServer().worldServers != null && MinecraftServer.getServer().worldServers.length > 0);
+    }
 
     @SuppressWarnings("unchecked")
     @SubscribeEvent
@@ -184,6 +181,8 @@ public class WorldManager {
     public void onServerTick(TickEvent.ServerTickEvent ev) {
         WorldServer world1 = DimensionManager.getWorld(0);
         WorldServer world2 = DimensionManager.getWorld(2);
+        ConfigZp.skillsSystemCrafts = false;
+
         int nominalZombies = 0;
         switch (world1.difficultySetting) {
             case EASY: {
@@ -203,7 +202,7 @@ public class WorldManager {
             }
         }
 
-        if (world1.getWorldInfo().getTerrainType() instanceof WorldTypeHardcoreZp) {
+        if (SpecialGenerator.getTerType(world1) instanceof WorldTypeHardcoreZp) {
             world1.difficultySetting = EnumDifficulty.HARD;
         }
 
@@ -237,17 +236,21 @@ public class WorldManager {
 
                     if (world1.getWorldTime() % 24000 == dayT) {
                         NetworkHandler.NETWORK.sendToDimension(new PacketSound(4), 0);
-                        WorldSaveDay saveDay = Objects.requireNonNull(WorldSaveDay.getStorage(world1));
-                        saveDay.day += 1;
-                        saveDay.markDirty();
-                        NetworkHandler.NETWORK.sendToDimension(new PacketDay(WorldManager.is7NightEnabled(), saveDay.day), 0);
+                        WorldSaveDay saveDay = WorldSaveDay.getStorage(world1);
+                        if (saveDay != null) {
+                            saveDay.day += 1;
+                            saveDay.markDirty();
+                            NetworkHandler.NETWORK.sendToDimension(new PacketDay(WorldManager.is7NightEnabled(), saveDay.day), 0);
+                        }
                     }
-                    if (world2.getWorldTime() % 24000 == (MiscHook.isSp() ? nightT : dayT)) {
+                    if (world2.getWorldTime() % 24000 == (isSp() ? nightT : dayT)) {
                         NetworkHandler.NETWORK.sendToDimension(new PacketSound(4), 2);
-                        WorldSaveDay saveDay = Objects.requireNonNull(WorldSaveDay.getStorage(world2));
-                        saveDay.day += 1;
-                        saveDay.markDirty();
-                        NetworkHandler.NETWORK.sendToDimension(new PacketDay(WorldManager.is7NightEnabled(), saveDay.day), 2);
+                        WorldSaveDay saveDay = WorldSaveDay.getStorage(world2);
+                        if (saveDay != null) {
+                            saveDay.day += 1;
+                            saveDay.markDirty();
+                            NetworkHandler.NETWORK.sendToDimension(new PacketDay(WorldManager.is7NightEnabled(), saveDay.day), 2);
+                        }
                     }
                     if (world1.getWorldTime() % 24000 == nightT) {
                         if (WorldManager.is7Night(world1)) {
@@ -257,7 +260,7 @@ public class WorldManager {
                             NetworkHandler.NETWORK.sendToDimension(new PacketSound(1), 0);
                         }
                     }
-                    if (world2.getWorldTime() % 24000 == (MiscHook.isSp() ? dayT : nightT)) {
+                    if (world2.getWorldTime() % 24000 == (isSp() ? dayT : nightT)) {
                         if (WorldManager.is7Night(world2)) {
                             WeatherHandler.instance.getWeatherFog().startWeatherFogPacket7Night(WeatherHandler.instance.fogManagerMap.get(2));
                             NetworkHandler.NETWORK.sendToDimension(new PacketSound(5), 2);
@@ -288,10 +291,10 @@ public class WorldManager {
 
     public static boolean is7Night(World world) {
         if (world.isRemote) {
-            return ClientHandler.is7nightEnabled && (ClientHandler.day > 0 && ClientHandler.day % 7 == 0) || world.getWorldInfo().getTerrainType() instanceof WorldTypeHardcoreZp;
+            return ClientHandler.is7nightEnabled && (ClientHandler.day > 0 && ClientHandler.day % 7 == 0) || SpecialGenerator.getTerType(world) instanceof WorldTypeHardcoreZp;
         }
         if (world.provider.dimensionId == 0 || world.provider.dimensionId == 2) {
-            if (world.getWorldInfo().getTerrainType() instanceof WorldTypeHardcoreZp) {
+            if (SpecialGenerator.getTerType(world) instanceof WorldTypeHardcoreZp) {
                 return true;
             }
             int dayZ = world.getWorldInfo().getNBTTagCompound().getInteger("dayZ");
@@ -305,7 +308,7 @@ public class WorldManager {
     }
 
     private void slowDownTime(World world) {
-        if (!(world.getWorldInfo().getTerrainType() instanceof WorldTypeHardcoreZp) && ((ConfigZp.longDays && world.provider.isDaytime()) || (ConfigZp.longNights && !world.provider.isDaytime()))) {
+        if (!(SpecialGenerator.getTerType(world) instanceof WorldTypeHardcoreZp) && ((ConfigZp.longDays && world.provider.isDaytime()) || (ConfigZp.longNights && !world.provider.isDaytime()))) {
             world.setWorldTime(world.getWorldTime() - 1);
             world.getWorldInfo().incrementTotalWorldTime(world.getTotalWorldTime() - 1);
         }

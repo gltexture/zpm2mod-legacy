@@ -16,6 +16,7 @@ import ru.BouH_.entity.projectile.EntityFlare2;
 import ru.BouH_.gameplay.WorldManager;
 import ru.BouH_.network.NetworkHandler;
 import ru.BouH_.network.packets.misc.sound.PacketSound;
+import ru.BouH_.world.generator.cities.SpecialGenerator;
 import ru.BouH_.world.structures.base.AStructure;
 import ru.BouH_.world.structures.base.StructureHolder;
 import ru.BouH_.world.structures.building.EventStructure;
@@ -45,7 +46,7 @@ public class DynamicEventsGenerator extends AGenerator {
 
     @SubscribeEvent
     public void onWorldTick(TickEvent.WorldTickEvent ev) {
-        if (ConfigZp.dynamicEvents && ev.world.getWorldInfo().getTerrainType() instanceof WorldTypeZp) {
+        if (ConfigZp.dynamicEvents && SpecialGenerator.getTerType(ev.world) instanceof WorldTypeZp) {
             if (ev.phase == TickEvent.Phase.END) {
                 if (WorldManager.instance.serverWorldTickTime >= 2) {
                     int day = (int) (ev.world.getTotalWorldTime() / 24000);
@@ -115,7 +116,7 @@ public class DynamicEventsGenerator extends AGenerator {
         int z = chunkZ * 16 + 8;
         int y = this.findY(world, x, z);
         AStructure aStructure = this.heliCrash;
-        if (world.getWorldInfo().getTerrainType() instanceof WorldTypeZp) {
+        if (SpecialGenerator.getTerType(world) instanceof WorldTypeZp) {
             if (this.checkRegion(world, aStructure, x, y, z)) {
                 this.targets.add(new Target(aStructure, x, y, z));
             }

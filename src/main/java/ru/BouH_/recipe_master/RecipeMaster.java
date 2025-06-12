@@ -105,7 +105,7 @@ public class RecipeMaster {
                 return true;
             }
         } else {
-            if (!ConfigZp.skillsSystem) {
+            if (!ConfigZp.skillsSystemCrafts) {
                 return true;
             }
         }

@@ -1,8 +1,6 @@
 package ru.BouH_.hook.client;
 
-import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.client.SplashProgress;
-import cpw.mods.fml.relauncher.FMLLaunchHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
@@ -17,16 +15,19 @@ import net.minecraft.client.renderer.EntityRenderer;
 import net.minecraft.client.shader.Framebuffer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.entity.item.EntityItemFrame;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.play.server.S03PacketTimeUpdate;
 import net.minecraft.network.play.server.S27PacketExplosion;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Vec3;
+import net.minecraft.world.SpawnerAnimals;
+import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
+import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.client.ForgeHooksClient;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
@@ -36,17 +37,19 @@ import paulscode.sound.libraries.LibraryLWJGLOpenAL;
 import ru.BouH_.Main;
 import ru.BouH_.audio.ALSoundZp;
 import ru.BouH_.audio.AmbientSounds;
+import ru.BouH_.entity.zombie.AZombieBase;
+import ru.BouH_.gameplay.WorldManager;
 import ru.BouH_.items.gun.base.AGunBase;
 import ru.BouH_.items.tools.ItemBinoculars;
 import ru.BouH_.misc.ExplosionZp;
 import ru.BouH_.utils.RenderUtils;
-import ru.BouH_.world.WorldZp;
 import ru.hook.asm.Hook;
 import ru.hook.asm.ReturnCondition;
 
 import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.util.List;
+import java.util.Random;
 
 @SideOnly(Side.CLIENT)
 public class MiscHook {
@@ -243,15 +246,11 @@ public class MiscHook {
         }
     }
 
-    public static boolean isSp() {
-        return (MinecraftServer.getServer() != null && MinecraftServer.getServer().worldServers != null && MinecraftServer.getServer().worldServers.length > 0);
-    }
-
     @Hook(returnCondition = ReturnCondition.ALWAYS)
     public static void handleTimeUpdate(NetHandlerPlayClient netHandlerPlayClient, S03PacketTimeUpdate packetIn)
     {
         Minecraft.getMinecraft().theWorld.func_82738_a(packetIn.func_149366_c());
-        if (MiscHook.isSp() && Minecraft.getMinecraft().theWorld.provider.dimensionId == 2) {
+        if (WorldManager.isSp() && Minecraft.getMinecraft().theWorld.provider.dimensionId == 2) {
             Minecraft.getMinecraft().theWorld.setWorldTime(packetIn.func_149365_d() + 12000);
         } else {
             Minecraft.getMinecraft().theWorld.setWorldTime(packetIn.func_149365_d());

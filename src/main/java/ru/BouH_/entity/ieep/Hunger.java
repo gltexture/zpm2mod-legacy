@@ -113,7 +113,7 @@ public class Hunger implements IExtendedEntityProperties {
     }
 
     public void addExhaustion(float p_75113_1_) {
-        this.hungerExhaustionLevel = Math.min(this.hungerExhaustionLevel + p_75113_1_, 50.0F) * ConfigZp.hungerExhaustionMultiplier;
+        this.hungerExhaustionLevel = Math.min(this.hungerExhaustionLevel + p_75113_1_ * ConfigZp.hungerExhaustionMultiplier, 50.0F);
     }
 
     public void setExhaustion(float p_75113_1_) {

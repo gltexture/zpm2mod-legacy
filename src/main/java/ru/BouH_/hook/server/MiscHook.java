@@ -10,10 +10,7 @@ import net.minecraft.command.ICommandSender;
 import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.enchantment.EnumEnchantmentType;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.EntityTracker;
-import net.minecraft.entity.EntityTrackerEntry;
+import net.minecraft.entity.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
@@ -24,9 +21,11 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.stats.StatBase;
 import net.minecraft.stats.StatList;
 import net.minecraft.util.*;
+import net.minecraft.world.SpawnerAnimals;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldProvider;
 import net.minecraft.world.WorldServer;
+import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.storage.WorldInfo;
 import net.minecraftforge.common.DimensionManager;
@@ -35,6 +34,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerFlyableFallEvent;
 import net.minecraftforge.oredict.OreDictionary;
 import ru.BouH_.commands.CommandWth;
+import ru.BouH_.entity.zombie.AZombieBase;
 import ru.BouH_.inventory.containers.ContainerWorkbenchNew;
 import ru.BouH_.items.gun.crossbow.ItemCrossbow;
 import ru.BouH_.proxy.CommonProxy;
@@ -46,6 +46,7 @@ import ru.hook.asm.Hook;
 import ru.hook.asm.ReturnCondition;
 
 import java.util.List;
+import java.util.Random;
 
 public class MiscHook {
     @Hook(returnCondition = ReturnCondition.ALWAYS, createMethod = true)

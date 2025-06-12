@@ -136,7 +136,7 @@ public class PlayerManager {
                 if (ev.player.inventory.hasItem(ItemsZp.steel_ingot)) {
                     AchievementManager.instance.triggerAchievement(AchievementManager.instance.steel, ev.player);
                 }
-                if (SpecialGenerator.instance.isPointInsideCityRange(null, MathHelper.floor_double(ev.player.posX), MathHelper.floor_double(ev.player.posZ), 312)) {
+                if (SpecialGenerator.instance.isPointInsideCityRange(ev.player.worldObj, null, MathHelper.floor_double(ev.player.posX), MathHelper.floor_double(ev.player.posZ), 312)) {
                     AchievementManager.instance.triggerAchievement(AchievementManager.instance.city, ev.player);
                 }
                 if (playerMiscData.getZombiesKilled() >= 500) {
@@ -145,7 +145,7 @@ public class PlayerManager {
                 if (ev.player.inventory.armorInventory[0] != null && ev.player.inventory.armorInventory[1] != null && ev.player.inventory.armorInventory[2] != null && ev.player.inventory.armorInventory[3] != null) {
                     AchievementManager.instance.triggerAchievement(AchievementManager.instance.armored, ev.player);
                 }
-                if (ev.player.worldObj.getWorldInfo().getTerrainType() instanceof WorldTypeZp || ev.player.worldObj.getWorldInfo().getTerrainType() instanceof WorldTypeCrazyZp) {
+                if (SpecialGenerator.getTerType(ev.player.worldObj) instanceof WorldTypeZp || SpecialGenerator.getTerType(ev.player.worldObj) instanceof WorldTypeCrazyZp) {
                     AchievementManager.instance.triggerAchievement(AchievementManager.instance.enterWorld, ev.player);
                     if (ev.player.getDistance(0, 5, 0) <= 6) {
                         AchievementManager.instance.triggerAchievement(AchievementManager.instance.secretLoc, ev.player);
@@ -458,7 +458,7 @@ public class PlayerManager {
     public void sendAchievementData(EntityPlayer player) {
         if (player instanceof EntityPlayerMP) {
             EntityPlayerMP entityPlayerMP = (EntityPlayerMP) player;
-            NetworkHandler.NETWORK.sendTo(new PacketAchSkillData(player.getEntityId(), player.getEntityData(), ConfigZp.skillsSystem, ConfigZp.achievementsSystem), entityPlayerMP);
+            NetworkHandler.NETWORK.sendTo(new PacketAchSkillData(player.getEntityId(), player.getEntityData(), true, ConfigZp.achievementsSystem), entityPlayerMP);
             for (SkillZp skillZp : SkillManager.instance.getSkillZpList()) {
                 NetworkHandler.NETWORK.sendTo(new PacketSkillProgressData(player.getEntityId(), skillZp.getId(), PlayerMiscData.getPlayerData(player).getSkillProgressProfiler().getProgress(skillZp)), entityPlayerMP);
             }

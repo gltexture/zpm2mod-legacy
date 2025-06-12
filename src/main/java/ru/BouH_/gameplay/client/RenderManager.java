@@ -57,6 +57,7 @@ import ru.BouH_.render.gui.GuiMainZp;
 import ru.BouH_.utils.ClientUtils;
 import ru.BouH_.utils.EntityUtils;
 import ru.BouH_.utils.RenderUtils;
+import ru.BouH_.world.generator.cities.SpecialGenerator;
 import ru.BouH_.world.structures.base.StructureSaver;
 import ru.BouH_.world.type.WorldTypeZp;
 
@@ -203,7 +204,7 @@ public class RenderManager {
         double x = player.prevPosX + (player.posX - player.prevPosX) * event.partialTicks;
         double y = player.prevPosY + (player.posY - player.prevPosY) * event.partialTicks;
         double z = player.prevPosZ + (player.posZ - player.prevPosZ) * event.partialTicks;
-        if (player.worldObj.getWorldInfo().getTerrainType() instanceof WorldTypeZp) {
+        if (SpecialGenerator.getTerType(player.worldObj) instanceof WorldTypeZp) {
             float f1 = 0.0288f;
             String s = GoodPeople.dungeonMaster;
             FontRenderer fontrenderer = Minecraft.getMinecraft().fontRendererObj;

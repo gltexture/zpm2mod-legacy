@@ -4,6 +4,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.IChunkProvider;
+import ru.BouH_.world.generator.cities.SpecialGenerator;
 import ru.BouH_.world.structures.base.AStructure;
 import ru.BouH_.world.structures.base.StructureHolder;
 import ru.BouH_.world.structures.building.BunkerStructure;
@@ -37,7 +38,7 @@ public class BunkerGenerator extends AGenerator { //TODO: Make new structure for
 
     @Override
     public void generate(Random random, int chunkX, int chunkZ, World world, IChunkProvider chunkGenerator, IChunkProvider chunkProvider) {
-        if (world.getWorldInfo().getTerrainType() instanceof WorldTypeZp) {
+        if (SpecialGenerator.getTerType(world) instanceof WorldTypeZp) {
             int x = chunkX * 16 + 8;
             int z = chunkZ * 16 + 8;
             int y1 = this.findY(world, x, z);

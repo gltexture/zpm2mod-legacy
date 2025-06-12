@@ -14,6 +14,7 @@ import ru.BouH_.init.BlocksZp;
 import ru.BouH_.init.ItemsZp;
 import ru.BouH_.tiles.loot_spawn.ItemToSpawn;
 import ru.BouH_.tiles.loot_spawn.LootSpawnManager;
+import ru.BouH_.world.generator.cities.SpecialGenerator;
 import ru.BouH_.world.type.WorldTypeHardcoreZp;
 
 import java.util.ArrayList;
@@ -213,7 +214,7 @@ public class TileLootCase extends TileEntityChest {
 
     public void reloadChest(int spawnTimes) {
         if (this.enumLootGroups != null) {
-            if (this.worldObj.getWorldInfo().getTerrainType() instanceof WorldTypeHardcoreZp) {
+            if (SpecialGenerator.getTerType(this.worldObj) instanceof WorldTypeHardcoreZp) {
                 spawnTimes *= 8;
             }
             this.clear();

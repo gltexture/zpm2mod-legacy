@@ -75,7 +75,9 @@ public class ClientHandler {
                 }
 
                 WeatherRainManager weatherRainManager = (WeatherRainManager) WeatherHandler.instance.getWorldRainInfo(player.worldObj.provider.dimensionId);
-                this.nightBrightConstant *= (1.0f - weatherRainManager.getRainStrength());
+                if (weatherRainManager != null) {
+                    this.nightBrightConstant *= (1.0f - weatherRainManager.getRainStrength());
+                }
 
                 float f1 = player.isSneaking() ? 1.2e-2f : PlayerMiscData.getPlayerData(player).isLying() ? 1.0e-3f : 2.0e-2f;
                 player.cameraPitch += MathHelper.sin(player.ticksExisted * 0.05f) * f1;

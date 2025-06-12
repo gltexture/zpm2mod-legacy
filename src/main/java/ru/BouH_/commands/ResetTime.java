@@ -21,8 +21,10 @@ public class ResetTime extends CommandBase {
     @Override
     public void processCommand(ICommandSender commandSender, String[] args) {
         commandSender.getEntityWorld().setWorldTime(0);
-        WorldManager.WorldSaveDay saveDay = Objects.requireNonNull(WorldManager.WorldSaveDay.getStorage(commandSender.getEntityWorld()));
-        saveDay.day = 0;
+        WorldManager.WorldSaveDay saveDay = WorldManager.WorldSaveDay.getStorage(commandSender.getEntityWorld());
+        if (saveDay != null) {
+            saveDay.day = 0;
+        }
     }
 }
 

@@ -99,7 +99,7 @@ public class IndustryGenerator implements ICityGen {
     }
 
     public boolean checkRegion(World world, int x, int z) {
-        if (world.getWorldInfo().getTerrainType() instanceof WorldTypeCrazyZp) {
+        if (SpecialGenerator.getTerType(world) instanceof WorldTypeCrazyZp) {
             return true;
         }
         return world.getBiomeGenForCoords(x, z) instanceof BiomeIndustry || (world.getBiomeGenForCoords(x, z) == BiomeGenBase.river || world.getBiomeGenForCoords(x, z) == BiomeGenBase.beach);

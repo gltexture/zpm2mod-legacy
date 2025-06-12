@@ -15,6 +15,7 @@ import ru.BouH_.blocks.BlockArmorGlass;
 import ru.BouH_.gameplay.WorldManager;
 import ru.BouH_.proxy.CommonProxy;
 import ru.BouH_.weather.base.WeatherHandler;
+import ru.BouH_.world.generator.cities.SpecialGenerator;
 import ru.BouH_.world.type.WorldTypeZp;
 
 public final class AmbientSounds {
@@ -141,7 +142,7 @@ public final class AmbientSounds {
                     }
                 }
             } else {
-                if (player.worldObj.getWorldInfo().getTerrainType() instanceof WorldTypeZp && !this.curse.isPlaying()) {
+                if (SpecialGenerator.getTerType(player.worldObj) instanceof WorldTypeZp && !this.curse.isPlaying()) {
                     this.curse.getSoundSourceData().setPos(0, 5, 0);
                     this.curse.playSound();
                 }

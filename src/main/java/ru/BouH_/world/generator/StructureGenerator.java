@@ -10,10 +10,12 @@ import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.IChunkProvider;
+import ru.BouH_.GoodPeople;
 import ru.BouH_.Main;
 import ru.BouH_.init.ItemsZp;
 import ru.BouH_.proxy.CommonProxy;
 import ru.BouH_.world.biome.ICityBiome;
+import ru.BouH_.world.generator.cities.SpecialGenerator;
 import ru.BouH_.world.structures.base.AStructure;
 import ru.BouH_.world.structures.base.StructureHolder;
 import ru.BouH_.world.structures.building.CommonStructure;
@@ -202,7 +204,7 @@ public class StructureGenerator extends AGenerator { //TODO: Make new structure 
 
     @Override
     public void generate(Random random, int chunkX, int chunkZ, World world, IChunkProvider chunkGenerator, IChunkProvider chunkProvider) {
-        if (world.getWorldInfo().getTerrainType() instanceof WorldTypeZp) {
+        if (SpecialGenerator.getTerType(world) instanceof WorldTypeZp) {
             int x = chunkX * 16 + 8;
             int z = chunkZ * 16 + 8;
             int y = this.findY(world, x, z);
@@ -214,7 +216,7 @@ public class StructureGenerator extends AGenerator { //TODO: Make new structure 
                 book.setTagInfo(Main.MODID, new NBTTagCompound());
                 NBTTagList bookPages = new NBTTagList();
                 bookPages.appendTag(new NBTTagString("Thanks for playing ZPM 2. Good luck."));
-                book.setTagInfo("author", new NBTTagString("BouH_"));
+                book.setTagInfo("author", new NBTTagString(GoodPeople.dungeonMaster));
                 book.setTagInfo("title", new NBTTagString("sv_cheats 1"));
                 book.setTagInfo("pages", bookPages);
                 book.setItem(Items.written_book);

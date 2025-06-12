@@ -34,10 +34,12 @@ public class CommandSetDay extends CommandBase {
             if (args.length != 1) {
                 throw new WrongUsageException(this.getCommandUsage(commandSender));
             }
-            WorldManager.WorldSaveDay saveDay = Objects.requireNonNull(WorldManager.WorldSaveDay.getStorage(commandSender.getEntityWorld()));
-            saveDay.day = Math.max(Integer.parseInt(args[0]), 0);
-            NetworkHandler.NETWORK.sendToDimension(new PacketDay(WorldManager.is7NightEnabled(), saveDay.day), commandSender.getEntityWorld().provider.dimensionId);
-            CommandBase.notifyOperators(commandSender, this, "Success");
+            WorldManager.WorldSaveDay saveDay = WorldManager.WorldSaveDay.getStorage(commandSender.getEntityWorld());
+            if (saveDay != null) {
+                saveDay.day = Math.max(Integer.parseInt(args[0]), 0);
+                NetworkHandler.NETWORK.sendToDimension(new PacketDay(WorldManager.is7NightEnabled(), saveDay.day), commandSender.getEntityWorld().provider.dimensionId);
+                CommandBase.notifyOperators(commandSender, this, "Success");
+            }
         }
     }
 }

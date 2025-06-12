@@ -118,7 +118,7 @@ public class Thirst implements IExtendedEntityProperties {
         if (EntityUtils.isInBlock(this.player, Blocks.water)) {
             p_75113_1_ *= 0.75f;
         }
-        this.thirstExhaustionLevel = Math.min(this.thirstExhaustionLevel + p_75113_1_, 50.0F) * ConfigZp.thirstExhaustionMultiplier;
+        this.thirstExhaustionLevel = Math.min(this.thirstExhaustionLevel + p_75113_1_ * ConfigZp.thirstExhaustionMultiplier, 50.0F);
     }
 
     public void setExhaustion(float p_75113_1_) {

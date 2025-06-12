@@ -16,6 +16,8 @@ import ru.BouH_.ConfigZp;
 import ru.BouH_.proxy.CommonProxy;
 
 public class WorldZp extends WorldProvider {
+    private WorldType worldType;
+
     public WorldZp() {
     }
 
@@ -23,28 +25,32 @@ public class WorldZp extends WorldProvider {
         WorldType worldType;
         switch (ConfigZp.plagueZoneType) {
             case 0: {
-                worldType = WorldType.FLAT;
+                this.worldType = WorldType.FLAT;
                 break;
             }
             case 1: {
-                worldType = WorldType.DEFAULT;
+                this.worldType = WorldType.DEFAULT;
                 break;
             }
             case 2: {
-                worldType = CommonProxy.worldTypeZp;
+                this.worldType = CommonProxy.worldTypeZp;
                 break;
             }
             case 3: {
-                worldType = CommonProxy.worldTypeHardCoreZp;
+                this.worldType = CommonProxy.worldTypeHardCoreZp;
                 break;
             }
             default: {
-                worldType = CommonProxy.worldTypeCrazyZp;
+                this.worldType = CommonProxy.worldTypeCrazyZp;
                 break;
             }
         }
-        this.worldChunkMgr = new WorldChunkManager(this.getSeed(), worldType);
+        this.worldChunkMgr = new WorldChunkManager(this.getSeed(), this.worldType);
         this.dimensionId = 2;
+    }
+
+    public WorldType getWorldType() {
+        return this.worldType;
     }
 
     public String getDimensionName() {
@@ -53,6 +59,14 @@ public class WorldZp extends WorldProvider {
 
     public void setWorldTime(long time) {
         super.setWorldTime(time);
+    }
+
+    @Override
+    public boolean isDaytime() {
+        if (FMLLaunchHandler.side().isClient()) {
+            return super.isDaytime();
+        }
+        return !MinecraftServer.getServer().worldServers[0].isDaytime();
     }
 
     public long getWorldTime() {

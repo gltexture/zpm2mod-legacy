@@ -12,6 +12,7 @@ import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraftforge.common.util.EnumHelper;
+import ru.BouH_.ConfigZp;
 import ru.BouH_.Main;
 import ru.BouH_.entity.projectile.*;
 import ru.BouH_.items.armor.CamoType;
@@ -937,19 +938,19 @@ public class ItemsZp {
 
         raw_iron = new Item().setUnlocalizedName("raw_iron");
         raw_iron.setCreativeTab(TabsZP.items);
-        raw_iron.setMaxStackSize(16);
+        raw_iron.setMaxStackSize(ConfigZp.newStackSizes ? 16 : 64);
 
         raw_copper = new Item().setUnlocalizedName("raw_copper");
         raw_copper.setCreativeTab(TabsZP.items);
-        raw_copper.setMaxStackSize(16);
+        raw_copper.setMaxStackSize(ConfigZp.newStackSizes ? 16 : 64);
 
         raw_gold = new Item().setUnlocalizedName("raw_gold");
         raw_gold.setCreativeTab(TabsZP.items);
-        raw_gold.setMaxStackSize(16);
+        raw_gold.setMaxStackSize(ConfigZp.newStackSizes ? 16 : 64);
 
         raw_titan = new Item().setUnlocalizedName("raw_titan");
         raw_titan.setCreativeTab(TabsZP.items);
-        raw_titan.setMaxStackSize(16);
+        raw_titan.setMaxStackSize(ConfigZp.newStackSizes ? 16 : 64);
 
         lubricant = new Item().setUnlocalizedName("lubricant");
         lubricant.setCreativeTab(TabsZP.items);

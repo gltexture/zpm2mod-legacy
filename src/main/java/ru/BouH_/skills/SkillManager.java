@@ -97,10 +97,10 @@ public class SkillManager {
     }
 
     public int getSkillPoints(SkillZp skillZp, EntityPlayer entityPlayer) {
-        if (!ConfigZp.skillsSystem) {
+        if (!ConfigZp.skillsSystemCrafts) {
             return 0;
         }
-        if (entityPlayer.capabilities.isCreativeMode) {
+        if (entityPlayer.capabilities.isCreativeMode || !ConfigZp.skillsSystemProgression) {
             return this.max;
         }
         if (!entityPlayer.getEntityData().hasKey(skillZp.getNBT())) {
@@ -110,7 +110,7 @@ public class SkillManager {
     }
 
     public float getSkillBonus(SkillZp skillZp, EntityPlayer entityPlayer, float bonus) {
-        if (ConfigZp.skillsSystem) {
+        if (ConfigZp.skillsSystemCrafts) {
             return this.getSkillPoints(skillZp, entityPlayer) * bonus;
         }
         return 0;

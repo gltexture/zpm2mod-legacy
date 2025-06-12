@@ -3,6 +3,8 @@ package ru.BouH_.world.generator.save;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldSavedData;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import ru.BouH_.Main;
 import ru.BouH_.world.generator.cities.CityType;
 import ru.BouH_.world.generator.cities.SpecialGenerator;
@@ -11,6 +13,8 @@ import java.io.*;
 import java.util.HashSet;
 
 public class WorldSaveCity extends WorldSavedData {
+    private static final Logger log = LogManager.getLogger(WorldSaveCity.class);
+
     public WorldSaveCity(String id) {
         super(id);
     }
@@ -37,10 +41,10 @@ public class WorldSaveCity extends WorldSavedData {
             try (ObjectInputStream objectInputStream = new ObjectInputStream(byteArrayOutputStream)) {
                 SpecialGenerator.instance.cities = (HashSet<CityInfo>) objectInputStream.readObject();
             } catch (ClassNotFoundException ex) {
-                throw new RuntimeException(ex);
+                log.error("e: ", ex);
             }
         } catch (IOException ex) {
-            throw new RuntimeException(ex);
+            log.error("e: ", ex);
         }
     }
 
@@ -52,23 +56,30 @@ public class WorldSaveCity extends WorldSavedData {
             }
             p_76187_1_.setByteArray("city_gen", byteArrayOutputStream.toByteArray());
         } catch (IOException ex) {
-            throw new RuntimeException(ex);
+            log.error("e: ", ex);
         }
     }
 
     public static class CityInfo implements Serializable {
+        private final int dim;
+
         private final int x;
         private final int z;
         private final CityType cityType;
 
-        public CityInfo(CityType cityType, int x, int z) {
+        public CityInfo(CityType cityType, int dim, int x, int z) {
             this.cityType = cityType;
+            this.dim = dim;
             this.x = x;
             this.z = z;
         }
 
         public CityType getCityType() {
             return this.cityType;
+        }
+
+        public int getDim() {
+            return this.dim;
         }
 
         public int getX() {

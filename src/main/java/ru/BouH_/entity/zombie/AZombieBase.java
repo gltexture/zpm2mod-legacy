@@ -84,19 +84,20 @@ public abstract class AZombieBase extends EntityMob {
         int i = MathHelper.floor_double(this.posX);
         int j = MathHelper.floor_double(this.boundingBox.minY);
         int k = MathHelper.floor_double(this.posZ);
-        float f1 = 1.0f;
-        if (ConfigZp.zombieDifficultyProgression) {
-            if (this.worldObj.getWorldInfo().getTerrainType() instanceof WorldTypeCrazyZp || this.worldObj.getWorldInfo().getTerrainType() instanceof WorldTypeZp) {
-                f1 = this.worldObj.getWorldInfo().getWorldTotalTime() / 72000.0f;
-            }
+
+        int day = 7;
+        WorldManager.WorldSaveDay saveDay = WorldManager.WorldSaveDay.getStorage(this.worldObj);
+        if (saveDay != null) {
+            day = saveDay.day;
         }
+        float f1 = ConfigZp.zombieDifficultyProgression ? Math.min(day * 0.15f, 1.0f) : 1.0f;
         boolean isInInd = this.checkCity(CityType.INDUSTRY);
         boolean isInMil = this.checkCity(CityType.MILITARY);
         if ((j < this.minYSpawn() && Main.rand.nextFloat() > this.spawnChanceUnderY()) || (j > this.maxYSpawn() && Main.rand.nextFloat() > this.spawnChanceAboveY())) {
             return false;
         }
         if (!isInInd && !isInMil) {
-            if ((this.worldObj.getWorldInfo().getWorldTotalTime() / 24000.0f) < this.minDayToSpawn()) {
+            if (saveDay != null && day < this.minDayToSpawn()) {
                 return false;
             }
             if (Main.rand.nextFloat() > f1) {
@@ -111,7 +112,7 @@ public abstract class AZombieBase extends EntityMob {
         if (this.worldObj.checkNoEntityCollision(this.boundingBox) && this.worldObj.getCollidingBoundingBoxes(this, this.boundingBox).isEmpty()) {
             int l = this.worldObj.getSavedLightValue(EnumSkyBlock.Block, i, j, k);
             float miscFloat = (this.worldObj.getBiomeGenForCoords(i, k) instanceof BiomeRad || isInInd) ? 8.0e-3f : isInMil ? 8.0e-2f : 8.0e-4f;
-            if (this.worldObj.getWorldInfo().getTerrainType() instanceof WorldTypeCrazyZp) {
+            if (SpecialGenerator.getTerType(this.worldObj) instanceof WorldTypeCrazyZp) {
                 miscFloat *= 0.5f;
             }
             return (Main.rand.nextFloat() <= miscFloat && l <= 8) || (this.getBlockPathWeight(i, j, k) >= 0.0F && this.isValidLightLevel());
@@ -140,7 +141,7 @@ public abstract class AZombieBase extends EntityMob {
     }
 
     private boolean checkCity(CityType cityType) {
-        return SpecialGenerator.instance.isPointInsideCityRange(cityType, MathHelper.floor_double(this.posX), MathHelper.floor_double(this.posZ), 286);
+        return SpecialGenerator.instance.isPointInsideCityRange(this.worldObj, cityType, MathHelper.floor_double(this.posX), MathHelper.floor_double(this.posZ), 286);
     }
 
     @SuppressWarnings("unchecked")
@@ -345,7 +346,7 @@ public abstract class AZombieBase extends EntityMob {
             if (!world.isRemote) {
                 this.updateAABBHistory();
                 if (this.getAttackTarget() != null) {
-                    if (this.lockUnloadingTicks < 3600) {
+                    if (this.lockUnloadingTicks < 1200) {
                         this.lockUnloadingTicks += 1;
                     }
                     if (this.isOnLadder() && this.getAttackTarget().posY > this.posY) {
