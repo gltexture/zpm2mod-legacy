@@ -100,13 +100,13 @@ public abstract class AZombieBase extends EntityMob {
             if (saveDay != null && day < this.minDayToSpawn()) {
                 return false;
             }
-            if (Main.rand.nextFloat() > f1) {
-                return false;
-            }
             if (this.worldObj.difficultySetting != EnumDifficulty.HARD) {
                 if (this.worldObj.provider.isDaytime()) {
                     f1 *= 0.5f;
                 }
+            }
+            if (Main.rand.nextFloat() > f1) {
+                return false;
             }
         }
         if (this.worldObj.checkNoEntityCollision(this.boundingBox) && this.worldObj.getCollidingBoundingBoxes(this, this.boundingBox).isEmpty()) {

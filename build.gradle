@@ -32,6 +32,12 @@ version = ""
 group = "ru.BouH_.zpm2"
 archivesBaseName = "zombieplague2"
 
+configurations.all {
+    resolutionStrategy {
+        force 'org.codehaus.groovy:groovy:3.0.9'
+    }
+}
+
 minecraft {
     version = "1.7.10-10.13.4.1614-1.7.10"
     runDir = "eclipse"

@@ -177,6 +177,17 @@ public class EntityManager {
                             }
                         }
 
+                        int poisoned = entityPlayerMP.getEntityData().getInteger("poisoned");
+                        if (poisoned > 0) {
+                            entityPlayerMP.getEntityData().setInteger("poisoned", poisoned - 1);
+                            if (entityPlayerMP.getEntityData().getInteger("poisoned") == 0) {
+                                entityPlayerMP.addPotionEffect(new PotionEffect(19, 1200, 1));
+                                entityPlayerMP.addPotionEffect(new PotionEffect(20, 600));
+                                entityPlayerMP.addPotionEffect(new PotionEffect(9, 3600));
+                                entityPlayerMP.addPotionEffect(new PotionEffect(27, 1200));
+                            }
+                        }
+
                         if (EntityUtils.isInBlock(pl, FluidsZp.portalZp)) {
                             if (!entityPlayerMP.getEntityData().getBoolean("wasInPortal")) {
                                 int dim = entityPlayerMP.dimension == 0 ? 2 : 0;
@@ -864,7 +875,7 @@ public class EntityManager {
                         int dayZ = -1;
                         if (entityPlayerMP.dimension == 0 || entityPlayerMP.dimension == 2) {
                             if (MinecraftServer.getServer().worldServers.length >= 3) {
-                                WorldManager.WorldSaveDay saveDay = WorldManager.WorldSaveDay.getStorage(MinecraftServer.getServer().worldServers[entityPlayerMP.dimension]);
+                                WorldManager.WorldSaveDay saveDay = WorldManager.WorldSaveDay.getStorage(entityPlayerMP.worldObj);
                                 if (saveDay != null) {
                                     dayZ = saveDay.day;
                                 }

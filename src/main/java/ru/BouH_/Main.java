@@ -31,7 +31,7 @@ import java.util.Random;
 public class Main implements Thread.UncaughtExceptionHandler {
     public static final String MODNAME = "Zombie Plague Mod 2";
     public static final String MODID = "zombieplague2";
-    public static final String VERSION = "1.6.28";
+    public static final String VERSION = "1.6.29";
     public static SettingsZp settingsZp;
     public static SettingsZombieMiningZp settingsZombieMiningZp;
     public static ConfigZp configZp = new ConfigZp();
@@ -47,7 +47,7 @@ public class Main implements Thread.UncaughtExceptionHandler {
     static {
         nothingToSeeHere[0] = "****************************************";
         nothingToSeeHere[1] = "* Zombie Plague Mod 2                  *";
-        nothingToSeeHere[2] = "* Made by: alfabouh                    *";
+        nothingToSeeHere[2] = "* Made by: gltexture                   *";
         nothingToSeeHere[3] = "* Discord: https://discord.gg/bYBVbna9 *";
         nothingToSeeHere[4] = "* Contact me, if you found a bug!      *";
         nothingToSeeHere[5] = "* Thanks for your attention:)          *";

@@ -7,14 +7,13 @@ import net.minecraft.world.World;
 import net.minecraft.world.chunk.IChunkProvider;
 import ru.BouH_.Main;
 import ru.BouH_.init.BlocksZp;
-
 import java.util.Random;
 
 public class TitanGen implements IWorldGenerator {
     @Override
     public void generate(Random random, int chunkX, int chunkZ, World world, IChunkProvider chunkGenerator, IChunkProvider chunkProvider) {
         if (world.provider.dimensionId == 0) {
-            for (int i = 0; i < 10; i++) {
+            for (int i = 0; i < 16; i++) {
                 int x = chunkX * 16 + Main.rand.nextInt(16);
                 int y = 1 + Main.rand.nextInt(20);
                 int z = chunkZ * 16 + Main.rand.nextInt(16);

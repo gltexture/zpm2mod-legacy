@@ -1039,9 +1039,9 @@ public class PlayerManager {
                     }
                 }
                 if (ev.item.hasTagCompound() && ev.item.getTagCompound().getCompoundTag(Main.MODID).getByte("poisonous") == 1) {
-                    ev.entityPlayer.addPotionEffect(new PotionEffect(19, 900, 1));
-                    ev.entityPlayer.addPotionEffect(new PotionEffect(20, 400));
-                    ev.entityPlayer.addPotionEffect(new PotionEffect(9, 2400));
+                    if (ev.entityPlayer.getEntityData().getInteger("poisoned") <= 0) {
+                        ev.entityPlayer.getEntityData().setInteger("poisoned", 120);
+                    }
                 }
                 if (!(ev.entityPlayer.isPotionActive(26) && ev.entityPlayer.getActivePotionEffect(CommonProxy.zpm).getDuration() <= 12000)) {
                     if (ev.item.getItem() == Items.rotten_flesh) {
