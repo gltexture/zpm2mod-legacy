@@ -17,9 +17,10 @@ public class PacketAchSkillData extends SimplePacket {
     public PacketAchSkillData() {
     }
 
-    public PacketAchSkillData(int entId, NBTTagCompound nbtTagCompound, boolean b1, boolean b2) {
+    public PacketAchSkillData(int entId, NBTTagCompound nbtTagCompound, boolean b0, boolean b1, boolean b2) {
         buf().writeInt(entId);
         ByteBufUtils.writeTag(buf(), nbtTagCompound);
+        buf().writeBoolean(b0);
         buf().writeBoolean(b1);
         buf().writeBoolean(b2);
     }
@@ -29,9 +30,11 @@ public class PacketAchSkillData extends SimplePacket {
     public void client(EntityPlayer player) {
         int id = buf().readInt();
         NBTTagCompound nbtTagCompound = ByteBufUtils.readTag(buf());
+        boolean b0 = buf().readBoolean();
         boolean b1 = buf().readBoolean();
         boolean b2 = buf().readBoolean();
-        GuiInGameMenuZp.skillsEnabled = b1;
+        GuiInGameMenuZp.skillsCrafts = b0;
+        GuiInGameMenuZp.skillsProgression = b1;
         GuiInGameMenuZp.achievementsEnabled = b2;
         if (player.worldObj.getEntityByID(id) != null) {
             EntityPlayer pl = (EntityPlayer) player.worldObj.getEntityByID(id);

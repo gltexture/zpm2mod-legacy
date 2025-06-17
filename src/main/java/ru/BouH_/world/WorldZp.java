@@ -77,6 +77,6 @@ public class WorldZp extends WorldProvider {
     }
 
     public IChunkProvider createChunkGenerator() {
-        return new ChunkProviderGenerate(this.worldObj, this.getSeed(), false);
+        return new ChunkProviderZp(this.worldObj, this.getSeed(), false);
     }
 }

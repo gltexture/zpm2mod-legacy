@@ -9,6 +9,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.util.ResourceLocation;
 import ru.BouH_.Main;
+import ru.BouH_.gameplay.client.ClientHandler;
 
 @SideOnly(Side.CLIENT)
 public class RenderZombieZ2 extends RenderLiving {
@@ -23,6 +24,9 @@ public class RenderZombieZ2 extends RenderLiving {
 
     public void doRender(EntityLiving p_76986_1_, double p_76986_2_, double p_76986_4_, double p_76986_6_, float p_76986_8_, float p_76986_9_) {
         Minecraft mc = Minecraft.getMinecraft();
+        if (p_76986_1_ != ClientHandler.instance.zombieTestSys) {
+            return;
+        }
         if (!mc.isGamePaused()) {
             super.doRender(p_76986_1_, p_76986_2_, p_76986_4_, p_76986_6_, p_76986_8_, p_76986_9_);
         }

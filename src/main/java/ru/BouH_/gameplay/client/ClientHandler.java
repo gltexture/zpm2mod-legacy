@@ -2,7 +2,6 @@ package ru.BouH_.gameplay.client;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
-import cpw.mods.fml.relauncher.FMLLaunchHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -45,11 +44,11 @@ public class ClientHandler {
 
     public static ClientHandler instance = new ClientHandler();
     public static long clientWorldTickTime;
-    public int scaryTimer;
-    public EntityModZombie horror;
-    public int horrorTimer;
+    public int someTimer2;
+    public EntityModZombie zombieTestSys;
+    public int someTimer1;
     public int seeTimer;
-    public boolean wasHorrorSeen;
+    public boolean wasTesterSeen;
     public float nightBrightConstant = 0.0f;
 
     @SubscribeEvent
@@ -96,45 +95,45 @@ public class ClientHandler {
                     }
                 }
                 if (this.getClosestPlayerExcluding(player.worldObj, x, y, z, 32) == null) {
-                    if (this.scaryTimer++ >= 600) {
+                    if (this.someTimer2++ >= 600) {
                         if (!Minecraft.getMinecraft().isGamePaused()) {
-                            if (Main.rand.nextFloat() <= 0.01f) {
+                            if (Main.rand.nextFloat() <= 0.05f) {
                                 if (player.worldObj.getBlockLightValue(x, y, z) < 10 && !player.worldObj.canBlockSeeTheSky(x, y, z) && !player.isPotionActive(16) && !(ClientUtils.isClientInNVG() || ClientUtils.isClientInNightVisionScope()) && !player.capabilities.isCreativeMode) {
                                     AmbientSounds.instance.spirit[Main.rand.nextInt(4)].playSound();
                                 }
                             }
-                            this.scaryTimer = 0;
+                            this.someTimer2 = 0;
                         }
                     }
 
-                    if (this.scaryTimer > 0) {
-                        this.scaryTimer--;
+                    if (this.someTimer2 > 0) {
+                        this.someTimer2--;
                     }
-                    if (this.wasHorrorSeen) {
+                    if (this.wasTesterSeen) {
                         this.seeTimer += 1;
                     }
-                    if (this.horror != null) {
-                        if (this.seeTimer >= 40 || this.horror.ticksExisted > 1200) {
-                            this.horror.setDead();
-                            this.horror = null;
+                    if (this.zombieTestSys != null) {
+                        if (this.seeTimer >= 40 || this.zombieTestSys.ticksExisted > 1200) {
+                            this.zombieTestSys.setDead();
+                            this.zombieTestSys = null;
                             this.seeTimer = 0;
-                            this.wasHorrorSeen = false;
+                            this.wasTesterSeen = false;
                         }
                     } else {
-                        if (this.horrorTimer++ >= 12000) {
-                            if (Main.rand.nextFloat() <= 0.25f) {
+                        if (this.someTimer1++ >= 12000) {
+                            if (Main.rand.nextFloat() <= 0.2f) {
                                 int i1 = x + Main.rand.nextInt(201) - 100;
                                 int k1 = z + Main.rand.nextInt(201) - 100;
                                 int j1 = this.findY(player.worldObj, i1, (int) (player.posY + 16), k1) + 1;
                                 if (player.getDistance(i1, j1, k1) >= 48) {
                                     if (this.canSpawnTarget(i1, k1 + 1, k1)) {
-                                        this.horror = Main.rand.nextBoolean() ? new EntityModZombie(player.worldObj) : new EntityModZombie2(player.worldObj);
-                                        this.horror.setLocationAndAngles(i1, j1, k1, Main.rand.nextInt(361) - 180, Main.rand.nextInt(181) - 90);
-                                        player.worldObj.spawnEntityInWorld(this.horror);
+                                        this.zombieTestSys = Main.rand.nextBoolean() ? new EntityModZombie(player.worldObj) : new EntityModZombie2(player.worldObj);
+                                        this.zombieTestSys.setLocationAndAngles(i1, j1, k1, Main.rand.nextInt(361) - 180, Main.rand.nextInt(181) - 90);
+                                        player.worldObj.spawnEntityInWorld(this.zombieTestSys);
                                     }
                                 }
                             }
-                            this.horrorTimer = 0;
+                            this.someTimer1 = 0;
                         }
                     }
                 }
@@ -170,14 +169,14 @@ public class ClientHandler {
                 }
             }
         } else {
-            if (this.horror != null) {
-                this.horror.setDead();
+            if (this.zombieTestSys != null) {
+                this.zombieTestSys.setDead();
             }
-            this.horror = null;
-            this.scaryTimer = 0;
-            this.horrorTimer = 0;
+            this.zombieTestSys = null;
+            this.someTimer2 = 0;
+            this.someTimer1 = 0;
             this.seeTimer = 0;
-            this.wasHorrorSeen = false;
+            this.wasTesterSeen = false;
         }
     }
 
@@ -210,14 +209,14 @@ public class ClientHandler {
     public void render(RenderWorldLastEvent event) {
         Minecraft mc = Minecraft.getMinecraft();
         EntityPlayerSP player = mc.thePlayer;
-        if (this.horror != null) {
+        if (this.zombieTestSys != null) {
             double d0 = player.lastTickPosX + (player.posX - player.lastTickPosX) * (double) event.partialTicks;
             double d1 = player.lastTickPosY + (player.posY - player.lastTickPosY) * (double) event.partialTicks;
             double d2 = player.lastTickPosZ + (player.posZ - player.lastTickPosZ) * (double) event.partialTicks;
             Frustrum frustrum = new Frustrum();
             frustrum.setPosition(d0, d1, d2);
-            if (frustrum.isBoundingBoxInFrustum(this.horror.boundingBox)) {
-                this.wasHorrorSeen = true;
+            if (frustrum.isBoundingBoxInFrustum(this.zombieTestSys.boundingBox)) {
+                this.wasTesterSeen = true;
             }
         }
     }

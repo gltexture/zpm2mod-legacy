@@ -10,6 +10,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
+import ru.BouH_.ConfigZp;
 import ru.BouH_.Main;
 import ru.BouH_.entity.ieep.PlayerMiscData;
 import ru.BouH_.entity.zombie.AZombieBase;
@@ -105,7 +106,7 @@ public class AISpecialFindTarget extends AITargetZp {
         }
         if (this.taskOwner.ticksExisted % 300 == 0) {
             if (Main.rand.nextBoolean()) {
-                AZombieBase aZombieBase = (AZombieBase) this.getClosestEntity(this.taskOwner.worldObj, AZombieBase.class, this.helpWantingSelector, this.taskOwner.posX, this.taskOwner.posY, this.taskOwner.posZ, 24);
+                AZombieBase aZombieBase = (AZombieBase) this.getClosestEntity(this.taskOwner.worldObj, AZombieBase.class, this.helpWantingSelector, this.taskOwner.posX, this.taskOwner.posY, this.taskOwner.posZ, 16);
                 if (aZombieBase != null) {
                     float rand = 1.0f;
                     if (this.taskOwner.getAttackTarget() instanceof EntityPlayer) {
@@ -142,13 +143,13 @@ public class AISpecialFindTarget extends AITargetZp {
             return true;
         }
         for (Class<? extends EntityLivingBase> entity : this.targetClass) {
-            EntityLivingBase entityLivingBase = this.getClosestEntity(this.taskOwner.worldObj, entity, this.commonSelector, this.taskOwner.posX, this.taskOwner.posY, this.taskOwner.posZ, this.normalFindDistance);
+            EntityLivingBase entityLivingBase = this.getClosestEntity(this.taskOwner.worldObj, entity, this.commonSelector, this.taskOwner.posX, this.taskOwner.posY, this.taskOwner.posZ, this.normalFindDistance * ConfigZp.zombieClearEyeMultiplier);
             if (entityLivingBase != null) {
                 this.targetEntity = entityLivingBase;
                 return true;
             }
             if (this.xrayFindDistance > 0) {
-                entityLivingBase = this.getClosestEntity(this.taskOwner.worldObj, entity, this.xRaySelector, this.taskOwner.posX, this.taskOwner.posY, this.taskOwner.posZ, this.xrayFindDistance);
+                entityLivingBase = this.getClosestEntity(this.taskOwner.worldObj, entity, this.xRaySelector, this.taskOwner.posX, this.taskOwner.posY, this.taskOwner.posZ, this.xrayFindDistance * ConfigZp.zombieXRayEyeMultiplier);
                 if (entityLivingBase != null) {
                     this.targetEntity = entityLivingBase;
                     return true;

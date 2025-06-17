@@ -458,7 +458,7 @@ public class PlayerManager {
     public void sendAchievementData(EntityPlayer player) {
         if (player instanceof EntityPlayerMP) {
             EntityPlayerMP entityPlayerMP = (EntityPlayerMP) player;
-            NetworkHandler.NETWORK.sendTo(new PacketAchSkillData(player.getEntityId(), player.getEntityData(), true, ConfigZp.achievementsSystem), entityPlayerMP);
+            NetworkHandler.NETWORK.sendTo(new PacketAchSkillData(player.getEntityId(), player.getEntityData(), ConfigZp.skillsSystemCrafts, ConfigZp.skillsSystemProgression, ConfigZp.achievementsSystem), entityPlayerMP);
             for (SkillZp skillZp : SkillManager.instance.getSkillZpList()) {
                 NetworkHandler.NETWORK.sendTo(new PacketSkillProgressData(player.getEntityId(), skillZp.getId(), PlayerMiscData.getPlayerData(player).getSkillProgressProfiler().getProgress(skillZp)), entityPlayerMP);
             }

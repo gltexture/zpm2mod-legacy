@@ -83,7 +83,6 @@ import ru.BouH_.weather.managers.WeatherFogManager;
 import ru.BouH_.weather.managers.WeatherRainManager;
 
 import java.util.List;
-import java.util.Objects;
 
 
 public class EntityManager {
@@ -807,11 +806,17 @@ public class EntityManager {
     @SubscribeEvent()
     public void onSpawn(EntityJoinWorldEvent ev) {
         if (ev.entity instanceof EntityModZombie) {
-            if (ev.entity != ClientHandler.instance.horror) {
+            if (ev.entity != ClientHandler.instance.zombieTestSys) {
                 ev.setCanceled(true);
             }
         }
         if (!ev.world.isRemote) {
+            if (ev.entity instanceof EntityAnimal) {
+                if (ev.entity.worldObj.provider.dimensionId == 2) {
+                    ev.setCanceled(true);
+                    return;
+                }
+            }
             if (ev.entity instanceof EntityZombie) {
                 if (!(ev.entity instanceof EntityPigZombie)) {
                     ev.setCanceled(true);

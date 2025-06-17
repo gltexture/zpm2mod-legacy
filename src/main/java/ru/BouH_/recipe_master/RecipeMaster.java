@@ -91,8 +91,8 @@ public class RecipeMaster {
     }
 
     @SideOnly(Side.CLIENT)
-    private static boolean isSkillEnabled() {
-        return GuiInGameMenuZp.skillsEnabled;
+    private static boolean isSkillCraftsEnabled() {
+        return GuiInGameMenuZp.skillsCrafts;
     }
 
     @SuppressWarnings("all")
@@ -101,7 +101,7 @@ public class RecipeMaster {
             return true;
         }
         if (entityPlayer.worldObj.isRemote) {
-            if (!RecipeMaster.isSkillEnabled()) {
+            if (!RecipeMaster.isSkillCraftsEnabled()) {
                 return true;
             }
         } else {

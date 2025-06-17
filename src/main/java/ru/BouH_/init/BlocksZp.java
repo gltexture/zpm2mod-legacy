@@ -319,7 +319,7 @@ public class BlocksZp {
         concrete_f2.setBlockUnbreakable();
         concrete_f2.setResistance(1500.0f);
 
-        copper_block = new BlockDecorate(Material.iron, 0);
+        copper_block = new BlockCopper();
         copper_block.setCreativeTab(TabsZP.blocks);
         copper_block.setUnlocalizedName("copper_block");
         copper_block.setHardness(10.0f);

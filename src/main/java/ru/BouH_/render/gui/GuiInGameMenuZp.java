@@ -16,9 +16,10 @@ import ru.BouH_.skills.gui.GuiSkillsZp;
 @SideOnly(Side.CLIENT)
 public class GuiInGameMenuZp extends GuiIngameMenu {
     @SideOnly(Side.CLIENT)
-    public static boolean skillsEnabled = true;
+    public static boolean skillsProgression = true;
     @SideOnly(Side.CLIENT)
     public static boolean achievementsEnabled = true;
+    public static boolean skillsCrafts = true;
 
     @SuppressWarnings("unchecked")
     public void initGui() {
@@ -42,7 +43,7 @@ public class GuiInGameMenuZp extends GuiIngameMenu {
         }
         this.buttonList.add(guiButton1);
         GuiButton guiButton2 = new GuiButton(7, 4, 26, 98, 20, I18n.format("skill.zp.menuTitle"));
-        if (!GuiInGameMenuZp.skillsEnabled) {
+        if (!GuiInGameMenuZp.skillsProgression) {
             guiButton2.enabled = false;
         } else {
             guiButton2.packedFGColour = 0xccffcc;

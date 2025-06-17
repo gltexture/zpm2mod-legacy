@@ -11,10 +11,12 @@ import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.enchantment.EnumEnchantmentType;
 import net.minecraft.entity.*;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.network.play.server.S2DPacketOpenWindow;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
@@ -49,6 +51,58 @@ import java.util.List;
 import java.util.Random;
 
 public class MiscHook {
+    @Hook(returnCondition = ReturnCondition.ALWAYS)
+    public static EntityItem func_146097_a(EntityPlayer player, ItemStack p_146097_1_, boolean p_146097_2_, boolean p_146097_3_)
+    {
+        if (p_146097_1_ == null)
+        {
+            return null;
+        }
+        else if (p_146097_1_.stackSize == 0)
+        {
+            return null;
+        }
+        else
+        {
+            EntityItem entityitem = new EntityItem(player.worldObj, player.posX, player.posY - 0.30000001192092896D + (double)player.getEyeHeight(), player.posZ, p_146097_1_);
+            entityitem.delayBeforeCanPickup = 40;
+
+            if (p_146097_3_)
+            {
+                entityitem.setThrower(player.getCommandSenderName());
+            }
+
+            float f = 0.1F;
+            float f1;
+
+            if (p_146097_2_)
+            {
+                f1 = player.rand.nextFloat() * 0.2F;
+                float f2 = player.rand.nextFloat() * (float)Math.PI * 2.0F;
+                entityitem.motionX = (double)(-MathHelper.sin(f2) * f1);
+                entityitem.motionZ = (double)(MathHelper.cos(f2) * f1);
+                entityitem.motionY = 0.20000000298023224D;
+            }
+            else
+            {
+                f = 0.3F;
+                entityitem.motionX = (double)(-MathHelper.sin(player.rotationYaw / 180.0F * (float)Math.PI) * MathHelper.cos(player.rotationPitch / 180.0F * (float)Math.PI) * f);
+                entityitem.motionZ = (double)(MathHelper.cos(player.rotationYaw / 180.0F * (float)Math.PI) * MathHelper.cos(player.rotationPitch / 180.0F * (float)Math.PI) * f);
+                entityitem.motionY = (double)(-MathHelper.sin(player.rotationPitch / 180.0F * (float)Math.PI) * f + 0.1F);
+                f = 0.02F;
+                f1 = player.rand.nextFloat() * (float)Math.PI * 2.0F;
+                f *= player.rand.nextFloat();
+                entityitem.motionX += Math.cos((double)f1) * (double)f;
+                entityitem.motionY += (double)((player.rand.nextFloat() - player.rand.nextFloat()) * 0.1F);
+                entityitem.motionZ += Math.sin((double)f1) * (double)f;
+            }
+
+            player.joinEntityItemWithWorld(entityitem);
+            player.addStat(StatList.dropStat, 1);
+            return entityitem;
+        }
+    }
+
     @Hook(returnCondition = ReturnCondition.ALWAYS, createMethod = true)
     public static void updateFallState(EntityPlayer entity, double distanceFallenThisTick, boolean isOnGround) {
         if (entity.isInWater()) {

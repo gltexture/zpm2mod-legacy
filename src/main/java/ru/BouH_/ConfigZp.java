@@ -48,6 +48,9 @@ public class ConfigZp {
     public static float rainAndFogChanceMultiplier;
     public static int lootRespawnLootcaseTime;
 
+    public static float zombieClearEyeMultiplier;
+    public static float zombieXRayEyeMultiplier;
+
     public void register() {
         Configuration config = new Configuration(new File("config", "zpm2.cfg"));
         config.defaultEncoding = "UTF-8";
@@ -93,6 +96,10 @@ public class ConfigZp {
 
         rainAndFogChanceMultiplier = config.getFloat("rainAndFogChanceMultiplier", "default", 1.0f, 0.0f, 100.0f, "Rain And Fog Chance Multiplier");
         lootRespawnLootcaseTime = config.getInt("lootRespawnLootcaseTime", "default", 36000, 1, 3600000, "Loot Respawn Lootcase Time(ticks). (20 ticks = 1 sec)");
+
+        zombieClearEyeMultiplier = config.getFloat("zombieClearEyeMultiplier", "default", 1.0f, 0.0f, 100.0f, "Use it to edit zombie's regular seek distance");
+        zombieXRayEyeMultiplier = config.getFloat("zombieXRayEyeMultiplier", "default", 1.0f, 0.0f, 100.0f, "Use it to edit zombie's x-ray(wall-through) seek distance");
+
         config.save();
     }
 }
