@@ -46,6 +46,7 @@ import ru.BouH_.world.biome.BiomeGas;
 import ru.BouH_.world.biome.BiomeRad;
 import ru.hook.asm.Hook;
 import ru.hook.asm.ReturnCondition;
+import ru.hook.helper.ModHookLoader;
 
 import java.util.List;
 import java.util.Random;
@@ -103,8 +104,8 @@ public class MiscHook {
         }
     }
 
-    @Hook(returnCondition = ReturnCondition.ALWAYS, createMethod = true)
-    public static void updateFallState(EntityPlayer entity, double distanceFallenThisTick, boolean isOnGround) {
+    @Hook(returnCondition = ReturnCondition.ON_TRUE, createMethod = true)
+    public static boolean updateFallState(EntityPlayer entity, double distanceFallenThisTick, boolean isOnGround) {
         if (entity.isInWater()) {
             if (Math.abs(distanceFallenThisTick) <= 0.25f) {
                 entity.fallDistance = 0.0F;
@@ -118,6 +119,7 @@ public class MiscHook {
         } else if (distanceFallenThisTick < 0.0D) {
             entity.fallDistance = (float) ((double) entity.fallDistance - distanceFallenThisTick);
         }
+        return ModHookLoader.GRAVITY_FIX_DISABLE_FALL_HOOK;
     }
 
     @Hook(returnCondition = ReturnCondition.ALWAYS)

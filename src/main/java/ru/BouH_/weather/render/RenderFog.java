@@ -1,6 +1,5 @@
 package ru.BouH_.weather.render;
 
-import com.sun.javafx.util.Utils;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;

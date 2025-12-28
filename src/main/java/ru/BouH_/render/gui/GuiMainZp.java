@@ -31,7 +31,7 @@ public class GuiMainZp extends GuiScreen implements GuiYesNoCallback {
     private boolean flag;
 
     public GuiMainZp() {
-        this.buttonDiscord = new LinkButton(new ResourceLocation(Main.MODID + ":textures/misc/discord.png"), "https://discord.gg/SrxSSsFv5F", 2, 2);
+        this.buttonDiscord = new LinkButton(new ResourceLocation(Main.MODID + ":textures/misc/discord.png"), "https://discord.gg/bb6AaU6Taw", 2, 2);
         this.buttonModrinth = new LinkButton(new ResourceLocation(Main.MODID + ":textures/misc/modrinth.png"), "https://modrinth.com/mod/zombie-plague-2-hardcore-zombie-apocalypse", 2, 28);
         this.buttonGit = new LinkButton(new ResourceLocation(Main.MODID + ":textures/misc/github.png"), "https://github.com/alfabouh/zpm2mod-legacy", 2, 54);
 

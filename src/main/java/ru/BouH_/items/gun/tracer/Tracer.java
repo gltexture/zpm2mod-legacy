@@ -177,7 +177,6 @@ public class Tracer {
                         if (!world.isRemote && (block == Blocks.iron_bars && b1)) {
                             return movingobjectposition;
                         }
-                        System.out.println(block.getBlockHardness(world, l, i1, j1));
                         if (!world.isRemote && Tracer.materialsAreBroken < 3 && (Tracer.ToBrake.contains(block) || Tracer.ToBrake.contains(block.getMaterial())) && (block.getBlockHardness(world, l, i1, j1) <= 3.0f && block.getBlockHardness(world, l, i1, j1) > 0)) {
                             if (PluginUtils.canBreak(player, l, i1, j1)) {
                                 world.breakBlock(l, i1, j1, false);
@@ -319,7 +318,6 @@ public class Tracer {
                                 return mov2;
                             }
                         }
-                        System.out.println(block.getBlockHardness(world, l, i1, j1));
                         if (!world.isRemote && Tracer.materialsAreBroken < 3 && (Tracer.ToBrake.contains(block1) || Tracer.ToBrake.contains(block1.getMaterial())) && (block1.getBlockHardness(world, l, i1, j1) <= 3.0f && block1.getBlockHardness(world, l, i1, j1) > 0)) {
                             if (PluginUtils.canBreak(player, l, i1, j1)) {
                                 world.breakBlock(l, i1, j1, false);

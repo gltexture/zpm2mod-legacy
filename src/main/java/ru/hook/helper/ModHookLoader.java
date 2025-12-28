@@ -5,6 +5,8 @@ import ru.hook.minecraft.HookLoader;
 import ru.hook.minecraft.PrimaryClassTransformer;
 
 public class ModHookLoader extends HookLoader {
+    public static boolean GRAVITY_FIX_DISABLE_FALL_HOOK = false;
+
     @Override
     public String[] getASMTransformerClass() {
         return new String[]{PrimaryClassTransformer.class.getName()};
@@ -29,6 +31,12 @@ public class ModHookLoader extends HookLoader {
             Class.forName("com.bloodnbonesgaming.blockphysics.asm.modules.ModuleWorldClass");
         } catch (Exception e) {
             registerHookContainer("ru.BouH_.hook.server.ExplosionHook");
+        }
+        try {
+            Class.forName("com.hbm.dim.CelestialBody");
+            ModHookLoader.GRAVITY_FIX_DISABLE_FALL_HOOK = true;
+        } catch (Exception e) {
+            ModHookLoader.GRAVITY_FIX_DISABLE_FALL_HOOK = false;
         }
         registerHookContainer("ru.BouH_.hook.both.MathHook");
     }
